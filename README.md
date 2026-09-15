@@ -100,3 +100,7 @@ Dokumentasi teknis lebih rinci tersedia di [`docs/ARCHITECTURE.md`](docs/ARCHITE
 ## Catatan sumber
 
 Presentasi menyederhanakan teks dari materi riset. Referensi penting ditampilkan pada slide terkait dan daftar referensi akhir. Perubahan substansi sebaiknya selalu diperiksa kembali terhadap sumber primer.
+
+## Alur kajian dashboard
+
+Dashboard kini memakai enam modul berurutan dengan milestone, Venn konseptual, penjelasan kriptografi, HNDL dan readiness yang interaktif. Setiap modul memiliki navigasi kembali/lanjut serta tautan sumber. Lihat [panduan modul dan pengujian](docs/RESEARCH_MODULES.md).

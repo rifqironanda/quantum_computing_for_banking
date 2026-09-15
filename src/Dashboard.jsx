@@ -6,7 +6,6 @@ import {
   ShieldCheck,
   FlaskConical,
   Presentation,
-  Search,
   ArrowUpRight,
   ChevronRight,
   Menu,
@@ -16,7 +15,6 @@ import {
   Code2,
 } from "lucide-react";
 import PresentationApp from "./App.jsx";
-import { SlideContent } from "./App.jsx";
 import { slides } from "./slides";
 import { Readiness, HndlExplorer } from "./Interactive";
 import {
@@ -28,14 +26,10 @@ import {
 import Benchmark from "./integrations/computing/components/Benchmark";
 import "./integrations/computing/labs.css";
 import "./dashboard.css";
+import Research from "./Research";
+import {modules} from "./researchData";
 
-const groups = [
-  { name: "Evolusi quantum", start: 1, end: 6 },
-  { name: "Relevansi & risiko bank", start: 7, end: 12 },
-  { name: "HNDL & readiness", start: 13, end: 18 },
-  { name: "Fondasi & algoritma", start: 19, end: 25 },
-  { name: "Benchmark & referensi", start: 26, end: 30 },
-];
+const groups = modules;
 const labs = [
   ["classical", "Classical bits", ClassicalLab],
   ["physics", "Quantum physics", QuantumLab],
@@ -52,6 +46,7 @@ const nav = [
 // Hash routes work on GitHub Pages without server rewrite rules.
 const readRoute = () => {
   if (location.hash.startsWith("#slide-")) return "presentation";
+  if (location.hash.startsWith("#module-")) return "library";
   const route = location.hash.slice(1);
   return nav.some(([id]) => id === route) ? route : "overview";
 };
@@ -59,12 +54,11 @@ const readRoute = () => {
 export default function Dashboard() {
   const [route, setRoute] = useState(readRoute),
     [mobile, setMobile] = useState(false),
-    [query, setQuery] = useState(""),
-    [group, setGroup] = useState("Semua"),
+    [moduleId,setModuleId] = useState(() => location.hash.replace("#module-", "") || "evolution"),
     [selected, setSelected] = useState(6),
     [lab, setLab] = useState("physics");
   useEffect(() => {
-    const sync = () => setRoute(readRoute());
+    const sync = () => { setRoute(readRoute()); if(location.hash.startsWith("#module-")) setModuleId(location.hash.slice(8)); };
     addEventListener("hashchange", sync);
     return () => removeEventListener("hashchange", sync);
   }, []);
@@ -73,26 +67,12 @@ export default function Dashboard() {
     setRoute(value);
     setMobile(false);
   };
+  const openModule = (id) => {setSelected((modules.find(m=>m.id===id)?.start || 2)-1);setModuleId(id);location.hash=`module-${id}`;setRoute('library');setMobile(false);};
   const showTopic = (index) => {
     setSelected(index);
-    go("library");
+    openModule(modules.find(m=>index+1>=m.start && index+1<=m.end)?.id || 'evolution');
   };
   const ActiveLab = labs.find((x) => x[0] === lab)[2];
-  const filtered = slides
-    .map((s, i) => ({ ...s, index: i }))
-    .filter(
-      (s) =>
-        JSON.stringify(s)
-          .toLowerCase()
-          .includes(query.toLowerCase()) &&
-        (group === "Semua" ||
-          groups.some(
-            (g) =>
-              g.name === group &&
-              s.index + 1 >= g.start &&
-              s.index + 1 <= g.end,
-          )),
-    );
   if (route === "presentation")
     return (
       <>
@@ -173,13 +153,10 @@ export default function Dashboard() {
                 <div>
                   <p className="dash-kicker">QUANTUM • PHYSICS • CYBER</p>
                   <h1>
-                    Memahami quantum.
-                    <br />
-                    <span>Mempersiapkan perbankan.</span>
+                    {slides[0].title}
                   </h1>
                   <p>
-                    Telusuri kajian, eksplorasi risiko, dan uji konsep dalam
-                    satu workspace.
+                    {slides[0].subtitle}. {slides[0].note}
                   </p>
                 </div>
                 <div className="research-badge">
@@ -188,9 +165,11 @@ export default function Dashboard() {
                   <b>Bulan 01</b>
                 </div>
               </div>
+              <div className="dashboard-cta"><button onClick={()=>openModule('evolution')}>Jelajahi perkembangan Quantum Computing →</button><button onClick={()=>openModule('foundations')}>Apa itu Quantum Computing? →</button></div>
+              <div className="dashboard-features">{modules.map(m=><button key={m.id} onClick={()=>openModule(m.id)}><b>{m.name}</b><span>{m.feature}</span><span>{m.summary}</span></button>)}</div>
               <div className="dash-stats">
                 {[
-                  ["30", "Materi kajian", "library"],
+                  ["06", "Modul kajian", "library"],
                   ["04", "Lab interaktif", "lab"],
                   ["08", "Tahap readiness", "readiness"],
                   ["X + Y > Z", "Eksplorasi HNDL", "risk"],
@@ -206,14 +185,13 @@ export default function Dashboard() {
                 <section className="dash-panel">
                   <div className="panel-heading">
                     <h2>Alur pemahaman</h2>
-                    <span>05 BAGIAN</span>
+                    <span>06 BAGIAN</span>
                   </div>
                   {groups.map((g, i) => (
                     <button
                       className="journey-row"
                       key={g.name}
                       onClick={() => {
-                        setGroup(g.name);
                         showTopic(g.start - 1);
                       }}
                     >
@@ -273,70 +251,7 @@ export default function Dashboard() {
               </div>
             </>
           )}
-          {route === "library" && (
-            <>
-              <PageTitle
-                title="Materi kajian"
-                text="Pilih topik, baca penjelasannya, lalu hubungkan dengan eksperimen."
-              />
-              <div className="library-toolbar">
-                <label>
-                  <Search size={18} />
-                  <input
-                    aria-label="Cari materi"
-                    placeholder="Cari HNDL, algoritma, quantum…"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                  />
-                </label>
-                <select
-                  aria-label="Bagian kajian"
-                  value={group}
-                  onChange={(e) => setGroup(e.target.value)}
-                >
-                  {["Semua", ...groups.map((g) => g.name)].map((g) => (
-                    <option key={g}>{g}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="library-grid">
-                <div className="topic-list">
-                  {filtered.length ? (
-                    filtered.map((s) => (
-                      <button
-                        key={s.index}
-                        aria-pressed={selected === s.index}
-                        className={selected === s.index ? "active" : ""}
-                        onClick={() => setSelected(s.index)}
-                      >
-                        <small>{String(s.index + 1).padStart(2, "0")}</small>
-                        <span>{s.title}</span>
-                      </button>
-                    ))
-                  ) : (
-                    <p>Tidak ada materi yang cocok. Coba kata kunci lain.</p>
-                  )}
-                </div>
-                <section className="topic-reader">
-                  <div className="reader-actions">
-                    <span>MATERI {selected + 1} / 30</span>
-                    <button
-                      onClick={() =>
-                        go(selected >= 12 && selected <= 17 ? "risk" : "lab")
-                      }
-                    >
-                      Eksplorasi terkait <ArrowUpRight size={16} />
-                    </button>
-                  </div>
-                  <div
-                    className={`slide reading-slide slide-${slides[selected].kind}`}
-                  >
-                    <SlideContent key={selected} slide={slides[selected]} />
-                  </div>
-                </section>
-              </div>
-            </>
-          )}
+          {route === "library" && <Research moduleId={moduleId} onNavigate={openModule} onDashboard={()=>go('overview')} onLab={()=>go('lab')}/>}
           {route === "risk" && (
             <>
               <PageTitle

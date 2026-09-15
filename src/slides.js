@@ -567,7 +567,7 @@ export const slides = [
     kind: "references",
     title: "References and Evidence Base",
     items: [
-      "Herman, D. et al. (2023). Quantum computing for finance. Nature Reviews Physics, 5, 450–456.",
+      "Herman, D. et al. (2023). Quantum computing for finance. Nature Reviews Physics, 5, 450–465.",
       "Auer, R. et al. (2024). Quantum computing and the financial system. BIS Papers No. 149.",
       "NIST (2024). FIPS 203, FIPS 204, and FIPS 205.",
       "NIST (2025). Considerations for achieving crypto agility. CSWP 39.",
