@@ -43,3 +43,7 @@ Test render memastikan keenam modul, tujuan navigasi, tautan sumber, delapan mil
 Pemeriksaan manual: buka milestone 01–08, bandingkan isi dan sumber; ubah tiga pilihan Venn dan empat pilihan algoritma; ubah slider HNDL, pilih tahap readiness dan checkbox inventory; tandai modul selesai lalu reload; uji tombol lanjut/kembali, browser back/forward, pencarian tanpa hasil, tab keyboard, layout ponsel dan computing lab.
 
 Deployment mengikuti workflow GitHub Pages yang sudah ada pada push ke `main`.
+
+## Perbaikan layout dan contoh kasus
+
+Footer presentasi dibatasi dengan selector `.slide > footer`; `.research .module-footer` memakai alur dokumen normal, sehingga navigasi tidak menutupi materi. `ReadinessOrbit.jsx` menampilkan inti dan empat pilar yang dapat dipilih, dengan layout kartu pada layar sempit untuk menjaga keterbacaan. `HndlCaseStudy.jsx` mengganti duplikasi explorer di route `#risk` dengan skenario Bank B fiktif dan contoh dokumentasi kegiatan. Slider HNDL tetap berada di modul kajian.

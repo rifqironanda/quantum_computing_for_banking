@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import PresentationApp from "./App.jsx";
 import { slides } from "./slides";
-import { Readiness, HndlExplorer } from "./Interactive";
+import { Readiness } from "./Interactive";
 import {
   ClassicalLab,
   QuantumLab,
@@ -27,6 +27,7 @@ import Benchmark from "./integrations/computing/components/Benchmark";
 import "./integrations/computing/labs.css";
 import "./dashboard.css";
 import Research from "./Research";
+import HndlCaseStudy from "./HndlCaseStudy";
 import {modules} from "./researchData";
 
 const groups = modules;
@@ -39,7 +40,7 @@ const labs = [
 const nav = [
   ["overview", "Ringkasan", LayoutDashboard],
   ["library", "Materi kajian", BookOpen],
-  ["risk", "HNDL explorer", Clock],
+  ["risk", "Contoh kasus HNDL", Clock],
   ["readiness", "Readiness", ShieldCheck],
   ["lab", "Computing lab", FlaskConical],
 ];
@@ -172,7 +173,7 @@ export default function Dashboard() {
                   ["06", "Modul kajian", "library"],
                   ["04", "Lab interaktif", "lab"],
                   ["08", "Tahap readiness", "readiness"],
-                  ["X + Y > Z", "Eksplorasi HNDL", "risk"],
+                  ["Bank B", "Contoh kasus HNDL", "risk"],
                 ].map(([n, l, id]) => (
                   <button key={l} onClick={() => go(id)}>
                     <span>{l}</span>
@@ -252,30 +253,7 @@ export default function Dashboard() {
             </>
           )}
           {route === "library" && <Research moduleId={moduleId} onNavigate={openModule} onDashboard={()=>go('overview')} onLab={()=>go('lab')}/>}
-          {route === "risk" && (
-            <>
-              <PageTitle
-                title="HNDL exposure explorer"
-                text="Ubah asumsi waktu untuk memahami hubungan kerahasiaan data, migrasi, dan future CRQC."
-              />
-              <section className="dash-panel light-panel">
-                <HndlExplorer items={slides[12].items} />
-              </section>
-              <div className="dash-insight">
-                <Clock />
-                <div>
-                  <b>Skenario bersyarat</b>
-                  <p>
-                    Angka slider adalah ilustrasi. Migrasi tidak menghapus
-                    ciphertext lama yang sudah direkam.
-                  </p>
-                </div>
-                <button onClick={() => showTopic(12)}>
-                  Lihat sumber <ChevronRight size={16} />
-                </button>
-              </div>
-            </>
-          )}
+          {route === "risk" && <HndlCaseStudy onTheory={()=>openModule('hndl')} onDashboard={()=>go('overview')}/>}
           {route === "readiness" && (
             <>
               <PageTitle

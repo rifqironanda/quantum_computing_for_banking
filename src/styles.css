@@ -113,7 +113,7 @@ button {
   font-weight: 600;
   color: #244251;
 }
-footer {
+.slide > footer {
   position: absolute;
   bottom: 1.6%;
   left: 5.5%;
@@ -124,7 +124,7 @@ footer {
   letter-spacing: 0.06em;
   color: #80919b;
 }
-footer b {
+.slide > footer b {
   color: var(--ink);
 }
 .slide-cover,
