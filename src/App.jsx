@@ -10,7 +10,7 @@ function Source({ children }) {
 
 function Cards({items}) { return <LearningCards items={items}/> }
 
-function SlideContent({ slide }) {
+export function SlideContent({ slide }) {
   switch (slide.kind) {
     case 'cover':
       return <div className="cover-content">

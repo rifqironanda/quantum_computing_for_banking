@@ -75,3 +75,21 @@ lokal supaya deployment tidak bergantung pada hotlink Wikimedia.
 
 Sumber aset dan lisensi: lihat ATTRIBUTIONS.md. Palet navy/teal dipertahankan;
 pada layar kecil layout mengalir vertikal agar isi tidak disembunyikan.
+
+## Dashboard pembelajaran
+
+Entry point sekarang `Dashboard.jsx`; `App.jsx` tetap menangani presentasi.
+Panel dashboard menggunakan navigasi hash, sehingga deep link kompatibel dengan
+GitHub Pages. `SlideContent` dibagikan dengan pembaca materi untuk menghindari
+salinan konten yang berbeda. `dashboard.css` mengatur workspace navy/teal.
+
+Empat lab dari `computing_and_quantum` disimpan di `src/integrations/computing`.
+Asal commit, perubahan lokal, lisensi, dan konfigurasi backend opsional dijelaskan
+di [INTEGRATION.md](INTEGRATION.md). Integrasi snapshot perlu diperbarui secara
+manual; bukan sinkronisasi runtime dengan repo sumber.
+
+Verifikasi pembaruan dashboard: build produksi berhasil; pemeriksaan browser
+mencakup navigasi, empat lab, collapse state setelah measurement, slider HNDL,
+tahap readiness, pencarian materi, dan kembali dari presentasi. Seluruh 30 materi
+dibuka pada viewport desktop 1440px dan ponsel 390px tanpa overflow horizontal.
+Benchmark server tidak diuji karena endpoint publik belum dikonfigurasi.

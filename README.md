@@ -1,3 +1,12 @@
+# Quantum Banking Research Dashboard
+
+Dashboard menyatukan 30 materi, HNDL explorer, readiness lifecycle, dan empat lab
+dari repo computing_and_quantum. Mode presentasi tersedia melalui tombol di kanan atas.
+
+Lihat [dokumentasi integrasi](docs/INTEGRATION.md) untuk arsitektur, versi sumber,
+adaptasi, dan konfigurasi backend Qiskit opsional. Empat lab browser dapat dipakai
+langsung; benchmark Python memerlukan server terpisah.
+
 # Quantum Computing for Banking
 
 Presentasi web interaktif yang mengadaptasi kajian **Quantum Computing pada Sektor Perbankan**. Aplikasi memuat 30 slide dengan navigasi keyboard, daftar slide, mode fullscreen, dukungan swipe, dan tata letak responsif.
