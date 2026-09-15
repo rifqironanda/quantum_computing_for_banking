@@ -60,3 +60,18 @@ Vite membangun aplikasi ke `dist`. Workflow GitHub Actions mengunggah direktori 
 - Materi disimpan di JavaScript, belum memakai CMS.
 
 Ketiga batasan tersebut dapat ditambahkan kemudian tanpa mengubah fondasi navigasi presentasi.
+
+## Interaksi visual (pembaruan)
+
+`src/Interactive.jsx` memisahkan LearningCards, Readiness, HndlExplorer,
+TopicIcon, dan PhysicsFigure dari renderer slide. State interaksi direset saat
+slide berpindah melalui React key. Native button/input mendukung keyboard;
+shortcut presentasi mengabaikan kontrol yang sedang menerima fokus.
+
+HNDL memakai tiga slider bilangan tahun. Output menghitung X + Y > Z secara
+langsung. Angka merupakan skenario ilustratif, bukan prediksi waktu hadirnya CRQC.
+Readiness menyediakan delapan tombol tahap dan penjelasan aktif. Gambar disimpan
+lokal supaya deployment tidak bergantung pada hotlink Wikimedia.
+
+Sumber aset dan lisensi: lihat ATTRIBUTIONS.md. Palet navy/teal dipertahankan;
+pada layar kecil layout mengalir vertikal agar isi tidak disembunyikan.

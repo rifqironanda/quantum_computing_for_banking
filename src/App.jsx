@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { slides } from './slides.js'
+import { TopicIcon, LearningCards, Readiness, HndlExplorer, PhysicsFigure } from './Interactive.jsx'
 
 const Arrow = ({ reverse = false }) => <span className={`arrow ${reverse ? 'reverse' : ''}`} aria-hidden="true">→</span>
 
@@ -7,19 +8,7 @@ function Source({ children }) {
   return children ? <p className="source">Source: {children}</p> : null
 }
 
-function Cards({ items, numbered = false }) {
-  return <div className={`cards ${items.length > 4 ? 'dense' : ''}`}>
-    {items.map((item, index) => {
-      const parts = Array.isArray(item) ? item : [String(index + 1).padStart(2, '0'), item, '']
-      return <article className="card" key={`${parts[1]}-${index}`}>
-        <span className="card-index">{numbered ? String(index + 1).padStart(2, '0') : parts[0]}</span>
-        <h3>{parts[1]}</h3>
-        {parts[2] && <p>{parts[2]}</p>}
-        {parts[3] && <small>{parts[3]}</small>}
-      </article>
-    })}
-  </div>
-}
+function Cards({items}) { return <LearningCards items={items}/> }
 
 function SlideContent({ slide }) {
   switch (slide.kind) {
@@ -43,21 +32,21 @@ function SlideContent({ slide }) {
     case 'split':
       return <><Header slide={slide}/><div className="split"><ListPanel data={slide.left}/><div className="split-center">{slide.center}</div><ListPanel data={slide.right} accent="orange"/></div><Source>{slide.source}</Source></>
     case 'flow':
-      return <><Header slide={slide}/><div className="flow">{slide.items.map((x,i)=><div className="flow-wrap" key={x[0]}><article><small>{x[0]}</small><b>{x[1]}</b></article>{i < slide.items.length-1 && <Arrow/>}</div>)}</div><Callout>{slide.callout}</Callout><Source>{slide.source}</Source></>
+      return <><Header slide={slide}/><div className="flow">{slide.items.map((x,i)=><div className="flow-wrap" key={x[0]}><article><TopicIcon text={x[0]} index={i}/><small>{x[0]}</small><b>{x[1]}</b></article>{i < slide.items.length-1 && <Arrow/>}</div>)}</div><Callout>{slide.callout}</Callout><Source>{slide.source}</Source></>
     case 'hndl':
-      return <><Header slide={slide}/><div className="hndl">{slide.items.map((x,i)=><div className="flow-wrap" key={x[0]}><article><span>{x[0]}</span><b>{x[1]}</b></article>{i < slide.items.length-1 && <Arrow/>}</div>)}</div><div className="formula"><b>{slide.formula}</b><span>{slide.formulaNote}</span></div><Callout>{slide.callout}</Callout><Source>{slide.source}</Source></>
+      return <><Header slide={slide}/><HndlExplorer items={slide.items}/><Callout>{slide.callout}</Callout><Source>{slide.source}</Source></>
     case 'dualflow':
       return <><Header slide={slide}/><FlowLane data={slide.top} danger/><FlowLane data={slide.bottom}/><Callout>{slide.callout}</Callout><Source>{slide.source}</Source></>
     case 'orbit':
       return <><Header slide={slide}/><div className="orbit"><div className="orbit-core">{slide.center}</div>{slide.items.map((x,i)=><article key={x[0]} style={{'--i':i}}><b>{x[0]}</b><span>{x[1]}</span></article>)}</div></>
     case 'cycle':
-      return <><Header slide={slide}/><div className="cycle">{slide.items.map((x,i)=><div className="cycle-wrap" key={x}><article><span>{i+1}</span>{x}</article>{i < slide.items.length-1 && <Arrow/>}</div>)}</div><Callout>{slide.callout}</Callout><Source>{slide.source}</Source></>
+      return <><Header slide={slide}/><Readiness items={slide.items}/><Callout>{slide.callout}</Callout><Source>{slide.source}</Source></>
     case 'inventory':
       return <><Header slide={slide}/><div className="inventory"><div className="inventory-grid">{slide.items.map(x=><span key={x}>{x}</span>)}</div><Arrow/><strong>{slide.output}</strong></div></>
     case 'table':
       return <><Header slide={slide}/><div className="table-wrap"><table><thead><tr>{slide.headers.map(x=><th key={x}>{x}</th>)}</tr></thead><tbody>{slide.rows.map((r,i)=><tr key={i}>{r.map(c=><td key={c}>{c}</td>)}</tr>)}</tbody></table></div><Callout>{slide.callout}</Callout><Source>{slide.source}</Source></>
     case 'layers':
-      return <><Header slide={slide}/><div className="layers">{slide.items.map((x,i)=><article key={x[0]}><span>{x[0]}</span><div><b>{x[1]}</b><p>{x[2]}</p></div></article>)}</div><Callout>{slide.callout}</Callout></>
+      return <><Header slide={slide}/><div className="physics-layout"><PhysicsFigure/><div className="layers">{slide.items.map((x,i)=><article key={x[0]}><span>{x[0]}</span><div><b>{x[1]}</b><p>{x[2]}</p></div></article>)}</div></div><Callout>{slide.callout}</Callout></>
     case 'pipeline':
       return <><Header slide={slide}/><div className="pipeline">{slide.groups.map((g,gi)=><section key={g[0]}><h3>{g[0]}</h3><div>{g[1].map((x,i)=><div className="pipe-wrap" key={x}><span>{x}</span>{(i<g[1].length-1 || gi<slide.groups.length-1) && <Arrow/>}</div>)}</div></section>)}</div><Callout>{slide.callout}</Callout></>
     case 'venn':
@@ -76,7 +65,7 @@ function SlideContent({ slide }) {
 
 function Header({ slide }) { return <header className="slide-header"><p className="eyebrow">QUANTUM COMPUTING & PERBANKAN</p><h2>{slide.title}</h2>{slide.subtitle && <p>{slide.subtitle}</p>}</header> }
 function Callout({children}) { return children ? <div className="callout">{children}</div> : null }
-function ListPanel({data, accent=''}) { return <article className={`list-panel ${accent}`}><h3>{data.title}</h3><ul>{data.items.map(x=><li key={x}>{x}</li>)}</ul></article> }
+function ListPanel({data, accent=''}) { return <article className={`list-panel ${accent}`}><TopicIcon text={data.title}/><h3>{data.title}</h3><ul>{data.items.map(x=><li key={x}>{x}</li>)}</ul></article> }
 function FlowLane({data,danger=false}) { return <div className={`flow-lane ${danger?'danger':''}`}><strong>{data.label}</strong>{data.items.map((x,i)=><div className="flow-wrap" key={x}><span>{x}</span>{i<data.items.length-1&&<Arrow/>}</div>)}</div> }
 function QuantumOrb() { return <div className="quantum-orb" aria-hidden="true"><i/><i/><i/><b/></div> }
 
@@ -90,9 +79,11 @@ export default function App() {
   const touchStart = useRef(null)
   const go = useCallback((next) => setIndex(current => Math.max(0, Math.min(slides.length - 1, typeof next === 'function' ? next(current) : next))), [])
 
+  useEffect(() => { const sync=()=>{const n=Number(location.hash.replace('#slide-',''));if(Number.isInteger(n)&&n>=1&&n<=slides.length)setIndex(n-1)}; addEventListener('hashchange',sync);return()=>removeEventListener('hashchange',sync) }, [])
   useEffect(() => { history.replaceState(null, '', `#slide-${index + 1}`) }, [index])
   useEffect(() => {
     const onKey = (e) => {
+      if (e.target.closest('input, button, a, select, textarea') || overview || help) { if(e.key==='Escape'){setOverview(false);setHelp(false)} return } 
       if (['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); go(i=>i+1) }
       if (['ArrowLeft','ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); go(i=>i-1) }
       if (e.key === 'Home') go(0)
@@ -102,19 +93,19 @@ export default function App() {
       if (e.key === 'Escape') { setOverview(false); setHelp(false) }
     }
     addEventListener('keydown', onKey); return () => removeEventListener('keydown', onKey)
-  }, [go])
+  }, [go, overview, help])
 
   const slide = useMemo(() => slides[index], [index])
   const toggleFullscreen = async () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen()
 
-  return <main className="app" onTouchStart={e=>touchStart.current=e.changedTouches[0].clientX} onTouchEnd={e=>{const d=e.changedTouches[0].clientX-touchStart.current;if(Math.abs(d)>60)go(i=>i+(d<0?1:-1))}}>
+  return <main className="app" onTouchStart={e=>touchStart.current=e.target.closest('input,button,a')?null:e.changedTouches[0].clientX} onTouchEnd={e=>{if(touchStart.current===null)return;const d=e.changedTouches[0].clientX-touchStart.current;if(Math.abs(d)>60)go(i=>i+(d<0?1:-1))}}>
     <div className="topbar">
       <button onClick={()=>setOverview(true)} aria-label="Buka daftar slide">☰ <span>Daftar slide</span></button>
       <div className="progress" aria-label={`Slide ${index+1} dari ${slides.length}`}><i style={{width:`${((index+1)/slides.length)*100}%`}}/></div>
       <button onClick={toggleFullscreen} aria-label="Layar penuh">⛶ <span>Fullscreen</span></button>
     </div>
     <section className={`slide slide-${slide.kind}`} aria-live="polite">
-      <SlideContent slide={slide}/>
+      <SlideContent key={index} slide={slide}/>
       <footer><span>KAJIAN BULAN 1 • QUANTUM COMPUTING & PERBANKAN</span><b>{String(index+1).padStart(2,'0')}</b></footer>
     </section>
     <nav className="controls" aria-label="Navigasi presentasi">
