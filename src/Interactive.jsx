@@ -32,4 +32,181 @@ export function HndlExplorer({items}) {
  const Icon=[LockKeyhole,ScanEye,Database,Cpu,KeyRound]
  return <><div className="harvest-steps">{items.map((x,i)=>{const I=Icon[i];return <button key={i} aria-pressed={active===i} className={active===i?'selected':''} onClick={()=>setActive(i)}><I/><small>0{i+1}</small><b>{x[1]}</b></button>})}</div><p className="harvest-detail" aria-live="polite">{detail[active]}</p><div className="mosca"><div>{['X · Kerahasiaan data','Y · Waktu migrasi','Z · Waktu menuju CRQC'].map((label,i)=><label key={label}>{label}<strong>{values[i]} tahun</strong><input aria-label={label} type="range" min="1" max="30" value={values[i]} onChange={e=>setValues(v=>v.map((n,j)=>j===i?Number(e.target.value):n))}/></label>)}</div><output className={exposed?'exposed':''}><Clock/><strong>{values[0]} + {values[1]} {exposed?'>':'≤'} {values[2]}</strong><b>{exposed?'Jendela exposure terbuka':'Batas waktu belum terlampaui'}</b><small>Skenario ilustratif, bukan prediksi CRQC atau penilaian keamanan bank.</small></output></div></>
 }
+
+function InteractiveOrbit({ slide }) {
+  const [rotation, setRotation] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [activeSatellite, setActiveSatellite] = useState(null);
+
+  const animationFrameRef = useRef(null);
+  const previousTimeRef = useRef(null);
+
+  /*
+   * Semua komponen memakai ukuran orbit yang sama.
+   */
+  const ORBIT_RADIUS_X = 315;
+  const ORBIT_RADIUS_Y = 135;
+  const ORBIT_DEPTH = 80;
+  const ROTATION_SPEED = 0.012;
+
+  useEffect(() => {
+    const animate = (currentTime) => {
+      if (previousTimeRef.current === null) {
+        previousTimeRef.current = currentTime;
+      }
+
+      const deltaTime = Math.min(
+        currentTime - previousTimeRef.current,
+        32
+      );
+
+      previousTimeRef.current = currentTime;
+
+      if (!isPaused) {
+        setRotation((previousRotation) => {
+          return (
+            previousRotation +
+            deltaTime * ROTATION_SPEED
+          ) % 360;
+        });
+      }
+
+      animationFrameRef.current =
+        requestAnimationFrame(animate);
+    };
+
+    animationFrameRef.current =
+      requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+
+      previousTimeRef.current = null;
+    };
+  }, [isPaused]);
+
+  const toggleRotation = () => {
+    setIsPaused((previousState) => !previousState);
+  };
+
+  return (
+    <div
+      className="orbit"
+      style={{
+        "--orbit-width": `${ORBIT_RADIUS_X * 2}px`,
+        "--orbit-height": `${ORBIT_RADIUS_Y * 2}px`,
+      }}
+    >
+      {/* Jalur menggunakan ukuran yang sama dengan rumus satelit */}
+      <div className="orbit-path" />
+
+      <div className="orbit-satellites">
+        {slide.items.map(([title, description], index) => {
+          /*
+           * Empat satelit memiliki jarak tepat 90°.
+           */
+          const angle =
+            rotation +
+            index * (360 / slide.items.length);
+
+          const radians = angle * (Math.PI / 180);
+
+          /*
+           * Persamaan elips:
+           *
+           * x = radiusX × cos(θ)
+           * y = radiusY × sin(θ)
+           *
+           * x dan y ini sama persis dengan orbit-path.
+           */
+          const x =
+            ORBIT_RADIUS_X * Math.cos(radians);
+
+          const y =
+            ORBIT_RADIUS_Y * Math.sin(radians);
+
+          /*
+           * Depth hanya menghasilkan efek visual depan-belakang.
+           * Depth tidak mengubah koordinat x dan y.
+           */
+          const depth = Math.sin(radians);
+
+          const z = ORBIT_DEPTH * depth;
+
+          /*
+           * Skala kecil untuk menunjukkan kedalaman.
+           */
+          const scale = 0.9 + (depth + 1) * 0.06;
+
+          /*
+           * Satelit di depan mendapatkan z-index lebih besar.
+           */
+          const zIndex =
+            depth >= 0
+              ? 40 + Math.round(depth * 10)
+              : 10 + Math.round((depth + 1) * 10);
+
+          const isActive = activeSatellite === index;
+
+          return (
+            <article
+              key={title}
+              className={`orbit-box ${
+                isActive ? "is-active" : ""
+              }`}
+              style={{
+                transform: `
+                  translate(-50%, -50%)
+                  translate3d(
+                    ${x}px,
+                    ${y}px,
+                    ${isActive ? z + 35 : z}px
+                  )
+                  scale(${isActive ? scale * 1.05 : scale})
+                `,
+                zIndex,
+              }}
+              onPointerEnter={() => {
+                setActiveSatellite(index);
+                setIsPaused(true);
+              }}
+              onPointerLeave={() => {
+                setActiveSatellite(null);
+                setIsPaused(false);
+              }}
+            >
+              <span className="orbit-box-number">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
+              <b>{title}</b>
+
+              <span className="orbit-box-description">
+                {description}
+              </span>
+            </article>
+          );
+        })}
+      </div>
+
+      <button
+        type="button"
+        className="orbit-core"
+        onClick={toggleRotation}
+      >
+        <span>{slide.center}</span>
+
+        <small>
+          {isPaused ? "Play orbit" : "Pause orbit"}
+        </small>
+      </button>
+
+      <p className="orbit-hint">
+        Hover satelit untuk berhenti · Klik inti untuk pause/play
+      </p>
+    </div>
+  );
+}
 export function PhysicsFigure(){return <figure className="physics-figure"><img src={`${import.meta.env.BASE_URL}media/bloch-sphere.svg`} alt="Bloch sphere dengan sumbu x, y, z dan state psi"/><figcaption>Bloch sphere · representasi state satu qubit<br/><a href="https://commons.wikimedia.org/wiki/File:Bloch_sphere.svg" target="_blank" rel="noreferrer">Smite-Meister / Fibonacci</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noreferrer">CC BY-SA 3.0</a></figcaption></figure>}
