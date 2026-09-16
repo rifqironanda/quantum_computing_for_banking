@@ -405,7 +405,7 @@ export function PresentationPhysicsFigure() {
 }
 
 export function EvidenceHint({ source }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   if (!source) return null;
   return (
     <div className="evidence-hint">
