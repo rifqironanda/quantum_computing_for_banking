@@ -40,7 +40,9 @@ jobs:
             for(let i=1;i<=slides.length;i++) {
              await page.evaluate(i=>{location.hash='slide-'+i},i);
              await page.waitForFunction(i=>document.querySelector('.counter')?.textContent.startsWith(i+' /'),i);
-             const card=page.locator('.learning-card').first();
+             await page.mouse.move(0,0);
+          await page.evaluate(()=>document.fonts.ready);
+          const card=page.locator('.learning-card').first();
              if(await card.count()) await card.click();
              const evidence=page.locator('.evidence-hint button');
              if(await evidence.count()) await evidence.click();
@@ -56,6 +58,7 @@ jobs:
               return {horizontal:stage.scrollWidth>stage.clientWidth+2,footerOverlap:b.bottom>f.top+1,controlsOverlap:s.bottom>c.top+1,clipped:slide.scrollHeight>slide.clientHeight+2,fullscreen:!!document.fullscreenElement,overflow,scrollable:stage.scrollHeight>stage.clientHeight+2};
              });
              const row={width,height,fullscreen,slide:i,kind:slides[i-1].kind,...metrics};results.push(row);
+          writeFileSync('visual-results/report.json',JSON.stringify({tested:results.length,errors,failures,results},null,2));
              if(metrics.horizontal||metrics.footerOverlap||metrics.controlsOverlap||metrics.clipped||metrics.overflow.length||metrics.fullscreen!==fullscreen) failures.push(row);
              await page.screenshot({path:'visual-results/'+width+'x'+height+'-'+(fullscreen?'full':'window')+'-'+i+'.png'});
              if(metrics.scrollable) {
