@@ -43,5 +43,72 @@
 @media(max-width:1000px){.presentation-app .venn-comprehensive{grid-template-columns:1fr}.presentation-app .venn-stage{min-height:360px}.presentation-app .venn-validation{min-height:0}.presentation-app .venn-metrics{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:620px){.presentation-app .venn-stage{display:grid;gap:8px;min-height:0;padding:12px;background:#eef7f6}.presentation-app .venn-shape{display:none}.presentation-app .venn-label,.presentation-app .venn-fit{position:static;width:auto;transform:none}.presentation-app .venn-label{padding:12px}.presentation-app .venn-label p{font-size:.72rem}.presentation-app .venn-label b{font-size:.88rem}.presentation-app .venn-fit{order:4;aspect-ratio:auto;border-radius:12px;min-height:92px}.presentation-app .venn-fit span{max-width:none}.presentation-app .venn-benchmark-path{grid-template-columns:1fr}.presentation-app .venn-benchmark-path>span{text-align:center}.presentation-app .venn-metrics{grid-template-columns:repeat(2,1fr)}}
 
-/* True fullscreen: controls float over the canvas so the slide can use almost the whole display. */
-:fullscreen{background:#020b12}:fullscreen body{overflow:hidden}:fullscreen .presentation-app{width:100vw;height:100vh;min-height:100vh;display:grid;grid-template-rows:1fr;padding:8px 10px;gap:0;overflow:hidden}:fullscreen .presentation-app .slide-stage{height:100%;min-height:0;display:grid;place-items:center}:fullscreen .presentation-app .slide{width:min(calc(100vw - 20px),calc((100vh - 16px)*16/9));height:min(calc(100vh - 16px),calc((100vw - 20px)*9/16));min-height:0;max-height:none;aspect-ratio:16/9;overflow:hidden;padding:clamp(28px,3.25%,52px) clamp(32px,4.25%,70px) clamp(52px,5%,74px);box-shadow:0 18px 70px #0007}:fullscreen .presentation-app .topbar{position:fixed;z-index:30;top:9px;left:18px;right:18px;width:auto;min-height:34px;margin:0;padding:6px 10px;border:1px solid #ffffff18;border-radius:999px;background:#041725b8;backdrop-filter:blur(8px);opacity:.22;transition:opacity .18s}:fullscreen .presentation-app .topbar:hover,:fullscreen .presentation-app .topbar:focus-within{opacity:1}:fullscreen .presentation-app .controls{position:fixed;z-index:30;left:50%;bottom:9px;transform:translateX(-50%);width:auto;margin:0;padding:4px;border:1px solid #ffffff1c;border-radius:999px;background:#041725c7;backdrop-filter:blur(8px);opacity:.28;transition:opacity .18s}:fullscreen .presentation-app .controls:hover,:fullscreen .presentation-app .controls:focus-within{opacity:1}:fullscreen .presentation-app .slide h2{font-size:clamp(1.55rem,2.35vw,3rem)}:fullscreen .presentation-app .slide-header>p:last-child{font-size:clamp(.8rem,1vw,1rem)}:fullscreen .presentation-app .research-step{padding:10px 12px}:fullscreen .presentation-app .research-step span{font-size:clamp(.52rem,.6vw,.68rem)}:fullscreen .presentation-app .research-step p{font-size:clamp(.7rem,.82vw,.9rem);line-height:1.35;-webkit-line-clamp:3}:fullscreen .presentation-app .callout{font-size:clamp(.64rem,.76vw,.84rem);padding:8px 12px}:fullscreen .presentation-app .venn-comprehensive{grid-template-columns:minmax(0,1.78fr) minmax(285px,.7fr);gap:22px}:fullscreen .presentation-app .venn-stage{min-height:clamp(330px,45vh,440px)}:fullscreen .presentation-app .venn-label p{font-size:clamp(.56rem,.65vw,.72rem)}:fullscreen .presentation-app .venn-label b{font-size:clamp(.72rem,.9vw,1rem)}:fullscreen .presentation-app .venn-validation-lead{font-size:clamp(.64rem,.74vw,.82rem)}:fullscreen .presentation-app .venn-validation h3{font-size:clamp(1rem,1.2vw,1.35rem)}
+/* One presentation viewport in both windowed and fullscreen modes.
+   Auto margins center short content; long content grows in the scrollable stage. */
+@media screen {
+  body:has(.presentation-app) { overflow: hidden; }
+  .presentation-app {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: max(10px, env(safe-area-inset-top)) clamp(10px, 2vw, 32px) max(10px, env(safe-area-inset-bottom));
+    overflow: hidden;
+  }
+  .presentation-app .topbar { padding-left: 110px; min-height: 34px; }
+  body:has(.presentation-app) .return-dashboard { top: max(10px, env(safe-area-inset-top)); left: clamp(10px, 2vw, 32px); }
+  .presentation-app .slide-stage {
+    display: block;
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    border-radius: 12px;
+  }
+  .presentation-app .slide {
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 1500px);
+    height: auto;
+    min-height: 100%;
+    max-height: none;
+    aspect-ratio: auto;
+    margin: 0 auto;
+    padding: clamp(20px, 3vw, 46px) clamp(18px, 4vw, 64px) 16px;
+    overflow: clip;
+  }
+  .presentation-app .slide-content {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+    margin-block: auto;
+    padding-block: 8px 24px;
+    overflow-wrap: anywhere;
+  }
+  .presentation-app .slide-content > * { min-width: 0; }
+  .presentation-app .slide > footer {
+    position: static;
+    flex: 0 0 auto;
+    gap: 16px;
+    align-items: end;
+    padding-top: 12px;
+    font-size: .6rem;
+  }
+  .presentation-app .section-content { height: auto; min-height: 260px; }
+  .presentation-app .research-step p { display: block; overflow: visible; -webkit-line-clamp: unset; }
+  .presentation-app .table-wrap { max-height: none; overflow-x: auto; }
+  .presentation-app .controls { flex-shrink: 0; }
+  .presentation-app .learning-card { padding: clamp(14px, 1.5vw, 24px); }
+  .presentation-app .learning-card h3 { font-size: clamp(.95rem, 1.2vw, 1.25rem); }
+  .presentation-app .learning-card p,
+  .presentation-app .list-panel li,
+  .presentation-app .research-step p { font-size: clamp(.78rem, 1vw, 1rem); line-height: 1.5; }
+  .presentation-app .slide-header { margin-bottom: 20px; }
+  .presentation-app .callout { margin-top: 16px; font-size: clamp(.75rem, .95vw, .95rem); }
+  .presentation-app .evidence-hint { margin-top: 12px; }
+  .presentation-app .evidence-hint p { font-size: .75rem; }
+  .presentation-app .evidence-hint button { font-size: .7rem; }
+  :fullscreen { background: #020b12; }
+}
