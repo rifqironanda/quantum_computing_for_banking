@@ -13,7 +13,6 @@ import {
   EvidenceHint,
 } from "./Interactive.jsx";
 
-
 const sourceGroups = {
   evolution: slides.find((s) => s.title === "Milestones 01–04")?.source,
   finance: slides.find((s) => s.title === "Mengapa Quantum Perlu Mulai Dipahami?")?.source,
@@ -84,6 +83,78 @@ function QuantumOrb() {
   return (
     <div className="quantum-orb" aria-hidden="true">
       <i /><i /><i /><b />
+    </div>
+  );
+}
+
+function ComprehensiveVenn({ slide }) {
+  const descriptions = [
+    "Apakah struktur masalah memiliki pola yang benar-benar dapat dieksploitasi oleh algoritma kuantum?",
+    "Apakah tersedia algoritma dengan speedup yang relevan beserta assumptions yang realistis?",
+    "Apakah logical qubits, fidelity, circuit depth, runtime, dan error correction mencukupi?",
+  ];
+
+  return (
+    <div className="venn-comprehensive">
+      <div
+        className="venn-stage"
+        role="img"
+        aria-label="Diagram Venn yang menunjukkan irisan problem structure, quantum algorithm, dan hardware resources sebagai syarat kandidat quantum advantage"
+      >
+        <div className="venn-shape venn-shape-problem" aria-hidden="true" />
+        <div className="venn-shape venn-shape-algorithm" aria-hidden="true" />
+        <div className="venn-shape venn-shape-hardware" aria-hidden="true" />
+
+        <article className="venn-label venn-label-problem">
+          <span>01 · PROBLEM</span>
+          <b>{slide.items[0]}</b>
+          <p>{descriptions[0]}</p>
+        </article>
+        <article className="venn-label venn-label-algorithm">
+          <span>02 · ALGORITHM</span>
+          <b>{slide.items[1]}</b>
+          <p>{descriptions[1]}</p>
+        </article>
+        <article className="venn-label venn-label-hardware">
+          <span>03 · RESOURCES</span>
+          <b>{slide.items[2]}</b>
+          <p>{descriptions[2]}</p>
+        </article>
+
+        <div className="venn-fit">
+          <small>INTERSECTION</small>
+          <strong>{slide.center}</strong>
+          <span>Candidate for practical advantage</span>
+        </div>
+      </div>
+
+      <aside className="venn-validation" aria-label="Lapisan validasi quantum advantage">
+        <span className="venn-validation-kicker">VALIDATION LAYER</span>
+        <h3>FIT belum sama dengan advantage</h3>
+        <p className="venn-validation-lead">
+          Kandidat yang cocok tetap harus diuji secara <b>end-to-end</b> terhadap pembanding klasik yang kuat.
+        </p>
+        <div className="venn-benchmark-path">
+          <div>
+            <small>QUANTUM PATH</small>
+            <b>Prepare → Execute → Sample → Post-process</b>
+          </div>
+          <span aria-hidden="true">VS</span>
+          <div>
+            <small>CLASSICAL BASELINE</small>
+            <b>Best practical method / strong benchmark</b>
+          </div>
+        </div>
+        <div className="venn-metrics">
+          <span>Runtime</span>
+          <span>Accuracy</span>
+          <span>Resources</span>
+          <span>Overhead</span>
+        </div>
+        <p className="venn-validation-rule">
+          Practical advantage memerlukan hasil yang tetap unggul setelah seluruh overhead diperhitungkan.
+        </p>
+      </aside>
     </div>
   );
 }
@@ -326,10 +397,14 @@ export function SlideContent({ slide, presentationMode = false }) {
       return (
         <>
           <Header slide={slide} interactive={presentationMode} />
-          <div className="venn">
-            {slide.items.map((x, i) => <div key={x} className={`venn-${i}`}>{x}</div>)}
-            <strong>{slide.center}</strong>
-          </div>
+          {presentationMode ? (
+            <ComprehensiveVenn slide={slide} />
+          ) : (
+            <div className="venn">
+              {slide.items.map((x, i) => <div key={x} className={`venn-${i}`}>{x}</div>)}
+              <strong>{slide.center}</strong>
+            </div>
+          )}
           <Callout>{slide.callout}</Callout>
           <Source interactive={presentationMode}>{displaySource}</Source>
         </>
