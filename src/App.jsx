@@ -464,6 +464,7 @@ export default function App() {
   });
   const [overview, setOverview] = useState(false);
   const [help, setHelp] = useState(false);
+  const stageRef = useRef(null);
   const touchStart = useRef(null);
   const touchStartY = useRef(null);
 
@@ -482,6 +483,7 @@ export default function App() {
 
   useEffect(() => {
     history.replaceState(null, "", `#slide-${index + 1}`);
+    stageRef.current?.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [index]);
 
   useEffect(() => {
@@ -553,9 +555,11 @@ export default function App() {
         <button type="button" onClick={toggleFullscreen} aria-label="Layar penuh">⛶ <span>Fullscreen</span></button>
       </div>
 
-      <div className="slide-stage">
+      <div className="slide-stage" ref={stageRef} tabIndex={0} aria-label="Isi slide, gulir untuk membaca seluruh materi">
         <section className={`slide slide-${slide.kind}`} aria-live="polite">
-          <SlideContent key={index} slide={slide} presentationMode />
+          <div className="slide-content">
+            <SlideContent key={index} slide={slide} presentationMode />
+          </div>
           <footer>
             <span>KAJIAN BULAN 1 • QUANTUM COMPUTING & PERBANKAN</span>
             <b>{String(index + 1).padStart(2, "0")}</b>
