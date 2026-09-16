@@ -1,0 +1,83 @@
+name: Slide 07-13 visual validation
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm install --no-save --package-lock=false playwright
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - name: Validate slide 07-13 layout
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/vite.log 2>&1 &
+          for i in $(seq 1 30); do curl -s http://127.0.0.1:5173/quantum_computing_for_banking/ > /dev/null && break; sleep 1; done
+          cat > visual-check.mjs <<'JS'
+          import { chromium } from 'playwright';
+          import { mkdirSync, writeFileSync } from 'node:fs';
+          mkdirSync('visual-results', { recursive: true });
+          const browser = await chromium.launch();
+          const page = await browser.newPage();
+          const failures = [], errors = [];
+          page.on('pageerror', error => errors.push(error.message));
+          for (const [width,height] of [[1366,768],[1920,1080],[768,1024],[390,844],[844,390]]) {
+            await page.setViewportSize({width,height});
+            await page.goto('http://127.0.0.1:5173/quantum_computing_for_banking/#slide-7');
+            await page.locator('.slide-layout').waitFor();
+            for (const fullscreen of [false,true]) {
+              if (fullscreen) {
+                await page.getByRole('button',{name:'Layar penuh',exact:true}).click();
+                await page.waitForFunction(()=>!!document.fullscreenElement);
+              }
+              for (let slideNumber=7;slideNumber<=13;slideNumber++) {
+                await page.evaluate(number=>{location.hash='slide-'+number},slideNumber);
+                await page.waitForFunction(number=>document.querySelector('.counter')?.textContent.startsWith(number+' /'),slideNumber);
+                const metrics=await page.evaluate(()=>{
+                  const stage=document.querySelector('.slide-stage');
+                  const slide=document.querySelector('.slide');
+                  const layout=document.querySelector('.slide-layout');
+                  const header=document.querySelector('.slide-header-region');
+                  const body=document.querySelector('.slide-body');
+                  const evidence=document.querySelector('.slide-evidence');
+                  const footer=slide.querySelector('footer');
+                  const sr=slide.getBoundingClientRect(), hr=header.getBoundingClientRect(), br=body.getBoundingClientRect(), er=evidence.getBoundingClientRect(), fr=footer.getBoundingClientRect();
+                  return {
+                    sections:!!header&&!!body&&!!evidence,
+                    order:hr.top<=br.top&&br.top<=er.top&&er.bottom<=fr.top+1,
+                    horizontal:stage.scrollWidth>stage.clientWidth+2,
+                    slideClip:slide.scrollHeight>slide.clientHeight+2,
+                    contentOutside:[...layout.querySelectorAll('*')].some(el=>{if(el.closest('.table-wrap')||el.matches('svg,svg *')||!el.getClientRects().length)return false;const r=el.getBoundingClientRect();return r.right>sr.right+2||r.left<sr.left-2;})
+                  };
+                });
+                if(!metrics.sections||!metrics.order||metrics.horizontal||metrics.slideClip||metrics.contentOutside) failures.push({width,height,fullscreen,slideNumber,...metrics});
+                await page.screenshot({path:'visual-results/'+width+'x'+height+'-'+(fullscreen?'full':'window')+'-'+slideNumber+'.png'});
+                const stage=page.locator('.slide-stage');
+                if(await stage.evaluate(el=>el.scrollHeight>el.clientHeight+2)) {
+                  await stage.evaluate(el=>{el.scrollTop=el.scrollHeight});
+                  await page.screenshot({path:'visual-results/'+width+'x'+height+'-'+(fullscreen?'full':'window')+'-'+slideNumber+'-bottom.png'});
+                }
+              }
+              if(fullscreen){await page.evaluate(()=>document.exitFullscreen());await page.waitForFunction(()=>!document.fullscreenElement);}
+            }
+          }
+          writeFileSync('visual-results/report.json',JSON.stringify({tested:70,errors,failures},null,2));
+          console.log(JSON.stringify({tested:70,errors,failures}));
+          await browser.close();
+          if(errors.length||failures.length)process.exitCode=1;
+          JS
+          node visual-check.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: slide-07-13-visual-results
+          path: visual-results/
+          retention-days: 7
