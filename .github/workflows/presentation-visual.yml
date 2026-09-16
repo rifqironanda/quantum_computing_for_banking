@@ -36,7 +36,7 @@ jobs:
            await page.locator('.slide-content').waitFor();
            await page.addStyleTag({content:'*,*::before,*::after{animation:none!important;transition:none!important}'});
            for (const fullscreen of [false,true]) {
-            if(fullscreen) await page.getByRole('button',{name:'Layar penuh',exact:true}).click();
+            if(fullscreen) { await page.getByRole('button',{name:'Layar penuh',exact:true}).click(); await page.waitForFunction(()=>!!document.fullscreenElement); }
             for(let i=1;i<=slides.length;i++) {
              await page.evaluate(i=>{location.hash='slide-'+i},i);
              await page.waitForFunction(i=>document.querySelector('.counter')?.textContent.startsWith(i+' /'),i);
@@ -66,7 +66,7 @@ jobs:
               await page.screenshot({path:'visual-results/'+width+'x'+height+'-'+(fullscreen?'full':'window')+'-'+i+'-bottom.png'});
              }
             }
-            if(fullscreen) await page.evaluate(()=>document.exitFullscreen());
+            if(fullscreen) { await page.evaluate(()=>document.exitFullscreen()); await page.waitForFunction(()=>!document.fullscreenElement); }
            }
           }
           writeFileSync('visual-results/report.json',JSON.stringify({tested:results.length,errors,failures,results},null,2));
