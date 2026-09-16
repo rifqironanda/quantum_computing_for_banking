@@ -38,6 +38,7 @@ export const slides = [
       ["07", "Error Suppression", "Logical qubit"],
       ["08", "Adaptive Stability", "Kontrol koreksi galat"],
     ],
+    source: refs.evolution,
   },
   {
     kind: "milestones",
@@ -110,12 +111,8 @@ export const slides = [
     subtitle:
       "Dari Quantum Information Foundations menuju Adaptive Error Correction",
     body: "Quantum computing telah berkembang dari kemungkinan teoretis menuju quantum advantage pada tugas tertentu dan logical qubit yang semakin andal—tetapi belum mencapai large-scale fault-tolerant quantum computing.",
-    tags: [
-      "Algorithms",
-      "Architectures",
-      "Error correction",
-      "Adaptive control",
-    ],
+    tags: ["Algorithms", "Architectures", "Error correction", "Adaptive control"],
+    source: refs.evolution,
   },
   {
     kind: "columns",
@@ -202,10 +199,7 @@ export const slides = [
       "Future CRQC dapat mengubah asumsi keamanan Public-Key Cryptography.",
     items: [
       ["Future capability", "CRQC + Shor at relevant scale"],
-      [
-        "Mathematical assumptions",
-        "Integer factorisation • discrete logarithm",
-      ],
+      ["Mathematical assumptions", "Integer factorisation • discrete logarithm"],
       ["Current schemes", "RSA • DH • ECC • ECDH • ECDSA"],
       ["Different impact", "Symmetric cryptography dan hash terdampak berbeda"],
     ],
@@ -294,6 +288,7 @@ export const slides = [
       ["Policies & Processes", "Prioritas & rencana perubahan"],
       ["Coordination", "Vendor & ekosistem"],
     ],
+    source: refs.readiness,
   },
   {
     kind: "cycle",
@@ -327,6 +322,7 @@ export const slides = [
       "Migration dependency",
     ],
     output: "Cryptographic inventory",
+    source: refs.readiness,
   },
   {
     kind: "table",
@@ -360,42 +356,24 @@ export const slides = [
       "Quantum computing menggunakan aturan quantum mechanics untuk memproses informasi.",
     items: [
       ["1", "Physical Systems", "Sistem fisik menunjukkan perilaku quantum."],
-      [
-        "2",
-        "Quantum Mechanics",
-        "State, evolution, dan measurement menjelaskan perilaku.",
-      ],
-      [
-        "3",
-        "Quantum Computing",
-        "Qubits, gates, dan circuits memanfaatkan aturan tersebut.",
-      ],
+      ["2", "Quantum Mechanics", "State, evolution, dan measurement menjelaskan perilaku."],
+      ["3", "Quantum Computing", "Qubits, gates, dan circuits memanfaatkan aturan tersebut."],
     ],
     callout: "Aturan komputasi, bukan teknologi pemasaran.",
+    source: refs.evolution,
   },
   {
     kind: "columns",
     title: "From Quantum States to Computation",
     items: [
-      [
-        "01",
-        "Superposition",
-        "State memiliki amplitudo pada basis yang dipilih.",
-      ],
+      ["01", "Superposition", "State memiliki amplitudo pada basis yang dipilih."],
       ["02", "Entanglement", "State gabungan tidak selalu dapat dipisahkan."],
-      [
-        "03",
-        "Interference",
-        "Amplitudo dapat saling memperkuat atau meniadakan.",
-      ],
-      [
-        "04",
-        "Measurement",
-        "Menghasilkan keluaran klasik sesuai probabilitas state.",
-      ],
+      ["03", "Interference", "Amplitudo dapat saling memperkuat atau meniadakan."],
+      ["04", "Measurement", "Menghasilkan keluaran klasik sesuai probabilitas state."],
     ],
     callout:
       "Measurement tidak memberikan akses langsung ke seluruh amplitudo.",
+    source: refs.evolution,
   },
   {
     kind: "table",
@@ -410,6 +388,7 @@ export const slides = [
     ],
     callout:
       "Classical algorithms juga bisa probabilistik; probabilitas bukan pembeda tunggal.",
+    source: refs.evolution,
   },
   {
     kind: "pipeline",
@@ -428,6 +407,7 @@ export const slides = [
     ],
     callout:
       "Keuntungan pada subroutine dapat berkurang akibat overhead end-to-end.",
+    source: refs.evolution,
   },
   {
     kind: "venn",
@@ -438,37 +418,18 @@ export const slides = [
     center: "FIT",
     callout:
       "Theoretical speedup tidak otomatis membuktikan practical advantage.",
+    source: refs.finance,
   },
   {
     kind: "table",
     title: "Algorithms Define the Computational Frontier",
     headers: ["Approach", "Problem", "Qualification"],
     rows: [
-      [
-        "Shor",
-        "Factoring & discrete logarithms",
-        "Polynomial-time, tetapi perlu fault-tolerant resources",
-      ],
-      [
-        "Grover",
-        "Unstructured search",
-        "Quadratic query improvement; oracle cost tetap penting",
-      ],
-      [
-        "Amplitude estimation",
-        "Probability & expectation",
-        "Quadratic improvement pada model akses sesuai",
-      ],
-      [
-        "QAOA / variational",
-        "Optimisation",
-        "Practical advantage belum dijamin",
-      ],
-      [
-        "Quantum machine learning",
-        "Selected learning problems",
-        "Bergantung data, struktur, dan benchmark",
-      ],
+      ["Shor", "Factoring & discrete logarithms", "Polynomial-time, tetapi perlu fault-tolerant resources"],
+      ["Grover", "Unstructured search", "Quadratic query improvement; oracle cost tetap penting"],
+      ["Amplitude estimation", "Probability & expectation", "Quadratic improvement pada model akses sesuai"],
+      ["QAOA / variational", "Optimisation", "Practical advantage belum dijamin"],
+      ["Quantum machine learning", "Selected learning problems", "Bergantung data, struktur, dan benchmark"],
     ],
     source: refs.finance,
   },
@@ -495,14 +456,8 @@ export const slides = [
       "Standar teknis, dukungan implementasi, dan koordinasi sektor keuangan.",
     items: [
       ["Standardisation — NIST", "ML-KEM • ML-DSA • SLH-DSA"],
-      [
-        "Implementation — NIST NCCoE",
-        "Discovery • interoperability • migration practice",
-      ],
-      [
-        "Financial-sector coordination — G7 CEG",
-        "Transition roadmap • ecosystem dependencies",
-      ],
+      ["Implementation — NIST NCCoE", "Discovery • interoperability • migration practice"],
+      ["Financial-sector coordination — G7 CEG", "Transition roadmap • ecosystem dependencies"],
     ],
     callout:
       "Peran dan status dokumen berbeda; IT roadmap tidak sama dengan regulatory expectation.",
@@ -549,6 +504,7 @@ export const slides = [
     },
     center:
       "Pemetaan ini bukan bukti kewajiban eksplisit “quantum readiness”; perlu legal traceability.",
+    source: refs.readiness,
   },
   {
     kind: "references",
