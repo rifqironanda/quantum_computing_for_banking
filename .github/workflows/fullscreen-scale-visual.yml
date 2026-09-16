@@ -1,0 +1,67 @@
+name: Fullscreen scale visual validation
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm install --no-save --package-lock=false playwright
+      - run: npx playwright install --with-deps chromium
+      - name: Build and inspect fullscreen
+        run: |
+          npm run build
+          npm run dev -- --host 127.0.0.1 > /tmp/vite.log 2>&1 &
+          for i in $(seq 1 30); do curl -s http://127.0.0.1:5173/quantum_computing_for_banking/ >/dev/null && break; sleep 1; done
+          cat > fullscreen-check.mjs <<'JS'
+          import { chromium } from 'playwright';
+          import { mkdirSync, writeFileSync } from 'node:fs';
+          mkdirSync('visual-results',{recursive:true});
+          const browser=await chromium.launch();
+          const page=await browser.newPage();
+          const failures=[], errors=[];
+          page.on('pageerror',e=>errors.push(e.message));
+          for(const [width,height] of [[1366,768],[1920,1080]]) {
+            await page.setViewportSize({width,height});
+            await page.goto('http://127.0.0.1:5173/quantum_computing_for_banking/#slide-3');
+            await page.getByRole('button',{name:'Layar penuh',exact:true}).click();
+            await page.waitForFunction(()=>!!document.fullscreenElement);
+            for(let slideNumber=1;slideNumber<=30;slideNumber++) {
+              await page.evaluate(n=>location.hash='slide-'+n,slideNumber);
+              await page.waitForFunction(n=>document.querySelector('.counter')?.textContent.startsWith(n+' /'),slideNumber);
+              const metrics=await page.evaluate(()=>{
+                const stage=document.querySelector('.slide-stage'),slide=document.querySelector('.slide'),sr=slide.getBoundingClientRect();
+                return {
+                  horizontal:stage.scrollWidth>stage.clientWidth+2,
+                  outside:[...slide.querySelectorAll('*')].some(el=>{if(el.closest('.table-wrap')||el.matches('svg,svg *')||!el.getClientRects().length)return false;const r=el.getBoundingClientRect();return r.right>sr.right+2||r.left<sr.left-2;})
+                };
+              });
+              if(metrics.horizontal||metrics.outside)failures.push({width,height,slideNumber,...metrics});
+              if([3,7,13,23].includes(slideNumber)) {
+                await page.screenshot({path:'visual-results/'+width+'x'+height+'-slide-'+slideNumber+'.png'});
+                const stage=page.locator('.slide-stage');
+                if(await stage.evaluate(el=>el.scrollHeight>el.clientHeight+2)){await stage.evaluate(el=>el.scrollTop=el.scrollHeight);await page.screenshot({path:'visual-results/'+width+'x'+height+'-slide-'+slideNumber+'-bottom.png'});}
+              }
+            }
+            await page.evaluate(()=>document.exitFullscreen());
+          }
+          writeFileSync('visual-results/report.json',JSON.stringify({tested:60,errors,failures},null,2));
+          console.log(JSON.stringify({tested:60,errors,failures}));
+          await browser.close();
+          if(errors.length||failures.length)process.exitCode=1;
+          JS
+          node fullscreen-check.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fullscreen-scale-results
+          path: visual-results/
+          retention-days: 7
