@@ -2,7 +2,7 @@ const refs = {
   evolution:
     "Bell (1964); Aspect et al. (1982); Benioff (1980); Feynman (1982); Deutsch (1985); Shor (1997); Arute et al. (2019); Acharya et al. (2023, 2025).",
   finance:
-    "Herman et al. (2023), Nature Reviews Physics; Auer et al. (2024), BIS Papers No. 149.",
+    "Google Quantum AI and Collaborators (2023; 2025); Herman et al. (2023), Nature Reviews Physics; Auer et al. (2024), BIS Papers No. 149.",
   risk: "NIST IR 8547 (2024); CISA, NSA & NIST (2023); BIS Project Leap Phase 1–2 (2023–2025).",
   readiness:
     "NIST CSWP 39 (2025); NIST NCCoE; G7 Cyber Expert Group (2024); BIS Papers No. 158 (2025).",
@@ -116,22 +116,30 @@ export const slides = [
   },
   {
     kind: "columns",
+    variant: "why-quantum",
     title: "Mengapa Quantum Perlu Mulai Dipahami?",
+    subtitle: "Tiga alasan untuk membangun pemahaman institusional sebelum menentukan adopsi dan respons risiko.",
     items: [
       [
         "01",
         "Technological Progress",
-        "Kemajuan kini dinilai melalui fidelity, error correction, logical error suppression, dan computational scale.",
+        "Perkembangan mulai bergerak menuju peningkatan kualitas komputasi.",
+        "Kemajuan tidak lagi hanya ditunjukkan oleh jumlah physical qubits, tetapi juga oleh kemampuan membentuk logical qubit yang lebih terlindungi.",
+        ["Higher fidelity", "Lower error rate", "Circuit depth", "Logical error suppression"],
       ],
       [
         "02",
         "Computational Frontier",
-        "Model komputasi berbeda dapat memberi keuntungan pada kelas masalah tertentu—bukan untuk semua kebutuhan.",
+        "Batas kemampuan komputasi berpotensi berubah.",
+        "Quantum computing menawarkan computational model yang berbeda dan dapat memberi keuntungan pada kelas masalah tertentu, bukan percepatan untuk semua kebutuhan.",
+        ["Simulation", "Optimisation", "Sampling", "Amplitude estimation"],
       ],
       [
         "03",
         "Banking Intersection",
-        "Computational use cases dan security dependencies perbankan beririsan dengan perkembangan quantum computing.",
+        "Perubahan tersebut beririsan dengan aktivitas dan infrastruktur perbankan.",
+        "Perbankan memiliki computational use cases sekaligus technology and security dependencies yang dapat terdampak oleh perkembangan quantum computing.",
+        ["Potential capability", "Banking activities", "Emerging exposure"],
       ],
     ],
     callout: "UNDERSTAND EARLY ≠ ADOPT IMMEDIATELY",
