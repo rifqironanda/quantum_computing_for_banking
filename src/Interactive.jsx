@@ -204,7 +204,7 @@ const narrativeOverrides = {
     "Karena perubahan computational capability dan security assumptions dapat berkembang lebih cepat daripada siklus inventory, testing, vendor coordination, dan migration bank.",
   ],
   "Quantum–Banking Intersection": [
-    "Di mana emerging quantum capabilities dapat beririsan dengan aktivitas dan infrastruktur perbankan?",
+    "Dimana emerging quantum capabilities dapat beririsan dengan aktivitas dan infrastruktur perbankan?",
     "Irisannya membentuk dual relevance: potential computational use cases dan emerging exposure pada security & trust infrastructure.",
   ],
   "Dual Relevance": [

@@ -273,7 +273,53 @@ export function SlideContent({ slide, presentationMode = false }) {
         >
           <div className="intersection">
             <ListPanel data={slide.left} />
-            <div className="intersection-center"><span>{slide.center}</span></div>
+            <svg
+              className="banking-venn"
+              viewBox="0 0 800 350"
+              role="img"
+              aria-label="Dua lingkaran beririsan: emerging quantum capabilities dan banking activities and infrastructure; irisannya dual relevance for banking"
+            >
+              <circle
+                cx="290"
+                cy="173"
+                r="155"
+                fill="#1b858933"
+                stroke="#258b90"
+                strokeWidth="2"
+              />
+              <circle
+                cx="510"
+                cy="173"
+                r="155"
+                fill="#da9a3833"
+                stroke="#b97c23"
+                strokeWidth="2"
+              />
+              <text x="245" y="155">
+                <tspan x="255">Emerging quantum</tspan>
+                <tspan x="255" dy="27">
+                  capabilities
+                </tspan>
+                <tspan x="255" dy="38" className="venn-small">
+                  Algorithms · computation
+                </tspan>
+              </text>
+              <text x="555" y="155">
+                <tspan x="545">Banking activities</tspan>
+                <tspan x="545" dy="27">
+                  & infrastructure
+                </tspan>
+                <tspan x="545" dy="38" className="venn-small">
+                  Use cases · security
+                </tspan>
+              </text>
+              <text x="400" y="170" className="venn-center">
+                <tspan x="400">Dual</tspan>
+                <tspan x="400" dy="25">
+                  relevance
+                </tspan>
+              </text>
+            </svg>
             <ListPanel data={slide.right} />
           </div>
         </SlideLayout>
