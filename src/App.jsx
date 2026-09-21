@@ -87,6 +87,95 @@ function WhyQuantumBody({ slide }) {
   );
 }
 
+function InteractiveBankingVenn({ slide }) {
+  const [selected, setSelected] = useState("center");
+  const [hovered, setHovered] = useState(null);
+  const active = hovered || selected;
+  const views = {
+    left: slide.left,
+    center: {
+      title: "Dual Relevance",
+      text: "Irisan membentuk dua jalur analisis: Potential Benefits dan Emerging Threats.",
+    },
+    right: slide.right,
+  };
+  const choose = (area) => setSelected(area);
+  const handleKey = (event, area) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      choose(area);
+    }
+  };
+  const regionProps = (area) => ({
+    role: "button",
+    tabIndex: 0,
+    "aria-label": `Buka ${views[area].title}`,
+    "aria-pressed": selected === area,
+    onMouseEnter: () => setHovered(area),
+    onMouseLeave: () => setHovered(null),
+    onFocus: () => setHovered(area),
+    onBlur: () => setHovered(null),
+    onClick: () => choose(area),
+    onKeyDown: (event) => handleKey(event, area),
+  });
+  const detail = views[selected];
+
+  return (
+    <div className="interactive-banking-venn">
+      <div className="venn-stage">
+        <svg
+          className={`banking-venn-svg active-${active}`}
+          viewBox="0 0 800 390"
+          role="group"
+          aria-label="Diagram Venn interaktif mengenai irisan quantum computing dan perbankan"
+        >
+          <circle className="venn-circle venn-left-circle" cx="295" cy="195" r="170" />
+          <circle className="venn-circle venn-right-circle" cx="505" cy="195" r="170" />
+
+          <g className="venn-hit venn-hit-left" {...regionProps("left")}>
+            <circle cx="295" cy="195" r="170" />
+          </g>
+          <g className="venn-hit venn-hit-right" {...regionProps("right")}>
+            <circle cx="505" cy="195" r="170" />
+          </g>
+          <g className="venn-hit venn-hit-center" {...regionProps("center")}>
+            <ellipse cx="400" cy="195" rx="64" ry="142" />
+          </g>
+
+          <text className="venn-label venn-left-label" x="250" y="166">
+            <tspan x="250">Emerging quantum</tspan>
+            <tspan x="250" dy="30">capabilities</tspan>
+            <tspan x="250" dy="40" className="venn-sub-label">Algorithms · computation</tspan>
+          </text>
+          <text className="venn-label venn-right-label" x="550" y="166">
+            <tspan x="550">Banking activities</tspan>
+            <tspan x="550" dy="30">&amp; infrastructure</tspan>
+            <tspan x="550" dy="40" className="venn-sub-label">Use cases · security</tspan>
+          </text>
+          <text className="venn-label venn-center-label" x="400" y="177">
+            <tspan x="400">Dual</tspan>
+            <tspan x="400" dy="28">relevance</tspan>
+          </text>
+        </svg>
+        <p className="venn-instruction">Arahkan kursor untuk menyorot area, lalu klik untuk membuka penjelasan.</p>
+      </div>
+
+      <article className={`venn-detail venn-detail-${selected}`} aria-live="polite">
+        <span>{selected === "center" ? "IRISAN" : selected === "left" ? "AREA KIRI" : "AREA KANAN"}</span>
+        <h3>{detail.title}</h3>
+        {detail.items ? (
+          <ul>{detail.items.map((item) => <li key={item}>{item}</li>)}</ul>
+        ) : (
+          <>
+            <p><strong>{detail.text}</strong></p>
+            <small>Pembahasan kedua jalur tersebut diperjelas pada slide selanjutnya →</small>
+          </>
+        )}
+      </article>
+    </div>
+  );
+}
+
 function ListPanel({ data, accent = "" }) {
   return (
     <article className={`list-panel ${accent}`}>
@@ -271,57 +360,7 @@ export function SlideContent({ slide, presentationMode = false }) {
           presentationMode={presentationMode}
           evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}
         >
-          <div className="intersection">
-            <ListPanel data={slide.left} />
-            <svg
-              className="banking-venn"
-              viewBox="0 0 800 350"
-              role="img"
-              aria-label="Dua lingkaran beririsan: emerging quantum capabilities dan banking activities and infrastructure; irisannya dual relevance for banking"
-            >
-              <circle
-                cx="290"
-                cy="173"
-                r="155"
-                fill="#1b858933"
-                stroke="#258b90"
-                strokeWidth="2"
-              />
-              <circle
-                cx="510"
-                cy="173"
-                r="155"
-                fill="#da9a3833"
-                stroke="#b97c23"
-                strokeWidth="2"
-              />
-              <text x="245" y="155">
-                <tspan x="255">Emerging quantum</tspan>
-                <tspan x="255" dy="27">
-                  capabilities
-                </tspan>
-                <tspan x="255" dy="38" className="venn-small">
-                  Algorithms · computation
-                </tspan>
-              </text>
-              <text x="555" y="155">
-                <tspan x="545">Banking activities</tspan>
-                <tspan x="545" dy="27">
-                  & infrastructure
-                </tspan>
-                <tspan x="545" dy="38" className="venn-small">
-                  Use cases · security
-                </tspan>
-              </text>
-              <text x="400" y="170" className="venn-center">
-                <tspan x="400">Dual</tspan>
-                <tspan x="400" dy="25">
-                  relevance
-                </tspan>
-              </text>
-            </svg>
-            <ListPanel data={slide.right} />
-          </div>
+          <InteractiveBankingVenn slide={slide} />
         </SlideLayout>
       );
     case "split":
