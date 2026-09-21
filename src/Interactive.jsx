@@ -184,9 +184,9 @@ export function PhysicsFigure() {
 
 /* Presentation-only helpers. They are invoked only by App.jsx in presentationMode. */
 const narrativeOverrides = {
-  "Alur Perkembangan dan Penjelasan": [
-    "Bagaimana komputasi kuantum berkembang dari fondasi fisika menjadi teknologi komputasi yang semakin stabil?",
-    "Perkembangannya berlangsung bertahap: foundations → concepts → algorithms → architectures → cloud/NISQ → task-specific advantage → error suppression → adaptive stability.",
+  "Alur Perkembangan Quantum Computing": [
+    "Bagaimana Perkembangan Quantum Computing Hingga saat ini?",
+    "Perkembangannya berlangsung bertahap mulai dari fondasi fisika kuantum, perumusan konsep dan algoritma quantum, hingga pengembangan teknologi komputasi kuantum.",
   ],
   "Milestones 01–04": [
     "Apa yang berubah dari fondasi quantum information hingga diversifikasi arsitektur?",
@@ -339,7 +339,7 @@ export function InteractiveTimeline({ items }) {
         <span>MILESTONE {item[0]}</span>
         <h3>{item[1]}</h3>
         <p>{item[2]}</p>
-        <small>Sentuh milestone lain untuk membandingkan tahap perkembangan.</small>
+        <small>{item[3]}</small>
       </div>
     </div>
   );
