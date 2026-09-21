@@ -11,6 +11,12 @@ import {
   InteractiveTimeline,
   ResearchFrame,
   EvidenceHint,
+  DualRelevanceFlow,
+  PriorityComparison,
+  CryptanalyticPath,
+  DependencyMap,
+  ExposureConditions,
+  HndlPriority,
 } from "./Interactive.jsx";
 
 const sourceGroups = {
@@ -361,6 +367,42 @@ export function SlideContent({ slide, presentationMode = false }) {
           evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}
         >
           <InteractiveBankingVenn slide={slide} />
+        </SlideLayout>
+      );
+    case "dual_relevance":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <DualRelevanceFlow slide={slide} />
+        </SlideLayout>
+      );
+    case "priority_comparison":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <PriorityComparison slide={slide} />
+        </SlideLayout>
+      );
+    case "cryptanalytic_path":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <CryptanalyticPath slide={slide} />
+        </SlideLayout>
+      );
+    case "dependency_map":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <DependencyMap slide={slide} />
+        </SlideLayout>
+      );
+    case "exposure_conditions":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <ExposureConditions slide={slide} />
+        </SlideLayout>
+      );
+    case "hndl_priority":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <HndlPriority slide={slide} />
         </SlideLayout>
       );
     case "split":
