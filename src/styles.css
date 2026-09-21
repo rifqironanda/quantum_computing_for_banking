@@ -225,7 +225,6 @@ button {
   color: #a5c2cb;
 }
 
-<<<<<<< HEAD
 .topic-icon {
   width: 38px;
   height: 38px;
@@ -281,20 +280,13 @@ button {
   line-height: 1.45;
 }
 
-.topic-icon{width:38px;height:38px;color:var(--teal);flex-shrink:0}.learning-grid{display:grid;grid-template-columns:repeat(var(--columns),minmax(0,1fr));gap:16px}.learning-card{text-align:left;color:var(--ink);background:#fff;border:1px solid #ccdfdf;border-top:3px solid var(--teal);padding:20px;cursor:pointer;transition:background .2s,transform .2s,box-shadow .2s;min-height:210px;border-radius:12px}.learning-card:hover{transform:translateY(-4px);box-shadow:0 12px 24px #062c3d1a}.learning-card.selected{background:#092c40;color:#fff;border-color:#20d4cf}.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}.card-top span{font-size:13px;letter-spacing:.1em;color:#6e8c94}.learning-card h3{font-size:18px;line-height:1.25}.learning-card p{font-size:16px;line-height:1.45}.card-detail{font-size:14px!important;color:#008586}.selected .card-detail{color:#55e6de}.list-panel .topic-icon{margin-bottom:16px}.flow .topic-icon{margin:0 auto 12px}.readiness-explorer{display:grid;grid-template-columns:1.8fr 1fr;gap:20px}.step-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.step-grid button{position:relative;background:#fff;color:var(--ink);border:1px solid #d4e5e4;padding:16px 12px;text-align:left;border-radius:10px;cursor:pointer;min-height:120px}.step-grid button>span{position:absolute;right:10px;top:14px;font-size:13px;color:#789296}.step-grid button b{display:block;margin-top:12px;font-size:14px}.step-grid .selected{background:#d3f5ef;border:2px solid #009a9b}.step-detail{background:var(--navy);color:#fff;border-radius:14px;padding:24px}.step-detail>span{font-size:12px;color:#38d2ce;letter-spacing:.15em}.step-detail h3{margin-top:20px;font-size:23px}.step-detail p{font-size:16px;color:#c2d9df}.step-detail button{display:flex;align-items:center;gap:12px;background:transparent;color:#54ddd6;border:0;cursor:pointer;padding:10px 0}.harvest-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.harvest-steps button{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;border:1px solid #c6deda;border-radius:12px;padding:14px;background:#fff;color:var(--ink)}.harvest-steps svg{color:var(--teal)}.harvest-steps small{color:#64848a}.harvest-steps b{font-size:14px}.harvest-steps .selected{background:var(--navy);color:#fff;border-color:var(--cyan)}.harvest-detail{font-size:16px;margin:12px 0;min-height:25px}.mosca{display:grid;grid-template-columns:1.5fr 1fr;gap:20px;background:#e2efee;padding:18px;border-radius:14px}.mosca label{display:block;font-size:14px;margin-bottom:10px}.mosca label strong{float:right}.mosca input{display:block;width:100%;accent-color:var(--teal);margin:8px 0}.mosca output{display:flex;align-items:flex-start;justify-content:center;flex-direction:column;gap:8px;background:#c6efe3;border-radius:10px;padding:18px}.mosca output.exposed{background:#ffe4bc}.mosca output strong{font-size:30px}.mosca output small{font-size:12px;line-height:1.4}.physics-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:24px;align-items:center}.physics-figure{margin:0;background:#fff;padding:16px;border-radius:16px;text-align:center}.physics-figure img{height:220px;max-width:100%;object-fit:contain}.physics-figure figcaption{font-size:12px;line-height:1.6;color:#577582}.physics-figure a{color:#00797d}.physics-layout .layers{width:100%}.physics-layout .layers article{width:100%;margin:12px 0;padding:18px}
 
-.card-detail,
-.focus-label {
+.card-detail {
   font-size: 14px !important;
   color: #008586;
 }
-.selected .card-detail,
-.selected .focus-label {
+.selected .card-detail {
   color: #55e6de;
-}
-.focus-label {
-  display: block;
-  margin-top: 18px;
 }
 .list-panel .topic-icon {
   margin-bottom: 16px;
@@ -1269,7 +1261,6 @@ input:focus-visible {
   width: 28px;
   height: 28px;
 }
-.presentation-app .focus-label,
 .presentation-app .card-detail {
   font-size: clamp(0.95rem, 1vw, 1.25rem) !important;
   margin-top: 7px;
@@ -2596,12 +2587,9 @@ input:focus-visible {
     padding-block: 8px 24px;
     overflow-wrap: anywhere;
   }
-<<<<<<< HEAD
   .presentation-app .slide-content > * {
     min-width: 0;
   }
-=======
-  .presentation-app .slide-content > * { min-width: 0; }
   .presentation-app .slide-layout {
     flex: 1 1 auto;
     display: grid;
@@ -2657,7 +2645,6 @@ input:focus-visible {
   .presentation-app .why-quantum-card > p { margin: 8px 0 14px; color: #c9e0e4; font-size: clamp(.68rem, .8vw, .88rem); line-height: 1.45; }
   .presentation-app .why-card-points { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 12px; border-top: 1px solid #59d9d53b; }
   .presentation-app .why-card-points span { padding: 6px 8px; border-radius: 999px; background: #ffffff10; color: #59ddd6; font-size: clamp(.58rem, .68vw, .76rem); font-weight: 700; }
->>>>>>> c99b2172f61733617467a88772dbb49310d26640
   .presentation-app .slide > footer {
     position: static;
     flex: 0 0 auto;
@@ -2718,7 +2705,6 @@ input:focus-visible {
   }
 }
 
-<<<<<<< HEAD
 /* Desktop fullscreen uses the available canvas as a presentation surface. */
 @media (min-width:1100px) and (min-height:650px) {
   :fullscreen .presentation-app {
@@ -2769,10 +2755,8 @@ input:focus-visible {
   :fullscreen .presentation-app .evidence-hint p { padding: 9px 12px; font-size: clamp(.7rem, .76vw, .86rem); }
   :fullscreen .presentation-app .slide>footer { padding-top: 14px; font-size: clamp(.58rem, .62vw, .7rem); }
 }
-=======
 @media(max-width:820px){
   .presentation-app .slide-layout{grid-template-rows:auto auto auto}
   .presentation-app .slide-body{justify-content:flex-start}
   .presentation-app .why-quantum-grid{grid-template-columns:1fr}
 }
->>>>>>> c99b2172f61733617467a88772dbb49310d26640
