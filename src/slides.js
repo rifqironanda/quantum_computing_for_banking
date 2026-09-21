@@ -281,6 +281,14 @@ export const slides = [
       ["Asset and Time", "Sensitivity, secrecy lifetime, criticality, interceptability, replaceability, migration time"],
     ],
     boundary: "Bank-specific exposure cannot be concluded without a cryptographic inventory.",
+    // Compatibility data for the existing dashboard HNDL explorer (slides[12].items).
+    items: [
+      ["1", "Encrypted sensitive data"],
+      ["2", "Intercept or acquire"],
+      ["3", "Retain ciphertext"],
+      ["4", "CRQC capability matures"],
+      ["5", "Potential decryption"],
+    ],
     callout: "Capability creates the hazard; dependency creates relevance; deployment and asset characteristics determine exposure.",
     source: refs.risk,
   },
