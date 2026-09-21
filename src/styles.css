@@ -2760,3 +2760,150 @@ input:focus-visible {
   .presentation-app .slide-body{justify-content:flex-start}
   .presentation-app .why-quantum-grid{grid-template-columns:1fr}
 }
+
+
+/* Interactive Quantum–Banking Venn — slide 08 */
+.interactive-banking-venn {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(250px, 0.65fr);
+  gap: clamp(16px, 2vw, 30px);
+  align-items: center;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+.venn-stage {
+  min-width: 0;
+  text-align: center;
+}
+.banking-venn-svg {
+  display: block;
+  width: min(100%, 760px);
+  max-height: clamp(260px, 37vh, 410px);
+  margin: 0 auto;
+  overflow: visible;
+}
+.banking-venn-svg .venn-circle {
+  stroke-width: 3;
+  transition: opacity 0.2s ease, filter 0.2s ease, stroke-width 0.2s ease;
+}
+.banking-venn-svg .venn-left-circle {
+  fill: #4bbec03d;
+  stroke: #168c93;
+}
+.banking-venn-svg .venn-right-circle {
+  fill: #e7a23c3d;
+  stroke: #bf7c20;
+}
+.banking-venn-svg.active-left .venn-left-circle,
+.banking-venn-svg.active-center .venn-circle,
+.banking-venn-svg.active-right .venn-right-circle {
+  opacity: 1;
+  filter: drop-shadow(0 10px 12px #082d3e24);
+  stroke-width: 5;
+}
+.banking-venn-svg.active-left .venn-right-circle,
+.banking-venn-svg.active-right .venn-left-circle {
+  opacity: 0.42;
+}
+.banking-venn-svg .venn-hit {
+  cursor: pointer;
+  outline: none;
+}
+.banking-venn-svg .venn-hit circle,
+.banking-venn-svg .venn-hit ellipse {
+  fill: transparent;
+  stroke: transparent;
+}
+.banking-venn-svg .venn-hit:focus-visible circle,
+.banking-venn-svg .venn-hit:focus-visible ellipse {
+  stroke: #f5a623;
+  stroke-width: 5;
+  stroke-dasharray: 9 7;
+}
+.banking-venn-svg .venn-hit-center {
+  cursor: crosshair;
+}
+.banking-venn-svg .venn-label {
+  pointer-events: none;
+  text-anchor: middle;
+  fill: #153b49;
+  font: 700 18px Manrope, sans-serif;
+  transition: opacity 0.2s ease, font-size 0.2s ease;
+}
+.banking-venn-svg .venn-sub-label {
+  fill: #58737e;
+  font-size: 11px;
+  font-weight: 500;
+}
+.banking-venn-svg .venn-center-label {
+  fill: #0c5360;
+  font-size: 16px;
+}
+.banking-venn-svg.active-left .venn-left-label,
+.banking-venn-svg.active-right .venn-right-label,
+.banking-venn-svg.active-center .venn-center-label {
+  font-size: 20px;
+}
+.venn-instruction {
+  margin: -4px 0 0;
+  color: #67818c;
+  font-size: clamp(0.65rem, 0.75vw, 0.78rem);
+}
+.venn-detail {
+  min-height: 240px;
+  padding: clamp(18px, 2vw, 28px);
+  border: 1px solid #bfd8d8;
+  border-top: 5px solid var(--teal);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 14px 30px #082d3e14;
+}
+.venn-detail-right {
+  border-top-color: var(--orange);
+}
+.venn-detail-center {
+  background: linear-gradient(145deg, #092c40, #0c4650);
+  color: #eefafa;
+}
+.venn-detail > span {
+  color: var(--teal);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+.venn-detail-right > span {
+  color: #c97808;
+}
+.venn-detail h3 {
+  margin: 12px 0;
+  color: inherit;
+  font-size: clamp(1rem, 1.25vw, 1.35rem);
+  text-transform: uppercase;
+}
+.venn-detail ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+.venn-detail li,
+.venn-detail p {
+  margin: 0.48rem 0;
+  font-size: clamp(0.72rem, 0.85vw, 0.92rem);
+  line-height: 1.45;
+}
+.venn-detail small {
+  display: block;
+  margin-top: 18px;
+  color: #62ddd4;
+  line-height: 1.45;
+}
+@media (max-width: 820px) {
+  .interactive-banking-venn {
+    grid-template-columns: 1fr;
+  }
+  .banking-venn-svg {
+    max-height: none;
+  }
+  .venn-detail {
+    min-height: 0;
+  }
+}
