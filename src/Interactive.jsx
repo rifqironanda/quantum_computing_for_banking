@@ -403,6 +403,181 @@ export function PresentationPhysicsFigure() {
   );
 }
 
+
+const sequenceLabels = ["DUAL RELEVANCE", "PRIORITISATION", "FUTURE THREAT", "DEPENDENCY", "CONDITIONS", "HNDL"];
+
+function SequenceProgress({ active }) {
+  return (
+    <nav className="evidence-sequence" aria-label="Alur analisis slide 9 sampai 14">
+      {sequenceLabels.map((label, index) => (
+        <span key={label} className={index === active ? "active" : index < active ? "done" : ""}>
+          <i>{String(index + 1).padStart(2, "0")}</i>{label}
+        </span>
+      ))}
+    </nav>
+  );
+}
+
+export function DualRelevanceFlow({ slide }) {
+  const [view, setView] = useState("compare");
+  const visible = view === "compare" ? slide.pathways : slide.pathways.filter((item) => item.id === view);
+  return (
+    <div className="strategic-slide">
+      <SequenceProgress active={0} />
+      <div className="dual-path-control" role="group" aria-label="Pilih jalur dual relevance">
+        <button type="button" aria-pressed={view === "benefits"} onClick={() => setView("benefits")}>Potential Benefits</button>
+        <button type="button" className="dual-core" aria-pressed={view === "compare"} onClick={() => setView("compare")}>Dual Relevance</button>
+        <button type="button" aria-pressed={view === "threats"} onClick={() => setView("threats")}>Emerging Threats</button>
+      </div>
+      <div className={`dual-path-panels ${view}`}>
+        {visible.map((path) => (
+          <article key={path.id} className={`dual-path-card ${path.id}`}>
+            <div><span>{path.status}</span><h3>{path.title}</h3></div>
+            <ul>{path.items.map((item) => <li key={item}>{item}</li>)}</ul>
+            <b>{path.action}</b>
+            <small>{path.caveat}</small>
+          </article>
+        ))}
+      </div>
+      <p className="strategic-transition">Jika kedua jalur relevan, evidence mana yang memerlukan perhatian institusional lebih awal?</p>
+    </div>
+  );
+}
+
+export function PriorityComparison({ slide }) {
+  const [mode, setMode] = useState("compare");
+  const [selected, setSelected] = useState(slide.threats[0]);
+  const groups = mode === "benefits" ? [{ id: "benefits", title: "Explore and validate", rows: slide.benefits }] :
+    mode === "threats" ? [{ id: "threats", title: "Understand and prepare earlier", rows: slide.threats }] :
+    [{ id: "benefits", title: "Explore and validate", rows: slide.benefits }, { id: "threats", title: "Understand and prepare earlier", rows: slide.threats }];
+  return (
+    <div className="strategic-slide">
+      <SequenceProgress active={1} />
+      <div className="view-tabs" role="group" aria-label="Tampilan prioritisasi">
+        {["benefits", "compare", "threats"].map((id) => <button type="button" key={id} aria-pressed={mode === id} onClick={() => setMode(id)}>{id === "compare" ? "Compare" : id === "benefits" ? "Benefits" : "Threats"}</button>)}
+      </div>
+      <div className={`priority-groups ${mode}`}>
+        {groups.map((group) => (
+          <section key={group.id} className={`priority-group ${group.id}`}>
+            <h3>{group.title}</h3>
+            {group.rows.map((row) => (
+              <button type="button" className="priority-row" key={row.label} onClick={() => setSelected(row)} aria-label={`${row.label}, skor ${row.score}`}>
+                <span>{row.label}</span>
+                <div><i style={{ width: `${row.score}%` }} /></div>
+                <b>{row.score.toLocaleString("id-ID", { minimumFractionDigits: 1 })}</b>
+                <small>{row.tier}</small>
+              </button>
+            ))}
+          </section>
+        ))}
+      </div>
+      <aside className="priority-evidence" aria-live="polite"><b>{selected.label}</b><span>{selected.decision}</span><small>{slide.methodology}</small></aside>
+    </div>
+  );
+}
+
+export function CryptanalyticPath({ slide }) {
+  const [mode, setMode] = useState("current");
+  const [scheme, setScheme] = useState("RSA");
+  return (
+    <div className="strategic-slide">
+      <SequenceProgress active={2} />
+      <div className="view-tabs" role="group" aria-label="Pilih capability">
+        <button type="button" aria-pressed={mode === "current"} onClick={() => setMode("current")}>Current Capability</button>
+        <button type="button" aria-pressed={mode === "future"} onClick={() => setMode("future")}>Future CRQC</button>
+      </div>
+      <div className={`crypto-causal ${mode}`}>
+        {slide.layers.map((layer, index) => (
+          <div className="crypto-layer-wrap" key={layer.label}>
+            <article className={index === 0 ? "uncertain" : ""}>
+              <span>{String(index + 1).padStart(2, "0")}</span><h3>{layer.label}</h3>
+              <div>{layer.items.map((item) => index === 2 ? <button type="button" key={item} aria-pressed={scheme === item} onClick={() => setScheme(item)}>{item}</button> : <small key={item}>{item}</small>)}</div>
+            </article>
+            {index < slide.layers.length - 1 && <ArrowRight aria-hidden="true" />}
+          </div>
+        ))}
+      </div>
+      <div className="crypto-result" aria-live="polite">
+        <b>{mode === "current" ? "CURRENT STATE" : `${scheme} → ${slide.mappings[scheme]}`}</b>
+        <p>{mode === "current" ? slide.current : slide.future}</p>
+        <small>{slide.caveat}</small>
+      </div>
+    </div>
+  );
+}
+
+export function DependencyMap({ slide }) {
+  const [active, setActive] = useState(0);
+  const [distinction, setDistinction] = useState(false);
+  const item = slide.functions[active];
+  return (
+    <div className="strategic-slide">
+      <SequenceProgress active={3} />
+      <div className="dependency-layout">
+        <div className="dependency-map">
+          <strong>{slide.center}</strong>
+          <div>{slide.functions.map((fn, index) => <button type="button" key={fn.title} aria-pressed={active === index} onClick={() => setActive(index)} onPointerEnter={() => setActive(index)}>{fn.title}</button>)}</div>
+        </div>
+        <article className="dependency-detail" aria-live="polite">
+          <span>POTENTIAL DEPENDENCY</span><h3>{item.title}</h3>
+          <p>{item.examples.join(" · ")}</p>
+          <div>{item.algorithms.map((algorithm) => <b key={algorithm}>{algorithm}</b>)}</div>
+          <small>Actual deployment may differ by bank and system.</small>
+        </article>
+      </div>
+      <button type="button" className="distinction-toggle" aria-expanded={distinction} onClick={() => setDistinction((value) => !value)}>DEPENDENCY ≠ EXPOSURE {distinction ? "−" : "+"}</button>
+      {distinction && <p className="distinction-note">{slide.distinction}</p>}
+    </div>
+  );
+}
+
+export function ExposureConditions({ slide }) {
+  const [pathway, setPathway] = useState("confidentiality");
+  const [checked, setChecked] = useState([]);
+  const path = slide.pathways[pathway];
+  const complete = checked.length === path.conditions.length;
+  const changePath = (id) => { setPathway(id); setChecked([]); };
+  const toggle = (condition) => setChecked((items) => items.includes(condition) ? items.filter((item) => item !== condition) : [...items, condition]);
+  return (
+    <div className="strategic-slide">
+      <SequenceProgress active={4} />
+      <div className="exposure-inputs">{slide.inputs.map(([title, text], index) => <article key={title}><span>INPUT {index + 1}</span><b>{title}</b><p>{text}</p></article>)}</div>
+      <div className="view-tabs" role="group" aria-label="Pilih exposure pathway">
+        {Object.entries(slide.pathways).map(([id, data]) => <button type="button" key={id} aria-pressed={pathway === id} onClick={() => changePath(id)}>{data.title}</button>)}
+      </div>
+      <div className="condition-checks">{path.conditions.map((condition) => <button type="button" key={condition} aria-pressed={checked.includes(condition)} onClick={() => toggle(condition)}><span>{checked.includes(condition) ? "✓" : "+"}</span>{condition}</button>)}</div>
+      <output className={complete ? "exposure-output complete" : "exposure-output"}><b>{complete ? path.complete : path.incomplete}</b><small>{slide.boundary}</small></output>
+    </div>
+  );
+}
+
+export function HndlPriority({ slide }) {
+  const [view, setView] = useState("scenario");
+  const [active, setActive] = useState(0);
+  return (
+    <div className="strategic-slide">
+      <SequenceProgress active={5} />
+      <div className="view-tabs" role="group" aria-label="Tampilan HNDL">
+        <button type="button" aria-pressed={view === "scenario"} onClick={() => setView("scenario")}>Scenario</button>
+        <button type="button" aria-pressed={view === "priority"} onClick={() => setView("priority")}>Why priority?</button>
+      </div>
+      {view === "scenario" ? (
+        <>
+          <div className="hndl-timeline">{slide.timeline.map(([label, text], index) => <button type="button" key={label} aria-pressed={active === index} onClick={() => setActive(index)}><span>{String(index + 1).padStart(2, "0")}</span><b>{label}</b><small>{text}</small></button>)}</div>
+          <div className="hndl-selected" aria-live="polite"><b>{slide.timeline[active][0]}</b><span>{slide.timeline[active][1]}</span></div>
+          <div className="timing-logic"><b>{slide.formula}</b><small>Decision framework—not a prediction of Q-Day.</small></div>
+        </>
+      ) : (
+        <div className="hndl-priority-layout">
+          <div className="score-list">{slide.scores.map(([label, score]) => <div key={label}><span>{label}</span><i><b style={{ width: `${(score / 5) * 100}%` }} /></i><strong>{String(score).replace(".", ",")} / 5</strong></div>)}</div>
+          <aside><span>ADJUSTED PRIORITY</span><strong>{String(slide.adjustedPriority).replace(".", ",")}</strong><small>/ 100 · literature-based decision ordering</small></aside>
+        </div>
+      )}
+      <p className="method-caveat">{slide.caveat}</p>
+    </div>
+  );
+}
+
 export function EvidenceHint({ source }) {
   const [open, setOpen] = useState(true);
   if (!source) return null;
