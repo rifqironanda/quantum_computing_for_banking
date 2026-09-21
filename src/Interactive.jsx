@@ -60,7 +60,6 @@ export function LearningCards({ items }) {
           <h3>{x[1]}</h3>
           <p>{x[2]}</p>
           {x[3] && <p className="card-detail">{selected === i ? x[3] : "Klik untuk penjelasan →"}</p>}
-          {!x[3] && <span className="focus-label">{selected === i ? "Fokus aktif" : "Fokus konsep ↗"}</span>}
         </button>
       ))}
     </div>
@@ -405,7 +404,7 @@ export function PresentationPhysicsFigure() {
 }
 
 export function EvidenceHint({ source }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   if (!source) return null;
   return (
     <div className="evidence-hint">

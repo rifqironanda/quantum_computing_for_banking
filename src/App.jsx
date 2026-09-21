@@ -53,6 +53,40 @@ function Callout({ children }) {
   return children ? <div className="callout">{children}</div> : null;
 }
 
+function SlideLayout({ slide, presentationMode, children, evidence }) {
+  return (
+    <div className="slide-layout">
+      <div className="slide-header-region">
+        <Header slide={slide} interactive={presentationMode} />
+      </div>
+      <div className="slide-body">{children}</div>
+      <div className="slide-evidence">{evidence}</div>
+    </div>
+  );
+}
+
+function WhyQuantumBody({ slide }) {
+  return (
+    <div className="why-quantum-grid">
+      {slide.items.map((item) => (
+        <article className="why-quantum-card" key={item[0]}>
+          <div className="why-card-heading">
+            <span>{item[0]}</span>
+            <h3>{item[1]}</h3>
+          </div>
+          <b>{item[2]}</b>
+          <p>{item[3]}</p>
+          {item[4] && (
+            <div className="why-card-points">
+              {item[4].map((point) => <span key={point}>{point}</span>)}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  );
+}
+
 function ListPanel({ data, accent = "" }) {
   return (
     <article className={`list-panel ${accent}`}>
@@ -222,42 +256,49 @@ export function SlideContent({ slide, presentationMode = false }) {
       );
     case "columns":
       return (
-        <>
-          <Header slide={slide} interactive={presentationMode} />
-          <LearningCards items={slide.items} />
-          <Callout>{slide.callout}</Callout>
-          <Source interactive={presentationMode}>{displaySource}</Source>
-        </>
+        <SlideLayout
+          slide={slide}
+          presentationMode={presentationMode}
+          evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}
+        >
+          {slide.variant === "why-quantum" ? <WhyQuantumBody slide={slide} /> : <LearningCards items={slide.items} />}
+        </SlideLayout>
       );
     case "intersection":
       return (
-        <>
-          <Header slide={slide} interactive={presentationMode} />
+        <SlideLayout
+          slide={slide}
+          presentationMode={presentationMode}
+          evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}
+        >
           <div className="intersection">
             <ListPanel data={slide.left} />
             <div className="intersection-center"><span>{slide.center}</span></div>
             <ListPanel data={slide.right} />
           </div>
-          <Callout>{slide.callout}</Callout>
-          <Source interactive={presentationMode}>{displaySource}</Source>
-        </>
+        </SlideLayout>
       );
     case "split":
       return (
-        <>
-          <Header slide={slide} interactive={presentationMode} />
+        <SlideLayout
+          slide={slide}
+          presentationMode={presentationMode}
+          evidence={<Source interactive={presentationMode}>{displaySource}</Source>}
+        >
           <div className="split">
             <ListPanel data={slide.left} />
             <div className="split-center">{slide.center}</div>
             <ListPanel data={slide.right} accent="orange" />
           </div>
-          <Source interactive={presentationMode}>{displaySource}</Source>
-        </>
+        </SlideLayout>
       );
     case "flow":
       return (
-        <>
-          <Header slide={slide} interactive={presentationMode} />
+        <SlideLayout
+          slide={slide}
+          presentationMode={presentationMode}
+          evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}
+        >
           <div className="flow">
             {slide.items.map((x, i) => (
               <div className="flow-wrap" key={x[0]}>
@@ -270,18 +311,17 @@ export function SlideContent({ slide, presentationMode = false }) {
               </div>
             ))}
           </div>
-          <Callout>{slide.callout}</Callout>
-          <Source interactive={presentationMode}>{displaySource}</Source>
-        </>
+        </SlideLayout>
       );
     case "hndl":
       return (
-        <>
-          <Header slide={slide} interactive={presentationMode} />
+        <SlideLayout
+          slide={slide}
+          presentationMode={presentationMode}
+          evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}
+        >
           <HndlExplorer items={slide.items} />
-          <Callout>{slide.callout}</Callout>
-          <Source interactive={presentationMode}>{displaySource}</Source>
-        </>
+        </SlideLayout>
       );
     case "dualflow":
       return (
