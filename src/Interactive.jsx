@@ -232,20 +232,20 @@ const narrativeOverrides = {
     "Identify exposure → prioritise → plan → test → migrate. Tujuannya mengurangi exposure baru sambil mengelola data lama dan dependency yang masih relevan.",
   ],
   "What Will We Do?": [
-    "Apa yang harus disiapkan agar quantum readiness tidak berhenti sebagai isu teknis?",
-    "People, Technology, Policies & Processes, dan Coordination harus bergerak bersama agar perubahan dapat dimiliki, diuji, dilacak, dan diaudit.",
+    "Apa yang perlu dilakukan setelah HNDL diidentifikasi sebagai exposure yang perlu diperhatikan?",
+    "Bangun quantum readiness melalui empat workstream: ownership, technology visibility, decision process, dan koordinasi vendor.",
   ],
   "Quantum Readiness Lifecycle": [
-    "Bagaimana quantum readiness diterjemahkan menjadi siklus kerja?",
-    "Govern → discover → assess → plan → test → migrate → validate → monitor. Siklus ini menempatkan crypto-agility sebagai kemampuan berkelanjutan.",
+    "Bagaimana pustaka readiness menerjemahkan persiapan menjadi siklus kerja?",
+    "Mobilise, discover, transition, dan sustain menghubungkan governance hingga monitoring. Evidence dari satu tahap menjadi input tahap berikutnya.",
   ],
   "Why Inventory Comes First": [
-    "Mengapa cryptographic inventory ditempatkan sebelum keputusan migrasi?",
-    "Karena organisasi perlu mengetahui algorithms, keys, certificates, applications, protocols, owner, data protected, dan dependency sebelum menentukan prioritas serta migration path.",
+    "Mengapa inventory muncul sebelum assessment dan migration planning?",
+    "Karena prioritas memerlukan fakta tentang penggunaan kriptografi, konteks bisnis, owner, data yang dilindungi, serta dependency migrasi.",
   ],
   "Risk-Based Prioritisation": [
-    "Bagaimana menentukan sistem mana yang perlu ditangani lebih dahulu?",
-    "Prioritas mengikuti fungsi kriptografi, secrecy lifetime, criticality, migration complexity, interoperability, dan vendor readiness—bukan hanya nama algoritma.",
+    "Bagaimana hasil inventory berubah menjadi urutan tindakan?",
+    "Assessment membandingkan crypto function, secrecy lifetime, criticality, migration complexity, dan vendor readiness untuk membentuk migration backlog.",
   ],
   "What Is Actually Quantum?": [
     "Apa yang benar-benar bersifat quantum di dalam quantum computing?",
@@ -574,6 +574,158 @@ export function HndlPriority({ slide }) {
         </div>
       )}
       <p className="method-caveat">{slide.caveat}</p>
+    </div>
+  );
+}
+
+const readinessSequence = ["ACTIONS", "LIFECYCLE", "INVENTORY", "PRIORITISE"];
+
+function ReadinessProgress({ active }) {
+  return (
+    <nav className="readiness-sequence" aria-label="Alur quantum readiness slide 15 sampai 18">
+      {readinessSequence.map((label, index) => (
+        <span key={label} className={index === active ? "active" : index < active ? "done" : ""}>
+          <i>{String(index + 1).padStart(2, "0")}</i>{label}
+        </span>
+      ))}
+    </nav>
+  );
+}
+
+export function ReadinessResponse({ slide }) {
+  const [active, setActive] = useState(0);
+  const item = slide.items[active];
+  return (
+    <div className="readiness-story">
+      <ReadinessProgress active={0} />
+      <div className="response-map">
+        <div className="response-core"><span>HNDL</span><b>{slide.center}</b></div>
+        <div className="response-workstreams" role="list" aria-label="Workstream quantum readiness">
+          {slide.items.map(([title], index) => (
+            <button
+              type="button"
+              role="listitem"
+              key={title}
+              aria-pressed={active === index}
+              onClick={() => setActive(index)}
+              onPointerEnter={() => setActive(index)}
+            >
+              <span>{String(index + 1).padStart(2, "0")}</span><b>{title}</b>
+            </button>
+          ))}
+        </div>
+        <article className="response-detail" aria-live="polite">
+          <span>WORKSTREAM {String(active + 1).padStart(2, "0")}</span>
+          <h3>{item[0]}</h3>
+          <p>{item[1]}</p>
+          <small>OUTPUT</small>
+          <strong>{slide.outcomes[active]}</strong>
+        </article>
+      </div>
+      <p className="readiness-transition">Empat workstream tersebut dijalankan melalui lifecycle yang berulang.</p>
+    </div>
+  );
+}
+
+export function ReadinessLifecycle({ slide }) {
+  const [phaseIndex, setPhaseIndex] = useState(1);
+  const [stepIndex, setStepIndex] = useState(0);
+  const phase = slide.phases[phaseIndex];
+  const step = phase.steps[Math.min(stepIndex, phase.steps.length - 1)];
+  const choosePhase = (index) => {
+    setPhaseIndex(index);
+    setStepIndex(0);
+  };
+  return (
+    <div className="readiness-story">
+      <ReadinessProgress active={1} />
+      <div className="lifecycle-line" role="list" aria-label="Empat fase quantum readiness lifecycle">
+        {slide.phases.map((item, index) => (
+          <button type="button" role="listitem" key={item.label} aria-pressed={phaseIndex === index} onClick={() => choosePhase(index)}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <b>{item.label}</b>
+            <small>{item.purpose}</small>
+          </button>
+        ))}
+      </div>
+      <div className="lifecycle-detail">
+        <div className="lifecycle-steps" role="group" aria-label={`Langkah fase ${phase.label}`}>
+          {phase.steps.map(([title], index) => (
+            <button type="button" key={title} aria-pressed={stepIndex === index} onClick={() => setStepIndex(index)}>
+              <i>{String(index + 1).padStart(2, "0")}</i><span>{title}</span>
+            </button>
+          ))}
+        </div>
+        <article aria-live="polite">
+          <span>{phase.label.toUpperCase()}</span>
+          <h3>{step[0]}</h3>
+          <p>{step[1]}</p>
+          <small>{phaseIndex === slide.phases.length - 1 ? "Monitoring memicu siklus berikutnya." : "Evidence tahap ini menjadi input bagi tahap berikutnya."}</small>
+        </article>
+      </div>
+    </div>
+  );
+}
+
+export function InventoryFirst({ slide }) {
+  const [active, setActive] = useState(0);
+  const group = slide.groups[active];
+  return (
+    <div className="readiness-story">
+      <ReadinessProgress active={2} />
+      <div className="inventory-rationale">
+        <div className="inventory-groups" role="list" aria-label="Kelompok data cryptographic inventory">
+          {slide.groups.map((item, index) => (
+            <button type="button" role="listitem" key={item.label} aria-pressed={active === index} onClick={() => setActive(index)}>
+              <span>INPUT {String(index + 1).padStart(2, "0")}</span><b>{item.label}</b><small>{item.question}</small>
+            </button>
+          ))}
+        </div>
+        <article className="inventory-evidence" aria-live="polite">
+          <span>{group.question}</span>
+          <h3>{group.label}</h3>
+          <ul>{group.fields.map((field) => <li key={field}>{field}</li>)}</ul>
+          <p>{group.decision}</p>
+        </article>
+        <div className="inventory-output">
+          <span>OUTPUT</span><b>{slide.output}</b>
+          <small>Exposure + ownership + migration context</small>
+        </div>
+      </div>
+      <p className="readiness-transition">Inventory mengubah dugaan umum menjadi evidence yang dapat dibandingkan.</p>
+    </div>
+  );
+}
+
+export function RiskPrioritisation({ slide }) {
+  const [active, setActive] = useState(0);
+  const candidate = slide.candidates[active];
+  return (
+    <div className="readiness-story">
+      <ReadinessProgress active={3} />
+      <div className="risk-input-strip" aria-label="Data inventory yang digunakan untuk assessment">
+        {slide.inventoryInputs.map(([title, text], index) => (
+          <article key={title}><span>DATA {index + 1}</span><b>{title}</b><small>{text}</small></article>
+        ))}
+      </div>
+      <div className="risk-priority-layout">
+        <div className="risk-candidates" role="list" aria-label="Contoh jalur prioritisasi">
+          {slide.candidates.map((item, index) => (
+            <button type="button" role="listitem" key={item.label} aria-pressed={active === index} onClick={() => setActive(index)}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <b>{item.label}</b>
+              <small>{item.mechanism}</small>
+            </button>
+          ))}
+        </div>
+        <article className="risk-decision" aria-live="polite">
+          <div><span>DECISION ORDER</span><strong>{candidate.priority}</strong></div>
+          <h3>{candidate.label}</h3>
+          <ul>{candidate.evidence.map((item) => <li key={item}>{item}</li>)}</ul>
+          <p>{candidate.decision}</p>
+        </article>
+      </div>
+      <p className="method-caveat">{slide.methodology}</p>
     </div>
   );
 }

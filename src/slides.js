@@ -311,23 +311,29 @@ export const slides = [
     source: refs.risk,
   },
   {
-    kind: "orbit",
+    kind: "readiness_response",
     title: "What Will We Do?",
-    subtitle:
-      "Quantum readiness mencakup pengelolaan risiko, perubahan teknologi, dan koordinasi organisasi.",
+    subtitle: "HNDL menjadi pemicu untuk membangun kemampuan perubahan kriptografi yang terkelola.",
     center: "Quantum Readiness",
     items: [
-      ["People", "Pemahaman & tanggung jawab"],
-      ["Technology", "Inventory & migration path"],
-      ["Policies & Processes", "Prioritas & rencana perubahan"],
-      ["Coordination", "Vendor & ekosistem"],
+      ["People", "Tetapkan sponsor, owner, dan tanggung jawab lintas fungsi"],
+      ["Technology", "Temukan penggunaan kriptografi dan siapkan migration path"],
+      ["Policies & Processes", "Gunakan evidence untuk prioritas, pengujian, dan assurance"],
+      ["Coordination", "Sinkronkan roadmap internal dengan vendor dan ekosistem"],
     ],
+    outcomes: [
+      "Ownership yang jelas",
+      "Cryptographic inventory",
+      "Prioritised migration backlog",
+      "Tested transition plan",
+    ],
+    callout: "Respons awal membangun ownership, visibility, dan kemampuan perubahan sebelum migrasi dilakukan secara bertahap.",
     source: refs.readiness,
   },
   {
-    kind: "cycle",
+    kind: "readiness_lifecycle",
     title: "Quantum Readiness Lifecycle",
-    subtitle: "Persiapan, pelaksanaan, dan evaluasi berkelanjutan.",
+    subtitle: "Pustaka readiness menyatukan governance, discovery, transition, dan monitoring sebagai siklus berulang.",
     items: [
       "Govern & build awareness",
       "Discover & inventory",
@@ -338,14 +344,47 @@ export const slides = [
       "Validate & assure",
       "Monitor & remain agile",
     ],
-    callout: "Governance • Vendor coordination • Continuous monitoring",
+    phases: [
+      {
+        label: "Mobilise",
+        purpose: "Membentuk mandat dan akuntabilitas",
+        steps: [
+          ["Govern & build awareness", "Sponsor, owner, decision rights, dan pemahaman lintas fungsi"],
+        ],
+      },
+      {
+        label: "Discover",
+        purpose: "Mengubah ketidakpastian menjadi evidence",
+        steps: [
+          ["Discover & inventory", "Lokasi, fungsi, data, owner, dan dependency kriptografi"],
+          ["Assess & prioritise", "Exposure, criticality, migration complexity, dan readiness"],
+        ],
+      },
+      {
+        label: "Transition",
+        purpose: "Mengelola perubahan secara bertahap",
+        steps: [
+          ["Plan & coordinate", "Roadmap internal, vendor, procurement, dan dependency"],
+          ["Pilot & test", "Interoperability, performance, operability, dan rollback"],
+          ["Migrate in phases", "Implementasi berdasarkan prioritas dan hasil pengujian"],
+          ["Validate & assure", "Cakupan, konfigurasi, evidence, dan residual exposure"],
+        ],
+      },
+      {
+        label: "Sustain",
+        purpose: "Menjaga crypto-agility setelah migrasi",
+        steps: [
+          ["Monitor & remain agile", "Standar, capability, vendor roadmap, dan perubahan exposure"],
+        ],
+      },
+    ],
+    callout: "Lifecycle ini iteratif. Monitoring dapat memicu inventory, assessment, dan planning berikutnya.",
     source: refs.readiness,
   },
   {
-    kind: "inventory",
+    kind: "inventory_rationale",
     title: "Why Inventory Comes First",
-    subtitle:
-      "Prioritas migrasi memerlukan pemahaman lokasi, fungsi, dan dependensi kriptografi.",
+    subtitle: "Tanpa inventory, organisasi belum memiliki dasar untuk menentukan exposure, owner, atau urutan perubahan.",
     items: [
       "Algorithms • keys • certificates",
       "Applications • protocols • libraries",
@@ -355,14 +394,34 @@ export const slides = [
       "Data protected",
       "Migration dependency",
     ],
-    output: "Cryptographic inventory",
+    groups: [
+      {
+        label: "Cryptographic objects",
+        question: "Apa dan di mana kriptografi digunakan?",
+        fields: ["Algorithms, keys, certificates", "Applications, protocols, libraries", "HSM, KMS, dan configurations"],
+        decision: "Mengidentifikasi schemes dan fungsi yang perlu dinilai.",
+      },
+      {
+        label: "Business context",
+        question: "Apa yang dilindungi dan siapa yang bertanggung jawab?",
+        fields: ["System owner", "Business function dan criticality", "Data protected dan secrecy lifetime"],
+        decision: "Menghubungkan dependency teknis dengan dampak bisnis.",
+      },
+      {
+        label: "Migration dependencies",
+        question: "Apa yang menentukan jalur dan waktu perubahan?",
+        fields: ["Interfaces dan interoperability", "Third parties dan vendor roadmap", "Replacement, testing, dan rollback constraints"],
+        decision: "Menentukan feasibility, lead time, dan urutan eksekusi.",
+      },
+    ],
+    output: "Evidence base for risk-based prioritisation",
+    callout: "Inventory menghubungkan penggunaan kriptografi dengan konteks bisnis dan dependency migrasi sebagai evidence yang terus diperbarui.",
     source: refs.readiness,
   },
   {
-    kind: "table",
+    kind: "risk_prioritisation",
     title: "Risk-Based Prioritisation",
-    subtitle:
-      "Urutan migrasi mengikuti fungsi kriptografi, umur kerahasiaan data, dan dampak gangguan.",
+    subtitle: "Data inventory menjadi input untuk membandingkan urgency, impact, dan feasibility perubahan.",
     headers: ["Exposure", "Mechanism", "Consideration"],
     rows: [
       [
@@ -381,6 +440,36 @@ export const slides = [
         "Criticality, interoperability, dan vendor readiness",
       ],
     ],
+    inventoryInputs: [
+      ["Crypto function", "Confidentiality, authentication, signature, atau key establishment"],
+      ["Data & service", "Secrecy lifetime, business criticality, dan impact"],
+      ["Dependency", "Interoperability, vendor path, dan migration lead time"],
+    ],
+    candidates: [
+      {
+        label: "Long-lived confidentiality",
+        mechanism: "HNDL",
+        evidence: ["Data tetap sensitif dalam jangka panjang", "Public-key key establishment teridentifikasi", "Migration lead time menambah exposure window"],
+        decision: "Kurangi exposure baru dan mulai migration planning lebih awal.",
+        priority: "EARLIER",
+      },
+      {
+        label: "Authentication & digital signatures",
+        mechanism: "Future forgery risk",
+        evidence: ["Certificates atau signatures menjaga identity dan trust", "Service criticality tinggi", "Dependency lintas sistem memperpanjang transisi"],
+        decision: "Petakan trust chain dan uji jalur penggantian secara bertahap.",
+        priority: "PLAN",
+      },
+      {
+        label: "Critical services & dependencies",
+        mechanism: "Migration complexity",
+        evidence: ["Interoperability menentukan waktu perubahan", "Vendor roadmap belum sepenuhnya selaras", "Rollback dan assurance perlu disiapkan"],
+        decision: "Masukkan dependency dan vendor readiness ke migration backlog.",
+        priority: "COORDINATE",
+      },
+    ],
+    methodology: "Urutan bersifat ilustratif dan evidence-led. Hasil akhir memerlukan data inventory aktual, risk appetite, dan validasi owner.",
+    callout: "Inventory memberi fakta. Assessment mengubah fakta tersebut menjadi urutan tindakan yang dapat dipertanggungjawabkan.",
     source: refs.readiness,
   },
   {
