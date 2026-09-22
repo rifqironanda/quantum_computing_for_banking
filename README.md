@@ -1,7 +1,8 @@
 # Quantum Banking Research Dashboard
 
-Dashboard menyatukan 30 materi, HNDL explorer, readiness lifecycle, dan empat lab
-dari repo computing_and_quantum. Mode presentasi tersedia melalui tombol di kanan atas.
+Dashboard menyatukan 30 materi, HNDL explorer, readiness lifecycle, editor outline
+laporan, dan empat lab dari repo computing_and_quantum. Mode presentasi tersedia
+melalui tombol di kanan atas.
 
 Lihat [dokumentasi integrasi](docs/INTEGRATION.md) untuk arsitektur, versi sumber,
 adaptasi, dan konfigurasi backend Qiskit opsional. Empat lab browser dapat dipakai
@@ -18,6 +19,10 @@ Presentasi web interaktif yang mengadaptasi kajian **Quantum Computing pada Sekt
 - Daftar slide untuk berpindah langsung ke bagian tertentu.
 - URL hash (`#slide-12`) sehingga slide dapat ditautkan langsung.
 - Mode fullscreen dan progress indicator.
+- Editor outline laporan 10 bab dengan rich text, pencarian, status, autosave,
+  progress, serta ekspor JSON.
+- Persistence adapter: localStorage secara default dan REST API melalui
+  `VITE_REPORT_API_URL` untuk integrasi database.
 - Desain responsif untuk desktop dan perangkat bergerak.
 - Print stylesheet untuk ekspor melalui fitur Print browser.
 - Deployment otomatis ke GitHub Pages.
@@ -96,6 +101,8 @@ Pada repository GitHub, pilih **Settings → Pages → Source: GitHub Actions**.
 ```
 
 Dokumentasi teknis lebih rinci tersedia di [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+Rancangan database editor laporan tersedia di
+[`docs/DATABASE_ARCHITECTURE.md`](docs/DATABASE_ARCHITECTURE.md).
 
 ## Catatan sumber
 
