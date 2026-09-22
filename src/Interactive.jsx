@@ -272,20 +272,20 @@ const narrativeOverrides = {
     "Setiap algoritma menargetkan problem class dan resource assumptions tertentu. Shor menjadi penting karena memetakan langsung ke IFP, DLP, dan ECDLP.",
   ],
   "Why Public-Key Cryptography Is Exposed": [
-    "Skema public-key mana yang terkait dengan masalah matematika yang ditargetkan Shor?",
-    "RSA terkait integer factorisation; finite-field Diffie–Hellman terkait discrete logarithm; ECC-based schemes terkait elliptic-curve discrete logarithm.",
+    "Bagaimana Shor mengubah security assumption pada public-key cryptography?",
+    "Shor menargetkan integer factorisation, discrete logarithm, dan elliptic-curve discrete logarithm. Dampaknya bergantung pada CRQC dan deployment aktual.",
   ],
   "International Institutional Response": [
-    "Bagaimana lembaga internasional merespons transisi menuju post-quantum cryptography?",
-    "Respons mencakup standardisation, implementation guidance, discovery/interoperability practice, dan financial-sector coordination. Fungsi setiap dokumen perlu dibedakan.",
+    "Mengapa respons internasional terdiri dari banyak jenis dokumen dan institusi?",
+    "NIST menetapkan standar, implementers menguji migrasi, dan otoritas keuangan mengoordinasikan dependency serta supervisory readiness.",
   ],
   "Common Themes Across Selected Benchmarks": [
-    "Tema apa yang konsisten muncul pada benchmark quantum readiness yang dipilih?",
-    "Early preparation, accountable governance, inventory, risk-based prioritisation, vendor coordination, testing, phased migration, monitoring, dan crypto-agility.",
+    "Apakah benchmark internasional mendukung prioritas yang muncul dari workbook?",
+    "Ya. Tema terkuat berpusat pada long-lived data, public-key dependency, inventory, migration complexity, governance, dan ecosystem coordination.",
   ],
   "Implications for Indonesian Banking": [
-    "Bagaimana quantum readiness dapat ditempatkan dalam konteks tata kelola perbankan Indonesia?",
-    "Sebagai aplikasi governance dan technology-risk management: ownership, inventory, vendor management, testing, assurance, dan monitoring—tanpa mengklaim kewajiban quantum eksplisit tanpa legal traceability.",
+    "Bagaimana temuan global diterjemahkan ke kerangka regulasi perbankan Indonesia?",
+    "POJK, SEOJK, PADK OJK, PBI, dan PADG menyediakan governance hooks untuk inventory, assessment, vendor control, testing, serta monitoring. Reviewed texts belum menetapkan mandat PQC eksplisit.",
   ],
 };
 
@@ -882,6 +882,139 @@ export function AlgorithmFrontier({ slide }) {
           <strong>{algorithm.bridge}</strong>
         </article>
       </div>
+    </div>
+  );
+}
+
+const closingSequence = ["EXPOSURE", "RESPONSE", "THEMES", "INDONESIA", "EVIDENCE", "REGULATION"];
+
+function ClosingProgress({ active }) {
+  return (
+    <nav className="closing-progress" aria-label="Alur sintesis slide 25 sampai 30">
+      {closingSequence.map((label, index) => (
+        <span key={label} className={index === active ? "active" : index < active ? "done" : ""}>
+          <i>{String(index + 1).padStart(2, "0")}</i>{label}
+        </span>
+      ))}
+    </nav>
+  );
+}
+
+export function PublicKeyExposure({ slide }) {
+  const [active, setActive] = useState(0);
+  const [mode, setMode] = useState("crqc");
+  const scheme = slide.schemes[active];
+  return (
+    <div className="closing-story">
+      <ClosingProgress active={0} />
+      <div className="threat-branch"><span>DUAL RELEVANCE</span><b>Emerging Threats</b><small>Cryptanalytic pathway</small></div>
+      <div className="scheme-tabs" role="list" aria-label="Public-key schemes">
+        {slide.schemes.map((item, index) => (
+          <button type="button" role="listitem" key={item.id} aria-pressed={active === index} onClick={() => setActive(index)}>
+            <b>{item.scheme}</b><small>{item.assumption}</small>
+          </button>
+        ))}
+      </div>
+      <div className="capability-switch" role="group" aria-label="Pilih capability state">
+        <button type="button" aria-pressed={mode === "current"} onClick={() => setMode("current")}>Current capability</button>
+        <button type="button" aria-pressed={mode === "crqc"} onClick={() => setMode("crqc")}>Future CRQC scenario</button>
+      </div>
+      {mode === "current" ? (
+        <article className="current-security" aria-live="polite"><span>CURRENT STATE</span><h3>{scheme.scheme}</h3><p>No demonstrated CRQC currently breaks deployed cryptographic-scale instances. Security still depends on implementation quality, key management, and classical threats.</p></article>
+      ) : (
+        <div className="exposure-path" aria-live="polite">
+          <article><span>01 · PUBLIC INPUT</span><p>{scheme.publicInput}</p></article>
+          <article><span>02 · SHOR</span><p>{scheme.quantumStep}</p></article>
+          <article><span>03 · PRIVATE MATERIAL</span><p>{scheme.recovered}</p></article>
+          <article><span>04 · AFFECTED FUNCTION</span><p>{scheme.functions.join(" / ")}</p></article>
+          <article className="exposure-impact"><span>POTENTIAL IMPACT</span><p>{scheme.impacts.join(". ")}</p></article>
+        </div>
+      )}
+      <p className="analysis-boundary">{slide.boundary}</p>
+    </div>
+  );
+}
+
+export function InstitutionMatrix({ slide }) {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="closing-story">
+      <ClosingProgress active={1} />
+      <div className="institution-matrix" role="table" aria-label="Matrix respons institusi internasional">
+        <div className="institution-head" role="row">{slide.columns.map((column) => <b role="columnheader" key={column}>{column}</b>)}</div>
+        {slide.items.map((row, index) => (
+          <button type="button" role="row" key={row[0]} aria-pressed={active === index} onClick={() => setActive(index)}>
+            {row.map((cell, cellIndex) => <span role="cell" key={cell}>{cellIndex === 0 ? <strong>{cell}</strong> : cell}</span>)}
+          </button>
+        ))}
+      </div>
+      <p className="matrix-explainer" aria-live="polite"><b>{slide.items[active][0]}</b><span>{slide.items[active][3]}</span></p>
+    </div>
+  );
+}
+
+export function BenchmarkSynthesis({ slide }) {
+  const [active, setActive] = useState(0);
+  const theme = slide.themes[active];
+  return (
+    <div className="closing-story">
+      <ClosingProgress active={2} />
+      <div className="theme-priority-layout">
+        <div className="theme-score-list" role="list" aria-label="Prioritas tema berdasarkan workbook">
+          {slide.themes.map((item, index) => (
+            <button type="button" role="listitem" key={item.label} aria-pressed={active === index} onClick={() => setActive(index)}>
+              <span>{item.rank}</span><b>{item.label}</b><i><em style={{ width: `${item.score}%` }} /></i><strong>{item.score.toLocaleString("id-ID", { maximumFractionDigits: 2 })}</strong>
+            </button>
+          ))}
+        </div>
+        <article className="theme-score-detail" aria-live="polite">
+          <span>{theme.ids} · RANK {theme.rank}</span><h3>{theme.label}</h3><strong>{theme.score.toLocaleString("id-ID", { maximumFractionDigits: 2 })} / 100</strong>
+          <p>{theme.evidence}</p><small>DECISION</small><b>{theme.action}</b>
+        </article>
+      </div>
+      <p className="analysis-boundary">{slide.methodology}</p>
+    </div>
+  );
+}
+
+export function IndonesiaMapping({ slide }) {
+  const [active, setActive] = useState(0);
+  const mapping = slide.mappings[active];
+  return (
+    <div className="closing-story">
+      <ClosingProgress active={3} />
+      <div className="indonesia-layout">
+        <div className="regulation-list" role="list" aria-label="Instrumen regulasi Indonesia">
+          {slide.mappings.map((item, index) => (
+            <button type="button" role="listitem" key={item.instrument} aria-pressed={active === index} onClick={() => setActive(index)}>
+              <span>{String(index + 1).padStart(2, "0")}</span><b>{item.instrument}</b><small>{item.scope}</small>
+            </button>
+          ))}
+        </div>
+        <article className="regulation-detail" aria-live="polite">
+          <span>REGULATORY ANCHOR</span><h3>{mapping.instrument}</h3><p>{mapping.anchors}</p>
+          <small>READINESS APPLICATION</small><strong>{mapping.application}</strong>
+        </article>
+      </div>
+      <div className="indonesia-priorities">{slide.priorities.map(([number, title, text]) => <article key={number}><span>{number}</span><b>{title}</b><small>{text}</small></article>)}</div>
+      <p className="analysis-boundary">{slide.boundary}</p>
+    </div>
+  );
+}
+
+export function EvidenceReferences({ slide, sequenceIndex }) {
+  const [active, setActive] = useState(0);
+  const group = slide.groups[active];
+  return (
+    <div className="closing-story reference-story">
+      <ClosingProgress active={sequenceIndex} />
+      <div className="reference-tabs" role="list" aria-label="Kelompok referensi">
+        {slide.groups.map((item, index) => <button type="button" role="listitem" key={item.label} aria-pressed={active === index} onClick={() => setActive(index)}>{item.label}</button>)}
+      </div>
+      <article className="reference-detail" aria-live="polite">
+        <span>{group.label.toUpperCase()}</span>
+        <ol>{group.items.map((item) => <li key={item}>{item}</li>)}</ol>
+      </article>
     </div>
   );
 }

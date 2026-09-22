@@ -10,6 +10,10 @@ const refs = {
     "Nielsen & Chuang (2010); Feynman (1982); Deutsch (1985); Preskill (2018).",
   algorithms:
     "Shor (1997); Grover (1996); Brassard et al. (2002); Farhi et al. (2014); Cerezo et al. (2022).",
+  globalResponse:
+    "NIST FIPS 203–205 (2024); NIST IR 8547 (2024); NIST NCCoE; CISA, NSA & NIST (2023); BIS Papers No. 158 (2025); BIS Project Leap (2023–2025); G7 CEG (2026); MAS (2024).",
+  indonesia:
+    "OJK POJK 11/POJK.03/2022; SEOJK 29/SEOJK.03/2022; PADK OJK 1/2026; BI PBI 2/2024; PADG 24/2024.",
 };
 
 export const slides = [
@@ -585,38 +589,69 @@ export const slides = [
     source: refs.algorithms,
   },
   {
-    kind: "mapping",
+    kind: "public_key_exposure",
     title: "Why Public-Key Cryptography Is Exposed",
-    subtitle:
-      "Shor’s algorithm menargetkan masalah matematika di balik beberapa skema public-key.",
+    subtitle: "Shor mengubah difficulty assumption yang menopang RSA, finite-field Diffie–Hellman, dan elliptic-curve cryptography.",
     items: [
       ["RSA", "Integer factorisation"],
       ["Finite-field Diffie–Hellman", "Discrete logarithm"],
       ["ECC-based schemes", "Elliptic-curve discrete logarithm"],
     ],
-    tags: [
-      "Key establishment → confidentiality exposure",
-      "Digital signatures → authentication & integrity",
+    schemes: [
+      {
+        id: "rsa",
+        scheme: "RSA",
+        assumption: "Integer factorisation",
+        publicInput: "Public modulus n dan public exponent e",
+        quantumStep: "Shor menemukan struktur periodik untuk memfaktorkan n = p × q",
+        recovered: "Private exponent dapat diturunkan dari faktor p dan q",
+        functions: ["Key transport atau encryption", "Digital signature"],
+        impacts: ["Potential confidentiality compromise", "Potential signature forgery"],
+      },
+      {
+        id: "dh",
+        scheme: "Finite-field DH",
+        assumption: "Discrete logarithm",
+        publicInput: "Generator g dan public value gˣ mod p",
+        quantumStep: "Shor menyelesaikan discrete logarithm untuk memperoleh exponent x",
+        recovered: "Private exponent memungkinkan shared secret dihitung",
+        functions: ["Key establishment"],
+        impacts: ["Potential decryption of captured sessions when conditions are met"],
+      },
+      {
+        id: "ecc",
+        scheme: "ECC-based schemes",
+        assumption: "Elliptic-curve discrete logarithm",
+        publicInput: "Base point G dan public point Q = dG",
+        quantumStep: "Shor menyelesaikan ECDLP untuk memperoleh private scalar d",
+        recovered: "Private key dapat digunakan pada fungsi agreement atau signature",
+        functions: ["ECDH key establishment", "ECDSA-style signature"],
+        impacts: ["Potential confidentiality compromise", "Potential authentication and integrity compromise"],
+      },
     ],
-    source: refs.risk,
+    boundary: "Exposure memerlukan CRQC yang memadai, skema rentan yang benar-benar digunakan, akses terhadap target data atau signature, dan kondisi implementasi yang relevan.",
+    callout: "Ini adalah jalur Emerging Threats pada dual relevance. Fakta algoritmik Shor harus dipisahkan dari waktu hadirnya capability dan exposure aktual bank.",
+    source: `${refs.algorithms} ${refs.risk}`,
   },
   {
-    kind: "response",
+    kind: "institution_matrix",
     title: "International Institutional Response",
-    subtitle:
-      "Standar teknis, dukungan implementasi, dan koordinasi sektor keuangan.",
+    subtitle: "Setiap institusi menangani lapisan yang berbeda, mulai dari standar algoritma hingga koordinasi migrasi sektor keuangan.",
     items: [
-      ["Standardisation — NIST", "ML-KEM • ML-DSA • SLH-DSA"],
-      ["Implementation — NIST NCCoE", "Discovery • interoperability • migration practice"],
-      ["Financial-sector coordination — G7 CEG", "Transition roadmap • ecosystem dependencies"],
+      ["NIST", "Standardisation", "FIPS 203, 204, 205", "Algoritma pengganti apa yang tersedia?"],
+      ["NIST NCCoE / CISA", "Migration practice", "Discovery, inventory, interoperability", "Di mana kriptografi digunakan dan bagaimana mengubahnya?"],
+      ["BIS / Project Leap", "Financial implementation", "Roadmap, payment experiments, operational lessons", "Bagaimana migrasi bekerja pada infrastruktur keuangan?"],
+      ["G7 CEG", "Sector coordination", "Coordinated roadmap and ecosystem dependencies", "Bagaimana institusi bergerak dengan dependency yang sama?"],
+      ["MAS / CSA Singapore", "Supervisory readiness", "Cyber advisory, migration handbook, readiness index", "Bagaimana readiness dinilai dan dipantau?"],
     ],
-    callout:
-      "Peran dan status dokumen berbeda; IT roadmap tidak sama dengan regulatory expectation.",
-    source: refs.readiness,
+    columns: ["Institution", "Role", "Evidence / output", "Plain-language question"],
+    callout: "Technical standard, implementation guidance, experiment, dan supervisory signal memiliki fungsi serta kekuatan normatif yang berbeda.",
+    source: refs.globalResponse,
   },
   {
-    kind: "themes",
+    kind: "benchmark_synthesis",
     title: "Common Themes Across Selected Benchmarks",
+    subtitle: "Tema benchmark menguatkan hasil quantitative prioritisation pada jalur Emerging Threats dan Quantum Readiness.",
     items: [
       "Early preparation",
       "Accountable governance",
@@ -627,63 +662,121 @@ export const slides = [
       "Phased migration",
       "Monitoring & crypto-agility",
     ],
-    callout: "Sintesis lintas sumber; bukan matriks endorsement.",
-    source: refs.readiness,
+    themes: [
+      { label: "Protect long-lived data", score: 97.85, rank: 1, ids: "T01", evidence: "HNDL membuat data-lifetime mapping relevan sebelum CRQC tersedia.", action: "Map secrecy lifetime dan exposure window." },
+      { label: "Understand public-key dependency", score: 95.8, rank: 2, ids: "T02", evidence: "Shor memberi dasar teknis, sedangkan timing dan deployment tetap uncertain.", action: "Pisahkan algorithmic fact dari engineering feasibility." },
+      { label: "Build cryptographic inventory", score: 93.86, rank: 3, ids: "T03", evidence: "Assessment bank-specific memerlukan visibility atas algorithms, functions, data, owners, dan dependencies.", action: "Bangun inventory yang dapat diperbarui." },
+      { label: "Plan migration and interoperability", score: 91.75, rank: 4, ids: "T04", evidence: "Legacy systems, testing, dan vendor dependencies menciptakan lead time panjang.", action: "Susun migration backlog dan test plan." },
+      { label: "Govern and remain crypto-agile", score: 88.98, rank: 5, ids: "T07", evidence: "Governance dan crypto-agility tetap berguna di bawah ketidakpastian timeline.", action: "Tetapkan ownership, monitoring, dan decision gates." },
+      { label: "Coordinate shared dependencies", score: 87.0, rank: 6, ids: "T05/T08", evidence: "Vendor dan payment dependencies dapat mempercepat standardisation sekaligus menciptakan common-mode risk.", action: "Koordinasikan vendor dan ecosystem roadmap." },
+    ],
+    methodology: "Adjusted priority adalah literature-based decision ordering. Nilai ini bukan probabilitas CRQC, expected loss, atau rating risiko bank tertentu.",
+    callout: "Quantitative prioritisation mengarahkan fokus ke ancaman kriptografi dan readiness, sedangkan potential benefits tetap berada pada horizon research and validation.",
+    source: `${refs.globalResponse} Quantum banking quantitative prioritisation workbook (Theme Prioritisation).`,
   },
   {
-    kind: "split",
+    kind: "indonesia_mapping",
     title: "Implications for Indonesian Banking",
-    subtitle:
-      "Quantum readiness dapat diusulkan sebagai penerapan tata kelola dan manajemen risiko TI.",
-    left: {
-      title: "Existing Governance Areas",
-      items: [
-        "Tata kelola dan manajemen risiko TI",
-        "Pengamanan informasi dan jaringan",
-        "Pengelolaan penyedia jasa TI",
-        "Pengendalian, audit, dan pelaporan",
-      ],
-    },
-    right: {
-      title: "Proposed Quantum-Readiness Applications",
-      items: [
-        "Tetapkan owner dan baseline assessment",
-        "Bangun cryptographic inventory",
-        "Evaluasi vendor roadmap & interoperability",
-        "Lakukan pilots, assurance, dan monitoring",
-      ],
-    },
-    center:
-      "Pemetaan ini bukan bukti kewajiban eksplisit “quantum readiness”; perlu legal traceability.",
-    source: refs.readiness,
+    subtitle: "Regulasi yang berlaku menyediakan governance hooks untuk readiness, meskipun dokumen yang ditelaah belum menetapkan mandat quantum atau PQC secara eksplisit.",
+    mappings: [
+      {
+        instrument: "POJK 11/POJK.03/2022",
+        scope: "Penyelenggaraan TI bank umum",
+        anchors: "Identifikasi aset, ancaman, dan kerentanan. Cyber maturity, testing, independent cyber function, dan third-party oversight.",
+        application: "Masukkan cryptographic assets, HNDL scenario, dan vendor migration dependency ke proses risiko TI.",
+      },
+      {
+        instrument: "SEOJK 29/SEOJK.03/2022",
+        scope: "Ketahanan dan keamanan siber bank umum",
+        anchors: "Risk assessment, technology change review, international standards, cryptographic controls, data flow, dan third-party controls.",
+        application: "Bangun crypto inventory, data-lifetime assessment, control review, dan monitoring perubahan standar.",
+      },
+      {
+        instrument: "PADK OJK 1/2026",
+        scope: "Pedoman teknis penyelenggaraan TI bank umum",
+        anchors: "IT governance, architecture, strategic plan, information security, providers, data protection, audit, dan reporting.",
+        application: "Integrasikan crypto-agility dan migration roadmap ke arsitektur serta rencana strategis TI.",
+      },
+      {
+        instrument: "PBI 2/2024 and PADG 24/2024",
+        scope: "KKS untuk sistem pembayaran dan pihak yang diawasi BI",
+        anchors: "Governance, cyber-risk identification, BIA, protection, monitoring, response, recovery, dan collaboration.",
+        application: "Koordinasikan dependency kriptografi pada payment infrastructure sesuai ruang lingkup kewenangan BI.",
+      },
+    ],
+    priorities: [
+      ["01", "Visibility", "Cryptographic inventory dan data-lifetime mapping"],
+      ["02", "Decision", "Risk-based prioritisation dan accountable ownership"],
+      ["03", "Transition", "Vendor coordination, testing, migration, dan assurance"],
+    ],
+    boundary: "Pemetaan ini merupakan sintesis kebijakan, bukan legal opinion. Ruang lingkup setiap instrumen dan applicability terhadap entitas harus diverifikasi.",
+    callout: "Hasil workbook menempatkan Indonesian regulatory mapping pada 81,81 (Critical), sebagai kebutuhan untuk menerjemahkan benchmark global ke governance domestik.",
+    source: refs.indonesia,
   },
   {
-    kind: "references",
-    title: "Referensi Utama — Evolution",
-    items: [
-      "Bell, J. S. (1964). On the Einstein Podolsky Rosen paradox.",
-      "Aspect, A. et al. (1982). Experimental test of Bell inequalities.",
-      "Benioff (1980); Feynman (1982); Deutsch (1985).",
-      "Shor (1997); Grover (1996); Vandersypen et al. (2001).",
-      "Arute et al. (2019). Quantum supremacy using a programmable superconducting processor.",
-      "Acharya et al. (2023, 2025). Suppressing quantum errors by scaling surface codes.",
-      "Sivak et al. Adaptive quantum error correction.",
+    kind: "evidence_references",
+    title: "Evidence Base — Cryptanalytic Threat and Global Response",
+    subtitle: "Source IDs follow the quantitative prioritisation workbook for traceability.",
+    groups: [
+      {
+        label: "Cryptanalytic basis",
+        items: [
+          "[S28–S29] Shor (1994; 1997). Factoring and discrete logarithm algorithms.",
+          "[S31] Gidney & Ekerå (2021). RSA-2048 quantum resource estimate.",
+          "[S33] Roetteler et al. (2017). Elliptic-curve discrete logarithm resource estimates.",
+          "[S01] Mosca (2018). Quantum timing and HNDL decision logic.",
+        ],
+      },
+      {
+        label: "Standards and migration",
+        items: [
+          "[S07–S09] NIST FIPS 203, 204, 205 (2024). ML-KEM, ML-DSA, SLH-DSA.",
+          "[S10–S11] NIST IR 8547 and NCCoE PQC Migration project.",
+          "[S06] CISA, NSA & NIST (2023). Quantum-Readiness migration guidance.",
+        ],
+      },
+      {
+        label: "Financial-sector response",
+        items: [
+          "[S02–S03] BIS Papers No. 149 (2024) and No. 158 (2025).",
+          "[S04–S05] BIS Innovation Hub Project Leap Phase 1 and 2.",
+          "[S12] G7 CEG (2026). Coordinated financial-sector PQC roadmap.",
+          "[S16] MAS (2024). Advisory on quantum-related cybersecurity risks.",
+        ],
+      },
     ],
   },
   {
-    kind: "references",
-    title: "References and Evidence Base",
-    items: [
-      "Herman, D. et al. (2023). Quantum computing for finance. Nature Reviews Physics, 5, 450–465.",
-      "Auer, R. et al. (2024). Quantum computing and the financial system. BIS Papers No. 149.",
-      "NIST (2024). FIPS 203, FIPS 204, and FIPS 205.",
-      "NIST (2025). Considerations for achieving crypto agility. CSWP 39.",
-      "CISA, NSA & NIST (2023). Quantum-Readiness: Migration to Post-Quantum Cryptography.",
-      "BIS Innovation Hub (2023, 2025). Project Leap Phase 1 and Phase 2.",
-      "G7 Cyber Expert Group (2024). Statement on Planning for the Opportunities and Risks of Quantum Computing.",
-      "BIS (2025). The quantum-readiness journey. BIS Papers No. 158.",
+    kind: "evidence_references",
+    title: "Evidence Base — Benchmark Synthesis and Indonesia",
+    subtitle: "Regulatory mapping uses current official instruments and preserves their distinct scopes.",
+    groups: [
+      {
+        label: "Benchmark synthesis",
+        items: [
+          "[S03] BIS Papers No. 158 (2025). Financial-system quantum readiness roadmap.",
+          "[S13–S20] OSFI, UK NCSC, CSA Singapore, MAS, EC, ENISA, HKMA, and FINMA benchmarks.",
+          "[T01–T14] Theme Prioritisation sheet. Adjusted priority and interpretation fields.",
+        ],
+      },
+      {
+        label: "OJK instruments",
+        items: [
+          "[S46] POJK 11/POJK.03/2022. Penyelenggaraan TI oleh Bank Umum.",
+          "[S47] SEOJK 29/SEOJK.03/2022. Ketahanan dan Keamanan Siber bagi Bank Umum.",
+          "PADK OJK 1/2026. Pedoman Penyelenggaraan TI oleh Bank Umum.",
+          "[S49] POJK 22/2023. Pelindungan Konsumen dan Masyarakat di SJK.",
+        ],
+      },
+      {
+        label: "Bank Indonesia instruments",
+        items: [
+          "PBI 2/2024. Keamanan Sistem Informasi dan Ketahanan Siber.",
+          "PADG 24/2024. Ketentuan pelaksanaan KKS bagi pihak yang diatur dan diawasi BI.",
+          "PADG 24/7/PADG/2022. PJP and payment infrastructure governance.",
+        ],
+      },
     ],
-    callout:
-      "Rujukan mendukung pengelompokan ancaman, manfaat, dan implikasi risiko; bukan bukti bahwa seluruh bank memiliki exposure yang sama.",
+    callout: "Reviewed regulations contain governance and cryptographic-control hooks. The reviewed texts do not state an explicit quantum-readiness or PQC mandate.",
   },
 ];

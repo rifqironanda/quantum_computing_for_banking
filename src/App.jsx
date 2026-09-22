@@ -27,6 +27,11 @@ import {
   QuantumPipeline,
   QuantumAdvantageFit,
   AlgorithmFrontier,
+  PublicKeyExposure,
+  InstitutionMatrix,
+  BenchmarkSynthesis,
+  IndonesiaMapping,
+  EvidenceReferences,
 } from "./Interactive.jsx";
 
 const sourceGroups = {
@@ -528,6 +533,36 @@ export function SlideContent({ slide, presentationMode = false }) {
       return (
         <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
           <AlgorithmFrontier slide={slide} />
+        </SlideLayout>
+      );
+    case "public_key_exposure":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <PublicKeyExposure slide={slide} />
+        </SlideLayout>
+      );
+    case "institution_matrix":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <InstitutionMatrix slide={slide} />
+        </SlideLayout>
+      );
+    case "benchmark_synthesis":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <BenchmarkSynthesis slide={slide} />
+        </SlideLayout>
+      );
+    case "indonesia_mapping":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <IndonesiaMapping slide={slide} />
+        </SlideLayout>
+      );
+    case "evidence_references":
+      return (
+        <SlideLayout slide={slide} presentationMode={false} evidence={<Callout>{slide.callout}</Callout>}>
+          <EvidenceReferences slide={slide} sequenceIndex={slide.title.includes("Indonesia") ? 5 : 4} />
         </SlideLayout>
       );
     case "orbit":
