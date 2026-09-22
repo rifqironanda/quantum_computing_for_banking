@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "vite build"
+    "test": "node tests/report-outline.mjs && node tests/research-render.mjs && node tests/slides-15-18-render.mjs && node tests/slides-19-24-render.mjs && node tests/slides-25-30-render.mjs",
+    "check": "vite build && npm test"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",

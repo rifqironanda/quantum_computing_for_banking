@@ -13,6 +13,7 @@ import {
   Network,
   Clock,
   Code2,
+  FileText,
 } from "lucide-react";
 import PresentationApp from "./App.jsx";
 import { slides } from "./slides";
@@ -28,6 +29,7 @@ import "./integrations/computing/labs.css";
 import "./dashboard.css";
 import Research from "./Research";
 import HndlCaseStudy from "./HndlCaseStudy";
+import ReportOutline from "./ReportOutline";
 import {modules} from "./researchData";
 
 const groups = modules;
@@ -42,6 +44,7 @@ const nav = [
   ["library", "Materi kajian", BookOpen],
   ["risk", "Contoh kasus HNDL", Clock],
   ["readiness", "Readiness", ShieldCheck],
+  ["report", "Outline laporan", FileText],
   ["lab", "Computing lab", FlaskConical],
 ];
 // Hash routes work on GitHub Pages without server rewrite rules.
@@ -171,6 +174,7 @@ export default function Dashboard() {
               <div className="dash-stats">
                 {[
                   ["06", "Modul kajian", "library"],
+                  ["10", "Bab laporan", "report"],
                   ["04", "Lab interaktif", "lab"],
                   ["08", "Tahap readiness", "readiness"],
                   ["Bank B", "Contoh kasus HNDL", "risk"],
@@ -278,6 +282,7 @@ export default function Dashboard() {
               </div>
             </>
           )}
+          {route === "report" && <ReportOutline />}
           {route === "lab" && (
             <>
               <PageTitle
