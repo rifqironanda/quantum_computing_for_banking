@@ -10,12 +10,17 @@ client dan RLS.
 ```env
 VITE_SUPABASE_URL=https://PROJECT.supabase.co
 VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxx
+VITE_SUPABASE_ALLOW_SIGNUP=false
 ```
 
 Supabase menyediakan PostgreSQL, Auth, REST API, dan Realtime dalam satu layanan.
 RLS tetap wajib; service-role/secret key tidak boleh dimasukkan ke Vite atau
 GitHub Pages. Publishable key aman diekspos hanya jika seluruh tabel publik
 dilindungi policy RLS yang benar.
+
+Pada deployment publik, pendaftaran akun dinonaktifkan di UI secara default dan
+harus dinonaktifkan pula pada konfigurasi Auth Supabase. Buat pengguna melalui
+Dashboard atau invitation flow; jangan hanya mengandalkan flag frontend.
 
 ## Alur data
 

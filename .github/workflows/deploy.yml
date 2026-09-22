@@ -35,6 +35,7 @@ jobs:
           VITE_BENCHMARK_API_URL: ${{ vars.VITE_BENCHMARK_API_URL }}
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          VITE_SUPABASE_ALLOW_SIGNUP: ${{ vars.VITE_SUPABASE_ALLOW_SIGNUP }}
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v5
