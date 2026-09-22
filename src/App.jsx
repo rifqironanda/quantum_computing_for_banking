@@ -17,6 +17,10 @@ import {
   DependencyMap,
   ExposureConditions,
   HndlPriority,
+  ReadinessResponse,
+  ReadinessLifecycle,
+  InventoryFirst,
+  RiskPrioritisation,
 } from "./Interactive.jsx";
 
 const sourceGroups = {
@@ -459,6 +463,30 @@ export function SlideContent({ slide, presentationMode = false }) {
           <Callout>{slide.callout}</Callout>
           <Source interactive={presentationMode}>{displaySource}</Source>
         </>
+      );
+    case "readiness_response":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <ReadinessResponse slide={slide} />
+        </SlideLayout>
+      );
+    case "readiness_lifecycle":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <ReadinessLifecycle slide={slide} />
+        </SlideLayout>
+      );
+    case "inventory_rationale":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <InventoryFirst slide={slide} />
+        </SlideLayout>
+      );
+    case "risk_prioritisation":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <RiskPrioritisation slide={slide} />
+        </SlideLayout>
       );
     case "orbit":
       return (
