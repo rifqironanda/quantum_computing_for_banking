@@ -21,6 +21,12 @@ import {
   ReadinessLifecycle,
   InventoryFirst,
   RiskPrioritisation,
+  QuantumFoundation,
+  StateComputation,
+  ProcessingComparison,
+  QuantumPipeline,
+  QuantumAdvantageFit,
+  AlgorithmFrontier,
 } from "./Interactive.jsx";
 
 const sourceGroups = {
@@ -486,6 +492,42 @@ export function SlideContent({ slide, presentationMode = false }) {
       return (
         <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
           <RiskPrioritisation slide={slide} />
+        </SlideLayout>
+      );
+    case "quantum_foundation":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <QuantumFoundation slide={slide} />
+        </SlideLayout>
+      );
+    case "state_computation":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <StateComputation slide={slide} />
+        </SlideLayout>
+      );
+    case "processing_comparison":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<Source interactive={presentationMode}>{displaySource}</Source>}>
+          <ProcessingComparison slide={slide} />
+        </SlideLayout>
+      );
+    case "quantum_pipeline":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <QuantumPipeline slide={slide} />
+        </SlideLayout>
+      );
+    case "advantage_fit":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <QuantumAdvantageFit slide={slide} />
+        </SlideLayout>
+      );
+    case "algorithm_frontier":
+      return (
+        <SlideLayout slide={slide} presentationMode={presentationMode} evidence={<><Callout>{slide.callout}</Callout><Source interactive={presentationMode}>{displaySource}</Source></>}>
+          <AlgorithmFrontier slide={slide} />
         </SlideLayout>
       );
     case "orbit":

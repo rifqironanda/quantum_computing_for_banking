@@ -248,28 +248,28 @@ const narrativeOverrides = {
     "Assessment membandingkan crypto function, secrecy lifetime, criticality, migration complexity, dan vendor readiness untuk membentuk migration backlog.",
   ],
   "What Is Actually Quantum?": [
-    "Apa yang benar-benar bersifat quantum di dalam quantum computing?",
-    "Physical systems mengikuti quantum mechanics; qubits, gates, circuits, dan measurement menggunakan aturan itu untuk memproses informasi.",
+    "Bagian mana yang membuat sebuah komputer benar-benar bersifat quantum?",
+    "Sistem fisik menyimpan quantum state, controlled unitary operations mengubah state, dan measurement menghasilkan outcome klasik.",
   ],
   "From Quantum States to Computation": [
     "Bagaimana superposition, entanglement, interference, dan measurement menjadi proses komputasi?",
-    "State dipersiapkan dan diubah melalui quantum operations; interference membentuk amplitudo hasil; measurement kemudian menghasilkan keluaran klasik.",
+    "Quantum gates mengatur amplitude dan relative phase. Interference membentuk outcome distribution yang kemudian diperkirakan melalui repeated measurement.",
   ],
   "Classical vs Quantum Information Processing": [
     "Apa perbedaan proses informasi klasik dan kuantum selain sekadar bit versus qubit?",
-    "Perbedaannya mencakup representasi state, operasi, arsitektur, serta measurement. QPU tetap bekerja bersama classical control dan menghasilkan output klasik.",
+    "Quantum processing memakai complex amplitude, phase, entanglement, unitary evolution, dan measurement. QPU tetap bekerja bersama classical control.",
   ],
   "Quantum Processing Pipeline": [
     "Mengapa quantum advantage harus dievaluasi secara end-to-end?",
-    "State preparation, quantum execution, repeated sampling, dan classical post-processing menambah overhead yang dapat mengurangi keuntungan subroutine kuantum.",
+    "Encoding, state preparation, quantum execution, sampling, error correction, dan post-processing menentukan total resource cost.",
   ],
   "Quantum Advantage Is Problem Specific": [
-    "Apakah quantum computer otomatis lebih cepat daripada komputer klasik?",
-    "Tidak. Advantage bergantung pada problem structure, quantum algorithm, hardware resources, error rate, model akses data, dan classical baseline.",
+    "Kapan quantum computer dapat memberi advantage yang bermakna?",
+    "Advantage memerlukan kecocokan problem, algorithm, hardware resources, access model, dan classical baseline pada task yang didefinisikan.",
   ],
   "Algorithms Define the Computational Frontier": [
-    "Mengapa pembahasan quantum advantage harus dimulai dari algoritma?",
-    "Setiap algoritma menargetkan kelas masalah dan resource assumptions berbeda; theoretical speedup tidak otomatis menjadi practical advantage.",
+    "Mengapa algoritma menentukan batas capability yang relevan?",
+    "Setiap algoritma menargetkan problem class dan resource assumptions tertentu. Shor menjadi penting karena memetakan langsung ke IFP, DLP, dan ECDLP.",
   ],
   "Why Public-Key Cryptography Is Exposed": [
     "Skema public-key mana yang terkait dengan masalah matematika yang ditargetkan Shor?",
@@ -726,6 +726,162 @@ export function RiskPrioritisation({ slide }) {
         </article>
       </div>
       <p className="method-caveat">{slide.methodology}</p>
+    </div>
+  );
+}
+
+const conceptualSequence = ["PHYSICAL", "STATE", "PROCESSING", "PIPELINE", "ADVANTAGE", "ALGORITHMS"];
+
+function ConceptProgress({ active }) {
+  return (
+    <nav className="concept-progress" aria-label="Alur konsep quantum computing slide 19 sampai 24">
+      {conceptualSequence.map((label, index) => (
+        <span key={label} className={index === active ? "active" : index < active ? "done" : ""}>
+          <i>{String(index + 1).padStart(2, "0")}</i>{label}
+        </span>
+      ))}
+    </nav>
+  );
+}
+
+export function QuantumFoundation({ slide }) {
+  const [active, setActive] = useState(0);
+  const item = slide.items[active];
+  return (
+    <div className="conceptual-story">
+      <ConceptProgress active={0} />
+      <div className="foundation-layout">
+        <div className="foundation-chain" role="list" aria-label="Empat lapisan quantum computation">
+          {slide.items.map(([number, title], index) => (
+            <button type="button" role="listitem" key={title} aria-pressed={active === index} onClick={() => setActive(index)}>
+              <span>{number}</span><b>{title}</b>
+            </button>
+          ))}
+        </div>
+        <article className="foundation-detail" aria-live="polite">
+          <span>LAYER {item[0]}</span>
+          <h3>{item[1]}</h3>
+          <p>{item[2]}</p>
+          <strong>{slide.principle}</strong>
+        </article>
+      </div>
+      <p className="concept-transition">Physical system menyediakan state. Computation muncul ketika state dapat disiapkan, diubah, dan diukur secara terkontrol.</p>
+    </div>
+  );
+}
+
+export function StateComputation({ slide }) {
+  const [active, setActive] = useState(0);
+  const item = slide.items[active];
+  return (
+    <div className="conceptual-story">
+      <ConceptProgress active={1} />
+      <div className="state-selector" role="list" aria-label="Konsep yang membentuk quantum computation">
+        {slide.items.map(([number, title], index) => (
+          <button type="button" role="listitem" key={title} aria-pressed={active === index} onClick={() => setActive(index)}>
+            <span>{number}</span><b>{title}</b>
+          </button>
+        ))}
+      </div>
+      <article className="state-detail" aria-live="polite">
+        <div><span>CONCEPT</span><h3>{item[1]}</h3><p>{item[2]}</p></div>
+        <output><small>REPRESENTATION</small><strong>{item[3]}</strong><p>{item[4]}</p></output>
+      </article>
+      <p className="concept-transition">Algorithm menyusun operasi agar interference meningkatkan probability outcome yang membawa informasi berguna.</p>
+    </div>
+  );
+}
+
+export function ProcessingComparison({ slide }) {
+  const [active, setActive] = useState(0);
+  const row = slide.rows[active];
+  return (
+    <div className="conceptual-story">
+      <ConceptProgress active={2} />
+      <div className="comparison-layout">
+        <div className="comparison-dimensions" role="list" aria-label="Dimensi perbandingan pemrosesan informasi">
+          {slide.rows.map((item, index) => (
+            <button type="button" role="listitem" key={item[0]} aria-pressed={active === index} onClick={() => setActive(index)}>
+              <span>{String(index + 1).padStart(2, "0")}</span><b>{item[0]}</b>
+            </button>
+          ))}
+        </div>
+        <div className="processing-split" aria-live="polite">
+          <article className="classical-side"><span>CLASSICAL</span><h3>{row[0]}</h3><p>{row[1]}</p></article>
+          <article className="quantum-side"><span>QUANTUM</span><h3>{row[0]}</h3><p>{row[2]}</p></article>
+        </div>
+      </div>
+      <p className="concept-transition">{slide.distinction}</p>
+    </div>
+  );
+}
+
+export function QuantumPipeline({ slide }) {
+  const [active, setActive] = useState(0);
+  const stage = slide.stages[active];
+  return (
+    <div className="conceptual-story">
+      <ConceptProgress active={3} />
+      <div className="pipeline-stage-grid" role="list" aria-label="Quantum processing pipeline">
+        {slide.stages.map(([title], index) => (
+          <button type="button" role="listitem" key={title} aria-pressed={active === index} onClick={() => setActive(index)}>
+            <span>{String(index + 1).padStart(2, "0")}</span><b>{title}</b>
+          </button>
+        ))}
+      </div>
+      <article className="pipeline-stage-detail" aria-live="polite">
+        <div><span>STAGE {String(active + 1).padStart(2, "0")}</span><h3>{stage[0]}</h3></div>
+        <p>{stage[1]}</p>
+      </article>
+      <p className="concept-transition">Satu quantum subroutine menjadi relevan jika keuntungan tetap terlihat pada total pipeline.</p>
+    </div>
+  );
+}
+
+export function QuantumAdvantageFit({ slide }) {
+  const [checked, setChecked] = useState([0]);
+  const complete = checked.length === slide.conditions.length;
+  const toggle = (index) => setChecked((current) => current.includes(index) ? current.filter((item) => item !== index) : [...current, index]);
+  return (
+    <div className="conceptual-story">
+      <ConceptProgress active={4} />
+      <div className="advantage-conditions" role="list" aria-label="Syarat evaluasi quantum advantage">
+        {slide.conditions.map(([title, text], index) => (
+          <button type="button" role="listitem" key={title} aria-pressed={checked.includes(index)} onClick={() => toggle(index)}>
+            <span>{checked.includes(index) ? "✓" : String(index + 1).padStart(2, "0")}</span><b>{title}</b><small>{text}</small>
+          </button>
+        ))}
+      </div>
+      <output className={`advantage-result ${complete ? "complete" : ""}`} aria-live="polite">
+        <span>{complete ? "CANDIDATE FIT" : `${checked.length} / ${slide.conditions.length} CONDITIONS`}</span>
+        <strong>{complete ? "Ready for end-to-end validation" : "Advantage claim remains incomplete"}</strong>
+        <p>{complete ? "Bandingkan runtime, accuracy, resource cost, dan operational constraints." : "Pilih seluruh kondisi untuk membentuk evaluasi yang lengkap."}</p>
+      </output>
+    </div>
+  );
+}
+
+export function AlgorithmFrontier({ slide }) {
+  const [active, setActive] = useState(0);
+  const algorithm = slide.algorithms[active];
+  return (
+    <div className="conceptual-story">
+      <ConceptProgress active={5} />
+      <div className="algorithm-layout">
+        <div className="algorithm-list" role="list" aria-label="Quantum algorithm families">
+          {slide.algorithms.map((item, index) => (
+            <button type="button" role="listitem" key={item.name} aria-pressed={active === index} onClick={() => setActive(index)}>
+              <span>{String(index + 1).padStart(2, "0")}</span><b>{item.name}</b><small>{item.problem}</small>
+            </button>
+          ))}
+        </div>
+        <article className="algorithm-detail" aria-live="polite">
+          <div><span>PROBLEM CLASS</span><h3>{algorithm.problem}</h3></div>
+          <section><b>Computational capability</b><p>{algorithm.capability}</p></section>
+          <section><b>Resource condition</b><p>{algorithm.constraint}</p></section>
+          <strong>{algorithm.bridge}</strong>
+        </article>
+      </div>
     </div>
   );
 }
