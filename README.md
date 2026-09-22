@@ -54,9 +54,13 @@ Salin `.env.example` menjadi `.env.local`, kemudian isi browser-safe variables:
 ```env
 VITE_SUPABASE_URL=https://PROJECT.supabase.co
 VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxx
+VITE_SUPABASE_ALLOW_SIGNUP=false
 ```
 
-Jalankan migration `database/001_report_workspace.sql` lalu
+Untuk dashboard publik, biarkan signup bernilai `false` dan buat pengguna pertama
+melalui **Supabase Dashboard → Authentication → Users**. Nonaktifkan pendaftaran
+publik pada pengaturan Auth Supabase; variable ini hanya mengendalikan UI. Jalankan migration
+`database/001_report_workspace.sql` lalu
 `database/002_supabase_access_hardening.sql`, aktifkan Email Auth, dan login dari
 menu **Outline laporan**. Jangan memasukkan secret/service-role key ke
 Vite atau GitHub Pages. Untuk deployment, tambahkan kedua nilai tersebut sebagai

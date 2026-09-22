@@ -28,5 +28,6 @@ assert.ok(supabaseClient.includes("VITE_SUPABASE_PUBLISHABLE_KEY"), "publishable
 assert.ok(!supabaseClient.includes("SERVICE_ROLE"), "service-role secret must never be bundled");
 assert.ok(workflow.includes("VITE_SUPABASE_URL"), "deployment must inject Supabase URL");
 assert.ok(component.includes("Masuk ke report workspace"), "report authentication UI must exist");
+assert.ok(component.includes('VITE_SUPABASE_ALLOW_SIGNUP === "true"'), "public signup must be opt-in");
 
 console.log("PASS report outline, navigation order, editor, and persistence contract");

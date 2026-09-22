@@ -126,6 +126,7 @@ function download(name, content, type) {
 }
 
 export default function ReportOutline() {
+  const signupEnabled = import.meta.env.VITE_SUPABASE_ALLOW_SIGNUP === "true";
   const nodes = useMemo(() => parseOutline(outlineMarkdown), []);
   const chapters = useMemo(() => nodes.filter((node) => node.level === 2), [nodes]);
   const [selectedId, setSelectedId] = useState(nodes[0]?.id);
@@ -205,7 +206,7 @@ export default function ReportOutline() {
     setAuthBusy(true);
     setAuthMessage("");
     try {
-      if (authMode === "signup") {
+      if (authMode === "signup" && signupEnabled) {
         const data = await reportStorage.signUp(email, password);
         if (!data.session) {
           setAuthMessage("Akun dibuat. Periksa email untuk konfirmasi sebelum masuk.");
@@ -281,7 +282,7 @@ export default function ReportOutline() {
           <input type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Email" />
           <input type="password" autoComplete={authMode === "signin" ? "current-password" : "new-password"} required minLength={8} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Password" />
           <button type="submit" disabled={authBusy}>{authBusy ? "Memproses…" : authMode === "signin" ? "Masuk" : "Daftar"}</button>
-          <button type="button" className="auth-switch" onClick={() => { setAuthMode(authMode === "signin" ? "signup" : "signin"); setAuthMessage(""); }}>{authMode === "signin" ? "Belum punya akun? Daftar" : "Sudah punya akun? Masuk"}</button>
+          {signupEnabled && <button type="button" className="auth-switch" onClick={() => { setAuthMode(authMode === "signin" ? "signup" : "signin"); setAuthMessage(""); }}>{authMode === "signin" ? "Belum punya akun? Daftar" : "Sudah punya akun? Masuk"}</button>}
         </form>
       )}
       {authMessage && <p className="report-message" role="status">{authMessage}</p>}
