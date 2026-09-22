@@ -10,6 +10,8 @@ import {
   Italic,
   List,
   ListOrdered,
+  LogIn,
+  LogOut,
   Redo2,
   Save,
   Search,
@@ -86,7 +88,18 @@ function parseOutline(markdown) {
     } else if (current) current.markdown += `${line}\n`;
   });
   if (current) nodes.push(current);
-  return nodes.map((node, index) => ({ ...node, index, initialHtml: markdownToHtml(node.markdown) }));
+  const parents = [];
+  return nodes.map((node, index) => {
+    while (parents.length && parents.at(-1).level >= node.level) parents.pop();
+    const parsed = {
+      ...node,
+      index,
+      parentId: parents.at(-1)?.id || null,
+      initialHtml: markdownToHtml(node.markdown),
+    };
+    parents.push(parsed);
+    return parsed;
+  });
 }
 
 function sanitizeHtml(html) {
@@ -122,17 +135,29 @@ export default function ReportOutline() {
   const [saveState, setSaveState] = useState("loading");
   const [storageMode, setStorageMode] = useState("local");
   const [hydrated, setHydrated] = useState(false);
+  const [authSession, setAuthSession] = useState(null);
+  const [authMode, setAuthMode] = useState("signin");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [authBusy, setAuthBusy] = useState(false);
+  const [authMessage, setAuthMessage] = useState("");
   const editorRef = useRef(null);
   const selected = nodes.find((node) => node.id === selectedId) || nodes[0];
   const activeDocument = documents[selected?.id] || { ...EMPTY_DOC, content: selected?.initialHtml || "" };
 
+  const hydrate = async () => {
+    setSaveState("loading");
+    const { snapshot, mode, session, error } = await reportStorage.load(nodes);
+    setDocuments(snapshot?.sections || {});
+    setStorageMode(mode);
+    setAuthSession(session);
+    setHydrated(true);
+    setSaveState("saved");
+    setAuthMessage(error ? `Sinkronisasi tertunda: ${error.message}` : "");
+  };
+
   useEffect(() => {
-    reportStorage.load().then(({ snapshot, mode }) => {
-      setDocuments(snapshot?.sections || {});
-      setStorageMode(mode);
-      setHydrated(true);
-      setSaveState("saved");
-    });
+    hydrate();
   }, []);
 
   useEffect(() => {
@@ -164,9 +189,50 @@ export default function ReportOutline() {
   };
   const saveAll = async () => {
     setSaveState("saving");
-    const result = await reportStorage.save({ sections: documents, outlineVersion: 1 });
+    const completeSections = Object.fromEntries(nodes.map((node) => [node.id, getDocument(node)]));
+    const result = await reportStorage.save(
+      { sections: completeSections, outlineVersion: 1 },
+      nodes,
+    );
+    setDocuments(result.snapshot?.sections || completeSections);
     setStorageMode(result.mode);
+    setAuthSession(result.session);
+    setAuthMessage(result.error ? `Sinkronisasi tertunda: ${result.error.message}` : "");
     setSaveState("saved");
+  };
+  const submitAuth = async (event) => {
+    event.preventDefault();
+    setAuthBusy(true);
+    setAuthMessage("");
+    try {
+      if (authMode === "signup") {
+        const data = await reportStorage.signUp(email, password);
+        if (!data.session) {
+          setAuthMessage("Akun dibuat. Periksa email untuk konfirmasi sebelum masuk.");
+          return;
+        }
+      } else {
+        await reportStorage.signIn(email, password);
+      }
+      setPassword("");
+      await hydrate();
+    } catch (error) {
+      setAuthMessage(error.message);
+    } finally {
+      setAuthBusy(false);
+    }
+  };
+  const signOut = async () => {
+    setAuthBusy(true);
+    try {
+      await reportStorage.signOut();
+      setAuthSession(null);
+      await hydrate();
+    } catch (error) {
+      setAuthMessage(error.message);
+    } finally {
+      setAuthBusy(false);
+    }
   };
   const runCommand = (command, value) => {
     editorRef.current?.focus();
@@ -193,9 +259,12 @@ export default function ReportOutline() {
           <h1>Outline laporan quantum banking</h1>
           <p>Susun, edit, dan pantau 10 bab kajian dalam satu ruang kerja terstruktur.</p>
         </div>
-        <div className={`storage-badge ${storageMode}`}>
-          <Database size={17} />
-          <span>{storageMode === "database" ? "Database tersambung" : storageMode === "offline" ? "Offline · tersimpan lokal" : "Penyimpanan lokal"}</span>
+        <div className="report-connection">
+          <div className={`storage-badge ${storageMode}`}>
+            <Database size={17} />
+            <span>{storageMode === "database" ? "Supabase tersambung" : storageMode === "offline" ? "Offline · tersimpan lokal" : storageMode === "auth-required" ? "Masuk untuk sinkronisasi" : "Penyimpanan lokal"}</span>
+          </div>
+          {authSession && <div className="report-user"><span>{authSession.user.email}</span><button onClick={signOut} disabled={authBusy}><LogOut /> Keluar</button></div>}
         </div>
       </div>
 
@@ -205,6 +274,17 @@ export default function ReportOutline() {
         <div><span>Progress selesai</span><b>{completion}%</b></div>
         <div className="report-progress"><span><i style={{ width: `${completion}%` }} /></span><small>{nodes.filter((node) => getDocument(node).status === "complete").length} bagian selesai</small></div>
       </section>
+
+      {reportStorage.isConfigured && !authSession && (
+        <form className="report-auth" onSubmit={submitAuth}>
+          <div><LogIn /><span><b>{authMode === "signin" ? "Masuk ke report workspace" : "Buat akun report workspace"}</b><small>Gunakan akun Supabase untuk menyimpan dan membuka laporan lintas perangkat.</small></span></div>
+          <input type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Email" />
+          <input type="password" autoComplete={authMode === "signin" ? "current-password" : "new-password"} required minLength={8} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Password" />
+          <button type="submit" disabled={authBusy}>{authBusy ? "Memproses…" : authMode === "signin" ? "Masuk" : "Daftar"}</button>
+          <button type="button" className="auth-switch" onClick={() => { setAuthMode(authMode === "signin" ? "signup" : "signin"); setAuthMessage(""); }}>{authMode === "signin" ? "Belum punya akun? Daftar" : "Sudah punya akun? Masuk"}</button>
+        </form>
+      )}
+      {authMessage && <p className="report-message" role="status">{authMessage}</p>}
 
       <div className="report-grid">
         <aside className="outline-panel">
@@ -252,7 +332,7 @@ export default function ReportOutline() {
         <aside className="report-meta-panel">
           <div><span>STATUS BAGIAN</span><select value={activeDocument.status} onChange={(event) => updateActive({ status: event.target.value })}><option value="draft">Draft</option><option value="review">Perlu review</option><option value="complete">Selesai</option></select></div>
           <div><span>WORKFLOW</span><ol><li className="active">Tulis outline</li><li>Lengkapi bukti</li><li>Review substansi</li><li>Finalisasi</li></ol></div>
-          <div className="database-card"><Database /><b>Database-ready</b><p>Adapter API, version field, dan struktur section sudah disiapkan. Hubungkan backend melalui <code>VITE_REPORT_API_URL</code>.</p><a href="https://github.com/rifqironanda/quantum_computing_for_banking/blob/main/docs/DATABASE_ARCHITECTURE.md" target="_blank" rel="noreferrer">Lihat arsitektur ↗</a></div>
+          <div className="database-card"><Database /><b>{storageMode === "database" ? "Tersinkron ke Supabase" : "Local-first workspace"}</b><p>{storageMode === "database" ? "Isi, status, dan revisi tersimpan pada PostgreSQL dengan kontrol akses RLS." : "Perubahan tetap disimpan lokal. Login diperlukan untuk sinkronisasi database lintas perangkat."}</p><a href="https://github.com/rifqironanda/quantum_computing_for_banking/blob/main/docs/DATABASE_ARCHITECTURE.md" target="_blank" rel="noreferrer">Lihat arsitektur ↗</a></div>
           <button className="export-report" onClick={exportReport}><Download /> Export JSON</button>
         </aside>
       </div>

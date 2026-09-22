@@ -2,19 +2,20 @@
 
 ## Keputusan arsitektur
 
-Editor berjalan pada GitHub Pages, sehingga versi awal memakai `localStorage`
-agar langsung dapat digunakan tanpa akun dan tanpa menyimpan secret di browser.
-Komponen UI tidak mengakses vendor database secara langsung. Seluruh operasi
-melewati `src/reportStorage.js`, yang dapat dialihkan ke backend dengan mengisi:
+Editor berjalan pada GitHub Pages dengan pendekatan local-first. Ketika Supabase
+belum tersedia atau jaringan terputus, `localStorage` menjadi cache. Setelah login,
+`src/reportStorage.js` menyinkronkan data langsung ke PostgreSQL melalui Supabase
+client dan RLS.
 
 ```env
-VITE_REPORT_API_URL=https://api.example.com
+VITE_SUPABASE_URL=https://PROJECT.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxx
 ```
 
-Pendekatan produksi yang direkomendasikan adalah **PostgreSQL + authentication +
-Row Level Security (RLS)**. Supabase merupakan pilihan praktis karena menyediakan
-PostgreSQL, Auth, REST API, dan Realtime dalam satu layanan. RLS tetap wajib;
-service-role/secret key tidak boleh dimasukkan ke Vite atau GitHub Pages.
+Supabase menyediakan PostgreSQL, Auth, REST API, dan Realtime dalam satu layanan.
+RLS tetap wajib; service-role/secret key tidak boleh dimasukkan ke Vite atau
+GitHub Pages. Publishable key aman diekspos hanya jika seluruh tabel publik
+dilindungi policy RLS yang benar.
 
 ## Alur data
 
@@ -22,19 +23,19 @@ service-role/secret key tidak boleh dimasukkan ke Vite atau GitHub Pages.
 flowchart LR
   UI[React report editor] --> A[reportStorage adapter]
   A --> L[Local cache]
-  A --> API[Authenticated API]
-  API --> DB[(PostgreSQL)]
+  A --> AUTH[Supabase Auth]
+  AUTH --> DB[(PostgreSQL + RLS)]
   DB --> V[Section revisions]
 ```
 
 - Local cache memberi autosave dan fallback ketika jaringan gagal.
-- API memvalidasi pengguna dan payload serta menerapkan optimistic concurrency.
+- Auth session dikirim oleh Supabase client dan dievaluasi oleh policy RLS.
 - Satu record `report_sections` menyimpan keadaan terbaru tiap bagian.
 - Trigger menulis salinan perubahan ke `report_section_revisions` sebagai audit trail.
 
-## Kontrak REST minimum
+## Kontrak persistence
 
-### `GET /reports/:slug`
+### Load
 
 Mengembalikan snapshot yang sesuai dengan kontrak frontend:
 
@@ -53,9 +54,9 @@ Mengembalikan snapshot yang sesuai dengan kontrak frontend:
 }
 ```
 
-### `PUT /reports/:slug`
+### Save
 
-- Wajib membutuhkan session pengguna.
+- Seluruh operasi database wajib membutuhkan session pengguna.
 - Validasi ukuran payload, `status`, dan HTML yang diizinkan di server.
 - Tolak update usang menggunakan `revision`/`If-Match` dengan status `409`.
 - Jangan mempercayai HTML yang sudah dibersihkan oleh browser; sanitasi ulang di server.
@@ -63,6 +64,8 @@ Mengembalikan snapshot yang sesuai dengan kontrak frontend:
 ## Model data
 
 Migration awal tersedia di [`database/001_report_workspace.sql`](../database/001_report_workspace.sql).
+Setelah itu jalankan [`database/002_supabase_access_hardening.sql`](../database/002_supabase_access_hardening.sql)
+untuk memperketat grants dan mengaktifkan pengelolaan collaborator oleh owner.
 
 | Tabel | Tanggung jawab |
 | --- | --- |
@@ -73,9 +76,9 @@ Migration awal tersedia di [`database/001_report_workspace.sql`](../database/001
 
 ## Tahapan implementasi
 
-1. **Saat ini:** local-first editor, autosave, status bagian, dan export JSON.
-2. **Backend MVP:** Auth, endpoint GET/PUT, migration SQL, RLS, dan server-side sanitizer.
-3. **Kolaborasi:** optimistic locking, komentar, presence, dan Realtime/Broadcast.
+1. **Saat ini:** local-first editor, Supabase Auth, RLS, autosave, dan audit revision.
+2. **Hardening:** server-side sanitizer, conflict detection, dan recovery UI.
+3. **Kolaborasi:** komentar, presence, dan Realtime/Broadcast.
 4. **Governance:** retention policy, backup, audit export, dan recovery test.
 
 ## Kontrol keamanan
@@ -94,4 +97,3 @@ Migration awal tersedia di [`database/001_report_workspace.sql`](../database/001
 - [Supabase Auth](https://supabase.com/docs/guides/auth)
 - [Supabase Realtime database changes](https://supabase.com/docs/guides/realtime/subscribing-to-database-changes)
 - [PostgreSQL Row Security Policies](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)
-
