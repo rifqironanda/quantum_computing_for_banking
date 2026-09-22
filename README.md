@@ -21,8 +21,8 @@ Presentasi web interaktif yang mengadaptasi kajian **Quantum Computing pada Sekt
 - Mode fullscreen dan progress indicator.
 - Editor outline laporan 10 bab dengan rich text, pencarian, status, autosave,
   progress, serta ekspor JSON.
-- Persistence adapter: localStorage secara default dan REST API melalui
-  `VITE_REPORT_API_URL` untuk integrasi database.
+- Penyimpanan local-first dan sinkronisasi Supabase PostgreSQL setelah login.
+- Supabase Auth, Row Level Security, revision history, serta fallback offline.
 - Desain responsif untuk desktop dan perangkat bergerak.
 - Print stylesheet untuk ekspor melalui fitur Print browser.
 - Deployment otomatis ke GitHub Pages.
@@ -46,6 +46,21 @@ npm run preview
 ```
 
 Hasil build berada di direktori `dist/`.
+
+## Menghubungkan Supabase
+
+Salin `.env.example` menjadi `.env.local`, kemudian isi browser-safe variables:
+
+```env
+VITE_SUPABASE_URL=https://PROJECT.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxx
+```
+
+Jalankan migration `database/001_report_workspace.sql` lalu
+`database/002_supabase_access_hardening.sql`, aktifkan Email Auth, dan login dari
+menu **Outline laporan**. Jangan memasukkan secret/service-role key ke
+Vite atau GitHub Pages. Untuk deployment, tambahkan kedua nilai tersebut sebagai
+GitHub Actions repository variables.
 
 ## Kontrol presentasi
 
