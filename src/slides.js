@@ -183,7 +183,7 @@ export const slides = [
   },
   {
     kind: "dual_relevance",
-    title: "Dual Relevance, Different Implications for Banking",
+    title: "Dual Relevance, Implikasi berbeda bagi Perbankan",
     subtitle:
       "Potential Benefits dan Emerging Threats sama-sama relevan, tetapi membutuhkan respons dan decision horizon yang berbeda.",
     pathways: [
@@ -230,7 +230,7 @@ export const slides = [
   },
   {
     kind: "cryptanalytic_path",
-    title: "Future Cryptanalytic Capability Changes Selected Security Assumptions",
+    title: "Future Cryptanalytic Capability Could Change How Protect Data",
     subtitle: "What future capability creates the cryptographic concern?",
     layers: [
       { label: "Future capability", items: ["Cryptographically Relevant Quantum Computer", "Fault-Tolerant Quantum Computing", "Shor’s Algorithm at relevant scale"] },
@@ -247,7 +247,7 @@ export const slides = [
     current: "No demonstrated capability to break modern banking keys at relevant scale.",
     future: "A sufficiently capable CRQC running Shor’s Algorithm could attack factoring and discrete-logarithm assumptions.",
     caveat: "Algorithmic vulnerability is established, but engineering feasibility and timing remain uncertain.",
-    callout: "Future cryptanalytic capability is the hazard. It does not automatically prove that every bank is exposed.",
+    callout: "Future cryptanalytic capability is the hazard. bukan berarti membuktikan bahwa setiap bank berisiko.",
     source: refs.risk,
   },
   {
@@ -267,7 +267,7 @@ export const slides = [
   },
   {
     kind: "exposure_conditions",
-    title: "Cryptographic Exposure Is Conditional",
+    title: "Cryptographic Exposure",
     subtitle: "When does an existing cryptographic dependency become a relevant exposure?",
     pathways: {
       confidentiality: {
