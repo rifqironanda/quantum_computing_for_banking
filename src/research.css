@@ -1,4 +1,4 @@
-.research{max-width:1200px;margin:auto;color:#193444}.research-search{display:flex;gap:10px;align-items:center;background:#102b3a;border:1px solid #335563;border-radius:10px;color:#abced5;padding:10px 16px}.research-search input{width:100%;border:0;background:transparent;color:#fff;padding:8px;outline-offset:4px}.module-nav{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}.research button{border:1px solid #456878;border-radius:9px;padding:12px 16px;background:#fff;color:#183e50;text-align:left}.module-nav button{background:#102a39;color:#c5dce4;font-size:13px;display:flex;align-items:center;gap:5px}.module-nav [aria-current],.research button[aria-pressed=true]{background:#155f65;color:#fff;border-color:#3ab7b1;box-shadow:inset 0 -3px #64d9ca}.module-heading{color:#def0f1;padding:22px 0 32px}.module-heading h1{font-size:clamp(26px,4vw,44px);line-height:1.15;max-width:900px;margin:15px 0}.module-heading p{color:#a4c3cf;line-height:1.6}.module-heading>span{display:flex;align-items:center;gap:8px;color:#68d8cb}.research-section,.module-footer{padding:clamp(20px,3vw,38px);margin:0 0 24px;background:#f6faf9;border:1px solid #cde1df;border-radius:16px;line-height:1.7}.research h2{font-size:clamp(22px,2.3vw,30px);line-height:1.25;margin:0 0 18px}.research h3{font-size:20px;line-height:1.4}.milestone-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:25px 0}.milestone-grid button{display:flex;flex-direction:column;gap:10px;min-height:165px}.milestone-grid b{font-size:18px}.milestone-grid small{font-size:11px;letter-spacing:.04em}.milestone-grid span{font-size:13px;line-height:1.55}.milestone-detail{background:#e7f1f0;border-left:4px solid #19747b;border-radius:10px;padding:24px}.research-sources{font-size:12px;line-height:1.6;margin-top:24px;border-top:1px solid #aec9cb;padding-top:16px}.research-sources ul{padding-left:20px;margin-bottom:0}.research-sources li{margin:6px 0}.research-sources a{color:#075d74;overflow-wrap:anywhere;text-decoration:underline;text-underline-offset:3px}.research-options{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 0}.research-note{background:#e6f2ef;border-left:3px solid #24877f;border-radius:8px;padding:20px;margin-top:24px}.banking-venn{display:block;width:100%;max-width:900px;margin:18px auto}.banking-venn text{text-anchor:middle;font-family:inherit;fill:#193d4b;font-size:19px;font-weight:700}.banking-venn .venn-small{font-size:12px;font-weight:400}.banking-venn .venn-center{font-size:16px}.research-details{display:grid;gap:12px}.research-details details{border:1px solid #c2d8d8;background:white;border-radius:10px;padding:15px 20px}.research-details summary{cursor:pointer;font-weight:700;line-height:1.5}.research-details details[open]{border-color:#218b88}.research-details p{margin-bottom:4px}.dual-research{display:grid;grid-template-columns:1fr 1fr;gap:24px}.inventory-checks{display:grid;grid-template-columns:1fr 1fr;gap:12px}.inventory-checks label{display:flex;align-items:center;gap:12px;border:1px solid #bfd1d3;border-radius:8px;padding:14px;cursor:pointer}.inventory-checks input{width:20px;height:20px;accent-color:#147478}.module-footer{background:#dcefeb}.research .next-module{background:#155f65;color:white}.research .reading-slide{
+.research{max-width:1200px;margin:auto;color:#193444}.research-search{display:flex;gap:10px;align-items:center;background:#102b3a;border:1px solid #335563;border-radius:10px;color:#abced5;padding:10px 16px}.research-search input{width:100%;border:0;background:transparent;color:#fff;padding:8px;outline-offset:4px}.module-nav{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}.research button{border:1px solid #456878;border-radius:9px;padding:12px 16px;background:#fff;color:#183e50;text-align:left}.module-nav button{background:#102a39;color:#c5dce4;font-size:13px;display:flex;align-items:center;gap:5px}.module-nav [aria-current],.milestone-grid>button[aria-pressed="true"],.research-options>button[aria-pressed="true"]{background:#155f65;color:#fff;border-color:#3ab7b1;box-shadow:inset 0 -3px #64d9ca}.module-heading{color:#def0f1;padding:22px 0 32px}.module-heading h1{font-size:clamp(26px,4vw,44px);line-height:1.15;max-width:900px;margin:15px 0}.module-heading p{color:#a4c3cf;line-height:1.6}.module-heading>span{display:flex;align-items:center;gap:8px;color:#68d8cb}.research-section,.module-footer{padding:clamp(20px,3vw,38px);margin:0 0 24px;background:#f6faf9;border:1px solid #cde1df;border-radius:16px;line-height:1.7}.research h2{font-size:clamp(22px,2.3vw,30px);line-height:1.25;margin:0 0 18px}.research h3{font-size:20px;line-height:1.4}.milestone-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:25px 0}.milestone-grid button{display:flex;flex-direction:column;gap:10px;min-height:165px}.milestone-grid b{font-size:18px}.milestone-grid small{font-size:11px;letter-spacing:.04em}.milestone-grid span{font-size:13px;line-height:1.55}.milestone-detail{background:#e7f1f0;border-left:4px solid #19747b;border-radius:10px;padding:24px}.research-sources{font-size:12px;line-height:1.6;margin-top:24px;border-top:1px solid #aec9cb;padding-top:16px}.research-sources ul{padding-left:20px;margin-bottom:0}.research-sources li{margin:6px 0}.research-sources a{color:#075d74;overflow-wrap:anywhere;text-decoration:underline;text-underline-offset:3px}.research-options{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 0}.research-note{background:#e6f2ef;border-left:3px solid #24877f;border-radius:8px;padding:20px;margin-top:24px}.banking-venn{display:block;width:100%;max-width:900px;margin:18px auto}.banking-venn text{text-anchor:middle;font-family:inherit;fill:#193d4b;font-size:19px;font-weight:700}.banking-venn .venn-small{font-size:12px;font-weight:400}.banking-venn .venn-center{font-size:16px}.research-details{display:grid;gap:12px}.research-details details{border:1px solid #c2d8d8;background:white;border-radius:10px;padding:15px 20px}.research-details summary{cursor:pointer;font-weight:700;line-height:1.5}.research-details details[open]{border-color:#218b88}.research-details p{margin-bottom:4px}.dual-research{display:grid;grid-template-columns:1fr 1fr;gap:24px}.inventory-checks{display:grid;grid-template-columns:1fr 1fr;gap:12px}.inventory-checks label{display:flex;align-items:center;gap:12px;border:1px solid #bfd1d3;border-radius:8px;padding:14px;cursor:pointer}.inventory-checks input{width:20px;height:20px;accent-color:#147478}.module-footer{background:#dcefeb}.research .next-module{background:#155f65;color:white}.research .reading-slide{
   width:100%;
   max-width:100%;
   height:auto;
@@ -67,4 +67,204 @@
   .readiness-orbit-core { position: static; transform: none; grid-column: 1 / -1; margin: 12px auto 24px; }
   .research .readiness-satellite { position: static; transform: none; width: 100%; min-height: 135px; }
   .hndl-case-study table { min-width: 560px; }
+}
+
+
+/* Materi Kajian palette — scoped so other dashboard routes and presentation stay unchanged. */
+.research {
+  --study-navy: #0b2633;
+  --study-navy-soft: #123a45;
+  --study-teal-deep: #0e6667;
+  --study-teal: #178c88;
+  --study-teal-bright: #5ad8cb;
+  --study-mist: #f3f8f7;
+  --study-surface: #ffffff;
+  --study-teal-soft: #e3f2ef;
+  --study-border: #bdd5d2;
+  --study-ink: #183844;
+  --study-muted: #5c747e;
+  --study-amber: #c6761b;
+  --study-amber-soft: #fff0dc;
+  color: var(--study-ink);
+}
+
+.research .research-search {
+  background: var(--study-navy);
+  border-color: #315461;
+  color: #b9d2d8;
+}
+
+.research .research-search input {
+  color: #f5fbfb;
+}
+
+.research .research-search input::placeholder {
+  color: #86a7b1;
+}
+
+.research .module-nav button {
+  background: var(--study-navy);
+  border-color: #315461;
+  color: #c6dce1;
+}
+
+.research .module-nav button:hover {
+  background: var(--study-navy-soft);
+  border-color: var(--study-teal);
+  color: #effafa;
+}
+
+.research .module-nav [aria-current],
+.research .milestone-grid > button[aria-pressed="true"],
+.research .research-options > button[aria-pressed="true"] {
+  background: var(--study-teal-deep);
+  border-color: var(--study-teal-bright);
+  color: #ffffff;
+  box-shadow: inset 0 -3px var(--study-teal-bright);
+}
+
+.research .module-heading {
+  color: #e7f4f3;
+}
+
+.research .module-heading p {
+  color: #a9c3cb;
+}
+
+.research .module-heading > span {
+  color: var(--study-teal-bright);
+}
+
+.research :is(.research-section, .module-footer) {
+  background: var(--study-mist);
+  border-color: var(--study-border);
+  color: var(--study-ink);
+}
+
+.research .module-footer {
+  background: var(--study-teal-soft);
+}
+
+.research :is(.milestone-grid > button, .research-options > button, .research-details details) {
+  background: var(--study-surface);
+  border-color: var(--study-border);
+  color: var(--study-ink);
+}
+
+.research :is(.milestone-grid > button, .research-options > button):hover {
+  background: #edf7f5;
+  border-color: var(--study-teal);
+}
+
+.research .milestone-detail,
+.research .research-note {
+  background: var(--study-teal-soft);
+  border-left-color: var(--study-teal);
+  color: var(--study-ink);
+}
+
+.research .research-details details[open] {
+  border-color: var(--study-teal);
+  box-shadow: 0 0 0 2px rgba(23, 140, 136, 0.1);
+}
+
+.research .inventory-checks label {
+  background: var(--study-surface);
+  border-color: var(--study-border);
+  color: var(--study-ink);
+}
+
+.research .inventory-checks input {
+  accent-color: var(--study-teal);
+}
+
+.research .research-sources {
+  border-top-color: var(--study-border);
+  color: var(--study-muted);
+}
+
+.research .research-sources a {
+  color: var(--study-teal-deep);
+}
+
+.research .banking-venn text {
+  fill: var(--study-ink);
+}
+
+.research .next-module {
+  background: var(--study-teal-deep);
+  border-color: var(--study-teal);
+  color: #ffffff;
+}
+
+/* Slides embedded as reading material inherit the study palette, not presentation chrome. */
+.research .reading-slide {
+  --navy: var(--study-navy);
+  --navy2: var(--study-navy-soft);
+  --teal: var(--study-teal);
+  --cyan: var(--study-teal-bright);
+  --orange: var(--study-amber);
+  --mist: var(--study-mist);
+  --ink: var(--study-ink);
+  background: var(--study-mist);
+  border-color: var(--study-border);
+  color: var(--study-ink);
+  box-shadow: 0 18px 46px rgba(3, 20, 29, 0.22);
+}
+
+.research .reading-slide::before {
+  background: linear-gradient(var(--study-teal-bright), var(--study-teal));
+}
+
+.research .reading-slide :is(.concept-progress span, .closing-progress span) {
+  background: #f8fbfa;
+  border-color: var(--study-border);
+  color: var(--study-muted);
+}
+
+.research .reading-slide :is(.concept-progress span.active, .closing-progress span.active) {
+  background: var(--study-teal-soft);
+  border-color: var(--study-teal);
+  color: var(--study-teal-deep);
+}
+
+.research .reading-slide :is(.concept-progress span.active i, .closing-progress span.active i) {
+  background: var(--study-teal-deep);
+  color: #ffffff;
+}
+
+/* Light selected controls retain dark readable text. Risk-specific amber controls remain semantic. */
+.research .reading-slide :is(
+  .foundation-chain,
+  .state-selector,
+  .comparison-dimensions,
+  .pipeline-stage-grid,
+  .advantage-conditions,
+  .institution-matrix,
+  .regulation-list
+) button[aria-pressed="true"] {
+  background: var(--study-teal-soft);
+  border-color: var(--study-teal);
+  color: var(--study-teal-deep);
+}
+
+.research .reading-slide :is(
+  .algorithm-list,
+  .scheme-tabs,
+  .theme-score-list,
+  .reference-tabs
+) button[aria-pressed="true"] {
+  background: var(--study-amber-soft);
+  border-color: var(--study-amber);
+  color: #74450f;
+}
+
+.research .reading-slide .capability-switch button[aria-pressed="true"] {
+  background: var(--study-teal-deep);
+  border-color: var(--study-teal-deep);
+  color: #ffffff;
+}
+
+.research :is(button, summary, a, input):focus-visible {
+  outline-color: var(--study-amber);
 }
