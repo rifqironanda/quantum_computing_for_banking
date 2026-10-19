@@ -119,3 +119,13 @@ Jika diperlukan, satukan revisi lama secara manual ke dokumen utama.
 - [Peran Viewer, Commenter, dan Editor](https://support.google.com/docs/answer/2494822)
 - [Akses dokumen Google](https://support.google.com/docs/answer/16722399)
 - [Publishing dan embedding](https://support.google.com/docs/answer/183965)
+
+## Tampilan pembaca
+
+Area laporan memakai latar terang yang menyatu, toolbar ringkas, dan dokumen
+yang lebih lebar serta tinggi. Tombol **Fullscreen** memperluas dokumen beserta
+kontrol komentar ke seluruh layar; tekan Esc atau **Keluar fullscreen** untuk
+kembali. Jika browser tidak menyediakan fullscreen atau menolaknya, pembaca
+memakai mode lebar penuh di jendela. Tombol keluar tetap tersedia di toolbar.
+Konten dan ukuran huruf di dalam Google Docs berasal dari Google; aplikasi
+tidak mengubah format atau zoom dokumen lintas origin.

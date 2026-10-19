@@ -55,9 +55,54 @@ try {
   assert.ok(!document.body.textContent.includes("Masuk dengan Google"));
   assert.equal(document.querySelector('script[src*="gsi"]'), null);
   assert.ok(document.body.textContent.includes("Buka langsung di Google Docs"));
+  const fullscreenButton = () =>
+    [...document.querySelectorAll("button")].find((button) =>
+      /Fullscreen|Keluar fullscreen/.test(button.textContent),
+    );
+  const reader = document.querySelector(".docs-reader");
+  const frame = document.querySelector("iframe");
+  // Unsupported browsers get a full-window reading mode without reloading the iframe.
+  await act(async () => fullscreenButton().click());
+  assert.ok(reader.classList.contains("is-expanded"));
+  assert.equal(fullscreenButton().getAttribute("aria-pressed"), "true");
+  assert.equal(document.body.style.overflow, "hidden");
+  assert.equal(document.querySelector("iframe"), frame);
+  await act(async () =>
+    document.dispatchEvent(
+      new window.KeyboardEvent("keydown", { key: "Escape" }),
+    ),
+  );
+  assert.ok(!reader.classList.contains("is-expanded"));
+  assert.equal(document.body.style.overflow, "");
+  // Native fullscreen follows browser events, including Esc outside React.
+  let nativeElement = null;
+  Object.defineProperty(document, "fullscreenElement", {
+    configurable: true,
+    get: () => nativeElement,
+  });
+  reader.requestFullscreen = async () => {
+    nativeElement = reader;
+    document.dispatchEvent(new window.Event("fullscreenchange"));
+  };
+  document.exitFullscreen = async () => {
+    nativeElement = null;
+    document.dispatchEvent(new window.Event("fullscreenchange"));
+  };
+  await act(async () => fullscreenButton().click());
+  assert.equal(fullscreenButton().getAttribute("aria-pressed"), "true");
+  await act(async () => fullscreenButton().click());
+  assert.equal(fullscreenButton().getAttribute("aria-pressed"), "false");
+  reader.requestFullscreen = async () => {
+    throw new Error("Fullscreen blocked");
+  };
+  await act(async () => fullscreenButton().click());
+  assert.ok(reader.classList.contains("is-expanded"));
+  await act(async () => fullscreenButton().click());
+  assert.ok(!reader.classList.contains("is-expanded"));
+  await act(async () => fullscreenButton().click());
   unavailable = true;
   await act(async () => {
-    document.querySelector("button").click();
+    document.querySelector('[aria-label="Muat ulang laporan"]').click();
   });
   assert.equal(document.querySelector("iframe"), null);
   assert.ok(
@@ -65,8 +110,16 @@ try {
       .querySelector("[role=alert]")
       .textContent.includes("belum dikonfigurasi"),
   );
+  assert.equal(
+    fullscreenButton().disabled,
+    false,
+    "exit remains available if reload fails in fullscreen",
+  );
+  await act(async () => fullscreenButton().click());
+  assert.ok(!reader.classList.contains("is-expanded"));
+  assert.equal(document.body.style.overflow, "");
   console.log(
-    "PASS React embed, same-document comment link, no account consent and error fallback",
+    "PASS reader embed, native/fallback fullscreen, Esc, reload failure exit and no OAuth",
   );
 } finally {
   await act(async () => root.unmount());
