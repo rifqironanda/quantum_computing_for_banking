@@ -5488,3 +5488,54 @@ input:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+/* Desktop fullscreen uses the available canvas as a presentation surface. */
+@media (min-width:1100px) and (min-height:650px) {
+  :fullscreen .presentation-app {
+    padding: 8px 12px 10px;
+    gap: 8px;
+  }
+  :fullscreen .presentation-app .topbar,
+  :fullscreen .presentation-app .controls { max-width: 1800px; }
+  :fullscreen .presentation-app .slide {
+    width: min(100%, 1800px);
+    padding: clamp(34px, 4vh, 54px) clamp(46px, 4vw, 76px) 20px;
+  }
+  :fullscreen .presentation-app .slide-content { padding-block: 4px 18px; }
+  :fullscreen .presentation-app .slide-layout { gap: clamp(14px, 2vh, 24px); }
+  :fullscreen .presentation-app .slide h2 { font-size: clamp(2.1rem, 2.5vw, 3.2rem); }
+  :fullscreen .presentation-app .eyebrow { font-size: clamp(.72rem, .78vw, .92rem)!important; margin-bottom: .7rem!important; }
+  :fullscreen .presentation-app .slide-header>p:last-child { font-size: clamp(1rem, 1.15vw, 1.3rem); margin-top: .55rem; }
+  :fullscreen .presentation-app .research-frame {
+    grid-template-columns: minmax(0, .9fr) auto minmax(0, 1.25fr);
+    gap: 14px;
+    margin-top: 16px;
+  }
+  :fullscreen .presentation-app .research-step { padding: 13px 16px; border-radius: 12px; }
+  :fullscreen .presentation-app .research-step span { font-size: clamp(.62rem, .66vw, .76rem); margin-bottom: 5px; }
+  :fullscreen .presentation-app .research-step p { font-size: clamp(.95rem, 1.08vw, 1.2rem); line-height: 1.42; }
+  :fullscreen .presentation-app .research-arrow { width: 24px; height: 24px; }
+  :fullscreen .presentation-app .timeline-explorer { gap: 18px; }
+  :fullscreen .presentation-app .timeline-track { gap: 12px; }
+  :fullscreen .presentation-app .timeline-track:before { top: 27px; height: 3px; }
+  :fullscreen .presentation-app .timeline-track button>span { width: 54px; font-size: .9rem; }
+  :fullscreen .presentation-app .timeline-track b { font-size: clamp(.78rem, .88vw, 1rem); margin-top: 10px; }
+  :fullscreen .presentation-app .timeline-track small { font-size: clamp(.65rem, .7vw, .78rem); line-height: 1.3; }
+  :fullscreen .presentation-app .timeline-detail {
+    min-height: 96px;
+    padding: 16px 20px;
+    border-radius: 13px;
+  }
+  :fullscreen .presentation-app .timeline-detail>span { font-size: .7rem; }
+  :fullscreen .presentation-app .timeline-detail h3 { font-size: clamp(1.05rem, 1.2vw, 1.35rem); }
+  :fullscreen .presentation-app .timeline-detail p { font-size: clamp(.82rem, .92vw, 1.05rem); }
+  :fullscreen .presentation-app .timeline-detail small { font-size: .7rem; }
+  :fullscreen .presentation-app .learning-card { padding: 22px; }
+  :fullscreen .presentation-app .learning-card h3 { font-size: clamp(1rem, 1.2vw, 1.35rem); }
+  :fullscreen .presentation-app .learning-card p,
+  :fullscreen .presentation-app .list-panel li { font-size: clamp(.82rem, .9vw, 1rem); }
+  :fullscreen .presentation-app .callout { padding: 11px 16px; font-size: clamp(.8rem, .9vw, 1rem); }
+  :fullscreen .presentation-app .evidence-hint button { font-size: clamp(.7rem, .76vw, .86rem); }
+  :fullscreen .presentation-app .evidence-hint p { padding: 9px 12px; font-size: clamp(.7rem, .76vw, .86rem); }
+  :fullscreen .presentation-app .slide>footer { padding-top: 14px; font-size: clamp(.58rem, .62vw, .7rem); }
+}
