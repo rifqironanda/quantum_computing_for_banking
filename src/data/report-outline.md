@@ -1,4 +1,6 @@
-# Outline
+# Outline pendukung (arsip struktur 10 bab)
+
+> Struktur ini dipertahankan untuk materi tambahan. Acuan laporan aktif adalah kajian 7 bab pada `docs/KAJIAN_ACUAN.md`; sitasi web menggunakan `src/data/references.json`.
 
 ## 1. Pendahuluan
 

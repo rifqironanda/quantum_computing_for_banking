@@ -30,7 +30,7 @@ import "./dashboard.css";
 import Research from "./Research";
 import HndlCaseStudy from "./HndlCaseStudy";
 import ReportOutline from "./ReportOutline";
-import {modules} from "./researchData";
+import { modules } from "./researchData";
 
 const groups = modules;
 const labs = [
@@ -58,11 +58,17 @@ const readRoute = () => {
 export default function Dashboard() {
   const [route, setRoute] = useState(readRoute),
     [mobile, setMobile] = useState(false),
-    [moduleId,setModuleId] = useState(() => location.hash.replace("#module-", "") || "evolution"),
+    [moduleId, setModuleId] = useState(
+      () => location.hash.replace("#module-", "") || "evolution",
+    ),
     [selected, setSelected] = useState(6),
     [lab, setLab] = useState("physics");
   useEffect(() => {
-    const sync = () => { setRoute(readRoute()); if(location.hash.startsWith("#module-")) setModuleId(location.hash.slice(8)); };
+    const sync = () => {
+      setRoute(readRoute());
+      if (location.hash.startsWith("#module-"))
+        setModuleId(location.hash.slice(8));
+    };
     addEventListener("hashchange", sync);
     return () => removeEventListener("hashchange", sync);
   }, []);
@@ -71,10 +77,19 @@ export default function Dashboard() {
     setRoute(value);
     setMobile(false);
   };
-  const openModule = (id) => {setSelected((modules.find(m=>m.id===id)?.start || 2)-1);setModuleId(id);location.hash=`module-${id}`;setRoute('library');setMobile(false);};
+  const openModule = (id) => {
+    setSelected((modules.find((m) => m.id === id)?.start || 2) - 1);
+    setModuleId(id);
+    location.hash = `module-${id}`;
+    setRoute("library");
+    setMobile(false);
+  };
   const showTopic = (index) => {
     setSelected(index);
-    openModule(modules.find(m=>index+1>=m.start && index+1<=m.end)?.id || 'evolution');
+    openModule(
+      modules.find((m) => index + 1 >= m.start && index + 1 <= m.end)?.id ||
+        "evolution",
+    );
   };
   const ActiveLab = labs.find((x) => x[0] === lab)[2];
   if (route === "presentation")
@@ -116,7 +131,7 @@ export default function Dashboard() {
           ))}
         </nav>
         <div className="sidebar-bottom">
-          <span>KAJIAN BULAN 1</span>
+          <span>KAJIAN QUANTUM COMPUTING</span>
           <p>Physics → Computing → Banking resilience</p>
           <a
             href="https://github.com/rifqironanda/computing_and_quantum"
@@ -156,9 +171,7 @@ export default function Dashboard() {
               <div className="dash-heading">
                 <div>
                   <p className="dash-kicker">QUANTUM • PHYSICS • CYBER</p>
-                  <h1>
-                    {slides[0].title}
-                  </h1>
+                  <h1>{slides[0].title}</h1>
                   <p>
                     {slides[0].subtitle}. {slides[0].note}
                   </p>
@@ -166,15 +179,34 @@ export default function Dashboard() {
                 <div className="research-badge">
                   <Atom size={46} />
                   <span>RESEARCH BRIEFING</span>
-                  <b>Bulan 01</b>
+                  <b>Kajian Quantum Computing</b>
                 </div>
               </div>
-              <div className="dashboard-cta"><button onClick={()=>openModule('evolution')}>Jelajahi perkembangan Quantum Computing →</button><button onClick={()=>openModule('foundations')}>Apa itu Quantum Computing? →</button></div>
-              <div className="dashboard-features">{modules.map(m=><button key={m.id} onClick={()=>openModule(m.id)}><b>{m.name}</b><span>{m.feature}</span><span>{m.summary}</span></button>)}</div>
+              <div className="dashboard-cta">
+                <button onClick={() => openModule("evolution")}>
+                  Jelajahi perkembangan Quantum Computing →
+                </button>
+                <button onClick={() => openModule("foundations")}>
+                  Apa itu Quantum Computing? →
+                </button>
+              </div>
+              <div className="dashboard-features">
+                {modules.map((m) => (
+                  <button key={m.id} onClick={() => openModule(m.id)}>
+                    <b>{m.name}</b>
+                    <span>{m.feature}</span>
+                    <span>{m.summary}</span>
+                  </button>
+                ))}
+              </div>
               <div className="dash-stats">
                 {[
-                  ["06", "Modul kajian", "library"],
-                  ["10", "Bab laporan", "report"],
+                  [
+                    String(modules.length).padStart(2, "0"),
+                    "Modul kajian",
+                    "library",
+                  ],
+                  ["07", "Bab laporan", "report"],
                   ["04", "Lab interaktif", "lab"],
                   ["08", "Tahap readiness", "readiness"],
                   ["Bank B", "Contoh kasus HNDL", "risk"],
@@ -256,8 +288,20 @@ export default function Dashboard() {
               </div>
             </>
           )}
-          {route === "library" && <Research moduleId={moduleId} onNavigate={openModule} onDashboard={()=>go('overview')} onLab={()=>go('lab')}/>}
-          {route === "risk" && <HndlCaseStudy onTheory={()=>openModule('hndl')} onDashboard={()=>go('overview')}/>}
+          {route === "library" && (
+            <Research
+              moduleId={moduleId}
+              onNavigate={openModule}
+              onDashboard={() => go("overview")}
+              onLab={() => go("lab")}
+            />
+          )}
+          {route === "risk" && (
+            <HndlCaseStudy
+              onTheory={() => openModule("hndl")}
+              onDashboard={() => go("overview")}
+            />
+          )}
           {route === "readiness" && (
             <>
               <PageTitle

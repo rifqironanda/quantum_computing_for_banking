@@ -1,25 +1,23 @@
+import { referenceNumbers, shortReference } from "./researchReferences";
 const refs = {
-  evolution:
-    "Bell (1964); Aspect et al. (1982); Benioff (1980); Feynman (1982); Deutsch (1985); Shor (1997); Arute et al. (2019); Acharya et al. (2023, 2025).",
-  finance:
-    "Google Quantum AI and Collaborators (2023; 2025); Herman et al. (2023), Nature Reviews Physics; Auer et al. (2024), BIS Papers No. 149.",
-  risk: "NIST IR 8547 (2024); CISA, NSA & NIST (2023); BIS Project Leap Phase 1–2 (2023–2025).",
-  readiness:
-    "NIST CSWP 39 (2025); NIST NCCoE; G7 Cyber Expert Group (2024); BIS Papers No. 158 (2025).",
-  foundations:
-    "Nielsen & Chuang (2010); Feynman (1982); Deutsch (1985); Preskill (2018).",
-  algorithms:
-    "Shor (1997); Grover (1996); Brassard et al. (2002); Farhi et al. (2014); Cerezo et al. (2022).",
-  globalResponse:
-    "NIST FIPS 203–205 (2024); NIST IR 8547 (2024); NIST NCCoE; CISA, NSA & NIST (2023); BIS Papers No. 158 (2025); BIS Project Leap (2023–2025); G7 CEG (2026); MAS (2024).",
-  indonesia:
-    "OJK POJK 11/POJK.03/2022; SEOJK 29/SEOJK.03/2022; PADK OJK 1/2026; BI PBI 2/2024; PADG 24/2024.",
+  evolution: referenceNumbers([
+    4, 5, 9, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75,
+  ]),
+  finance: referenceNumbers([1, 25, 26, 27, 58, 59]),
+  risk: referenceNumbers([3, 11, 14, 21, 29, 34, 35]),
+  readiness: referenceNumbers([2, 3, 16, 24, 37, 60]),
+  foundations: referenceNumbers([4, 64, 65, 76]),
+  algorithms: referenceNumbers([11, 14, 25, 26]),
+  globalResponse: referenceNumbers([
+    2, 3, 10, 16, 17, 19, 20, 22, 23, 30, 37, 38, 39, 43, 44, 47, 48,
+  ]),
+  indonesia: referenceNumbers([55, 56, 57]),
 };
 
 export const slides = [
   {
     kind: "cover",
-    eyebrow: "RESEARCH BRIEFING • BULAN 1",
+    eyebrow: "KAJIAN QUANTUM COMPUTING",
     title: "Quantum Computing pada Sektor Perbankan",
     subtitle: "Perkembangan, Konsep, Risiko Awal, dan International Benchmark",
     note: "Fondasi evidence-based untuk memahami peluang, risiko, dan tantangan perbankan Indonesia.",
@@ -37,14 +35,54 @@ export const slides = [
     subtitle:
       "Perkembangan ilmiah dan teknologi yang membentuk Quantum Computing modern.",
     items: [
-      ["01", "Foundations", "Dasar informasi kuantum", "Eksperimen Bell dan Aspect membangun dasar pemahaman bahwa informasi kuantum memiliki karakteristik yang berbeda dari informasi klasik"],
-      ["02", "Concept", "Ide dan bukti konsep", "Benioff, Feynman, dan Deutsch membuktikan bahwa proses komputasi dapat dimodelkan sebagai sistem fisik kuantum."],
-      ["03", "Algorithms", "Algoritma kuantum", "Algoritma kuantum menunjukkan bahwa superposisi dan interferensi dapat digunakan untuk menyelesaikan kelas masalah tertentu lebih effisien daripada algoritma klasik."],
-      ["04", "Architectures", "Desain perangkat", "Arsitektur Komputasi kuantum berkembang melalui berbagai pendekatan yang memanfaatkan entanglement sebagai sumber daya utama, termasuk measurement-based quantum computing dan quantum annealing."],
-      ["05", "Access", "Cloud dan NISQ", "Akses komputasi kuantum berkembang melalui perangkat NISQ sebagai tahap transisi menuju sistem fault-tolerant berskala besar."],
-      ["06", "Advantage", "Tugas tertentu", "keunggulan komputasi kuantum telah ditunjukkan melalui prosesor superkonduktor dan sistem fotonik pada tugas komputasi khusus."],
-      ["07", "Error Suppression", "Logical qubit", "Error suppression menggunakan banyak physical qubits untuk melindungi informasi pada satu logical qubit sehungga kesalahan komputasi dapat ditekan."],
-      ["08", "Adaptive Stability", "Kontrol koreksi galat", "Adaptive stability menggunakan feedback kesalahan untuk menyesuaikan pengaturan sistem kuantum secara otomatis selama komputasi berlangsung"],
+      [
+        "01",
+        "Foundations",
+        "Dasar informasi kuantum",
+        "Eksperimen Bell dan Aspect membangun dasar pemahaman bahwa informasi kuantum memiliki karakteristik yang berbeda dari informasi klasik",
+      ],
+      [
+        "02",
+        "Concept",
+        "Ide dan bukti konsep",
+        "Benioff, Feynman, dan Deutsch membuktikan bahwa proses komputasi dapat dimodelkan sebagai sistem fisik kuantum.",
+      ],
+      [
+        "03",
+        "Algorithms",
+        "Algoritma kuantum",
+        "Algoritma kuantum menunjukkan bahwa superposisi dan interferensi dapat digunakan untuk menyelesaikan kelas masalah tertentu lebih effisien daripada algoritma klasik.",
+      ],
+      [
+        "04",
+        "Architectures",
+        "Desain perangkat",
+        "Arsitektur Komputasi kuantum berkembang melalui berbagai pendekatan yang memanfaatkan entanglement sebagai sumber daya utama, termasuk measurement-based quantum computing dan quantum annealing.",
+      ],
+      [
+        "05",
+        "Access",
+        "Cloud dan NISQ",
+        "Akses komputasi kuantum berkembang melalui perangkat NISQ sebagai tahap transisi menuju sistem fault-tolerant berskala besar.",
+      ],
+      [
+        "06",
+        "Advantage",
+        "Tugas tertentu",
+        "keunggulan komputasi kuantum telah ditunjukkan melalui prosesor superkonduktor dan sistem fotonik pada tugas komputasi khusus.",
+      ],
+      [
+        "07",
+        "Error Suppression",
+        "Logical qubit",
+        "Error suppression menggunakan banyak physical qubits untuk melindungi informasi pada satu logical qubit sehungga kesalahan komputasi dapat ditekan.",
+      ],
+      [
+        "08",
+        "Adaptive Stability",
+        "Kontrol koreksi galat",
+        "Adaptive stability menggunakan feedback kesalahan untuk menyesuaikan pengaturan sistem kuantum secara otomatis selama komputasi berlangsung",
+      ],
     ],
     source: refs.evolution,
   },
@@ -119,21 +157,32 @@ export const slides = [
     subtitle:
       "Dari Quantum Information Foundations menuju Adaptive Error Correction",
     body: "Quantum computing telah berkembang dari kemungkinan teoretis menuju quantum advantage pada tugas tertentu dan logical qubit yang semakin andal—tetapi belum mencapai large-scale fault-tolerant quantum computing.",
-    tags: ["Algorithms", "Architectures", "Error correction", "Adaptive control"],
+    tags: [
+      "Algorithms",
+      "Architectures",
+      "Error correction",
+      "Adaptive control",
+    ],
     source: refs.evolution,
   },
   {
     kind: "columns",
     variant: "why-quantum",
     title: "Mengapa Quantum Perlu Mulai Dipahami?",
-    subtitle: "Tiga alasan untuk membangun pemahaman institusional sebelum menentukan adopsi dan respons risiko.",
+    subtitle:
+      "Tiga alasan untuk membangun pemahaman institusional sebelum menentukan adopsi dan respons risiko.",
     items: [
       [
         "01",
         "Technological Progress",
         "Perkembangan mulai bergerak menuju peningkatan kualitas komputasi.",
         "Kemajuan tidak lagi hanya ditunjukkan oleh jumlah physical qubits, tetapi juga oleh kemampuan membentuk logical qubit yang lebih terlindungi.",
-        ["Higher fidelity", "Lower error rate", "Circuit depth", "Logical error suppression"],
+        [
+          "Higher fidelity",
+          "Lower error rate",
+          "Circuit depth",
+          "Logical error suppression",
+        ],
       ],
       [
         "02",
@@ -190,21 +239,34 @@ export const slides = [
       {
         id: "benefits",
         title: "Potential Benefits",
-        items: ["Optimisation", "Simulation", "Sampling and estimation", "Selected machine-learning problems"],
+        items: [
+          "Optimisation",
+          "Simulation",
+          "Sampling and estimation",
+          "Selected machine-learning problems",
+        ],
         status: "Prospective and research-stage",
         action: "Explore → Experiment → Validate against classical baselines",
-        caveat: "Practical advantage untuk use case perbankan belum terbukti secara umum.",
+        caveat:
+          "Practical advantage untuk use case perbankan belum terbukti secara umum.",
       },
       {
         id: "threats",
         title: "Emerging Threats",
-        items: ["Future cryptanalytic capability", "Changes to security assumptions", "Cryptographic dependency", "Potential trust and confidentiality exposure"],
+        items: [
+          "Future cryptanalytic capability",
+          "Changes to security assumptions",
+          "Cryptographic dependency",
+          "Potential trust and confidentiality exposure",
+        ],
         status: "Future capability with potentially present preparation needs",
         action: "Identify → Assess → Prepare",
-        caveat: "Persiapan dapat relevan sebelum waktu kemunculan CRQC diketahui.",
+        caveat:
+          "Persiapan dapat relevan sebelum waktu kemunculan CRQC diketahui.",
       },
     ],
-    callout: "Both pathways matter, but they do not require the same response or decision horizon.",
+    callout:
+      "Both pathways matter, but they do not require the same response or decision horizon.",
     source: refs.finance,
   },
   {
@@ -212,20 +274,68 @@ export const slides = [
     title: "Dual Relevance, Different Decision Horizons",
     subtitle: "Which pathway requires earlier institutional attention?",
     benefits: [
-      { label: "Quantum optimisation / financial analytics", score: 48.7, tier: "Watch", decision: "Explore and validate against strong classical baselines." },
-      { label: "Simulation, sampling and estimation", score: 50.0, tier: "Watch", decision: "Monitor special benchmarks; banking advantage remains unproven." },
-      { label: "Quantum machine learning / fraud analytics", score: 41.3, tier: "Watch", decision: "Experimental and sensitive to data-loading assumptions." },
+      {
+        label: "Quantum optimisation / financial analytics",
+        score: 48.7,
+        tier: "Watch",
+        decision: "Explore and validate against strong classical baselines.",
+      },
+      {
+        label: "Simulation, sampling and estimation",
+        score: 50.0,
+        tier: "Watch",
+        decision:
+          "Monitor special benchmarks; banking advantage remains unproven.",
+      },
+      {
+        label: "Quantum machine learning / fraud analytics",
+        score: 41.3,
+        tier: "Watch",
+        decision: "Experimental and sensitive to data-loading assumptions.",
+      },
     ],
     threats: [
-      { label: "Long-lived confidentiality / HNDL", score: 97.9, tier: "Critical", decision: "Map data secrecy lifetime and interceptability." },
-      { label: "Public-key cryptanalytic threat", score: 95.8, tier: "Critical", decision: "Separate algorithmic vulnerability from engineering timing." },
-      { label: "Cryptographic inventory gap", score: 93.9, tier: "Critical", decision: "Establish deployment visibility before risk conclusions." },
-      { label: "PQC migration complexity", score: 91.8, tier: "Critical", decision: "Plan staged testing and interoperability work." },
-      { label: "Governance, skills and crypto-agility", score: 89.0, tier: "Critical", decision: "Build accountable, no-regrets readiness capability." },
-      { label: "Digital signatures, PKI and software trust", score: 85.8, tier: "Critical", decision: "Assess separately from confidentiality and HNDL." },
+      {
+        label: "Long-lived confidentiality / HNDL",
+        score: 97.9,
+        tier: "Critical",
+        decision: "Map data secrecy lifetime and interceptability.",
+      },
+      {
+        label: "Public-key cryptanalytic threat",
+        score: 95.8,
+        tier: "Critical",
+        decision: "Separate algorithmic vulnerability from engineering timing.",
+      },
+      {
+        label: "Cryptographic inventory gap",
+        score: 93.9,
+        tier: "Critical",
+        decision: "Establish deployment visibility before risk conclusions.",
+      },
+      {
+        label: "PQC migration complexity",
+        score: 91.8,
+        tier: "Critical",
+        decision: "Plan staged testing and interoperability work.",
+      },
+      {
+        label: "Governance, skills and crypto-agility",
+        score: 89.0,
+        tier: "Critical",
+        decision: "Build accountable, no-regrets readiness capability.",
+      },
+      {
+        label: "Digital signatures, PKI and software trust",
+        score: 85.8,
+        tier: "Critical",
+        decision: "Assess separately from confidentiality and HNDL.",
+      },
     ],
-    methodology: "Scores are decision-ordering indicators based on literature and structured expert judgement—not probabilities of CRQC arrival, expected financial losses, or bank-specific risk ratings.",
-    callout: "Potential Benefits justify continued exploration; future cryptanalytic exposure justifies earlier readiness.",
+    methodology:
+      "Scores are decision-ordering indicators based on literature and structured expert judgement—not probabilities of CRQC arrival, expected financial losses, or bank-specific risk ratings.",
+    callout:
+      "Potential Benefits justify continued exploration; future cryptanalytic exposure justifies earlier readiness.",
     source: `${refs.finance} ${refs.risk}`,
   },
   {
@@ -233,9 +343,26 @@ export const slides = [
     title: "Future Cryptanalytic Capability Could Change How Protect Data",
     subtitle: "What future capability creates the cryptographic concern?",
     layers: [
-      { label: "Future capability", items: ["Cryptographically Relevant Quantum Computer", "Fault-Tolerant Quantum Computing", "Shor’s Algorithm at relevant scale"] },
-      { label: "Mathematical problems", items: ["Integer factorisation", "Discrete logarithm", "Elliptic-curve discrete logarithm"] },
-      { label: "Current public-key schemes", items: ["RSA", "Diffie–Hellman", "ECC", "ECDH", "ECDSA"] },
+      {
+        label: "Future capability",
+        items: [
+          "Cryptographically Relevant Quantum Computer",
+          "Fault-Tolerant Quantum Computing",
+          "Shor’s Algorithm at relevant scale",
+        ],
+      },
+      {
+        label: "Mathematical problems",
+        items: [
+          "Integer factorisation",
+          "Discrete logarithm",
+          "Elliptic-curve discrete logarithm",
+        ],
+      },
+      {
+        label: "Current public-key schemes",
+        items: ["RSA", "Diffie–Hellman", "ECC", "ECDH", "ECDSA"],
+      },
     ],
     mappings: {
       RSA: "Integer factorisation",
@@ -244,10 +371,14 @@ export const slides = [
       ECDH: "Elliptic-curve discrete logarithm",
       ECDSA: "Elliptic-curve discrete logarithm",
     },
-    current: "No demonstrated capability to break modern banking keys at relevant scale.",
-    future: "A sufficiently capable CRQC running Shor’s Algorithm could attack factoring and discrete-logarithm assumptions.",
-    caveat: "Algorithmic vulnerability is established, but engineering feasibility and timing remain uncertain.",
-    callout: "Future cryptanalytic capability is the hazard. bukan berarti membuktikan bahwa setiap bank berisiko.",
+    current:
+      "No demonstrated capability to break modern banking keys at relevant scale.",
+    future:
+      "A sufficiently capable CRQC running Shor’s Algorithm could attack factoring and discrete-logarithm assumptions.",
+    caveat:
+      "Algorithmic vulnerability is established, but engineering feasibility and timing remain uncertain.",
+    callout:
+      "Future cryptanalytic capability is the hazard. bukan berarti membuktikan bahwa setiap bank berisiko.",
     source: refs.risk,
   },
   {
@@ -256,39 +387,82 @@ export const slides = [
     subtitle: "Why is a future capability relevant to systems operating today?",
     center: "Banking Digital Infrastructure",
     functions: [
-      { title: "Key Establishment", examples: ["TLS", "VPN", "APIs", "Interbank communication"], algorithms: ["RSA", "DH", "ECC", "ECDH"] },
-      { title: "Digital Signatures", examples: ["Message signing", "Document signing", "Authentication"], algorithms: ["RSA", "ECC", "ECDSA"] },
-      { title: "PKI and Certificates", examples: ["Digital identity", "Certificate trust", "Machine authentication"], algorithms: ["RSA", "ECC", "ECDSA"] },
-      { title: "Software and System Trust", examples: ["Code signing", "Firmware signing", "Trusted updates"], algorithms: ["RSA", "ECC", "ECDSA"] },
+      {
+        title: "Key Establishment",
+        examples: ["TLS", "VPN", "APIs", "Interbank communication"],
+        algorithms: ["RSA", "DH", "ECC", "ECDH"],
+      },
+      {
+        title: "Digital Signatures",
+        examples: ["Message signing", "Document signing", "Authentication"],
+        algorithms: ["RSA", "ECC", "ECDSA"],
+      },
+      {
+        title: "PKI and Certificates",
+        examples: [
+          "Digital identity",
+          "Certificate trust",
+          "Machine authentication",
+        ],
+        algorithms: ["RSA", "ECC", "ECDSA"],
+      },
+      {
+        title: "Software and System Trust",
+        examples: ["Code signing", "Firmware signing", "Trusted updates"],
+        algorithms: ["RSA", "ECC", "ECDSA"],
+      },
     ],
-    distinction: "Dependency identifies potential relevance. Exposure requires actual deployment, protected assets, and time characteristics.",
-    callout: "Existing cryptographic dependency connects future quantum capability with current banking infrastructure.",
+    distinction:
+      "Dependency identifies potential relevance. Exposure requires actual deployment, protected assets, and time characteristics.",
+    callout:
+      "Existing cryptographic dependency connects future quantum capability with current banking infrastructure.",
     source: refs.risk,
   },
   {
     kind: "exposure_conditions",
     title: "Cryptographic Exposure",
-    subtitle: "When does an existing cryptographic dependency become a relevant exposure?",
+    subtitle:
+      "When does an existing cryptographic dependency become a relevant exposure?",
     pathways: {
       confidentiality: {
         title: "Confidentiality pathway",
-        conditions: ["Quantum-vulnerable dependency", "Interceptable encrypted data", "Long Data Secrecy Lifetime"],
-        incomplete: "Dependency identified, but HNDL conditions are incomplete.",
+        conditions: [
+          "Quantum-vulnerable dependency",
+          "Interceptable encrypted data",
+          "Long Data Secrecy Lifetime",
+        ],
+        incomplete:
+          "Dependency identified, but HNDL conditions are incomplete.",
         complete: "Potential temporal confidentiality exposure identified.",
       },
       trust: {
         title: "Trust pathway",
-        conditions: ["Vulnerable signature dependency", "Critical trust function", "Future active forgery capability"],
-        incomplete: "Dependency identified, but trust-path conditions are incomplete.",
+        conditions: [
+          "Vulnerable signature dependency",
+          "Critical trust function",
+          "Future active forgery capability",
+        ],
+        incomplete:
+          "Dependency identified, but trust-path conditions are incomplete.",
         complete: "Potential authentication and integrity exposure identified.",
       },
     },
     inputs: [
-      ["Actual Deployment", "Application, protocol, hardware, software, KMS/HSM, third party"],
-      ["Cryptographic Function", "Confidentiality, key establishment, authentication, signatures, software trust"],
-      ["Asset and Time", "Sensitivity, secrecy lifetime, criticality, interceptability, replaceability, migration time"],
+      [
+        "Actual Deployment",
+        "Application, protocol, hardware, software, KMS/HSM, third party",
+      ],
+      [
+        "Cryptographic Function",
+        "Confidentiality, key establishment, authentication, signatures, software trust",
+      ],
+      [
+        "Asset and Time",
+        "Sensitivity, secrecy lifetime, criticality, interceptability, replaceability, migration time",
+      ],
     ],
-    boundary: "Bank-specific exposure cannot be concluded without a cryptographic inventory.",
+    boundary:
+      "Bank-specific exposure cannot be concluded without a cryptographic inventory.",
     // Compatibility data for the existing dashboard HNDL explorer (slides[12].items).
     items: [
       ["1", "Encrypted sensitive data"],
@@ -297,7 +471,8 @@ export const slides = [
       ["4", "CRQC capability matures"],
       ["5", "Potential decryption"],
     ],
-    callout: "Capability creates the hazard; dependency creates relevance; deployment and asset characteristics determine exposure.",
+    callout:
+      "Capability creates the hazard; dependency creates relevance; deployment and asset characteristics determine exposure.",
     source: refs.risk,
   },
   {
@@ -311,23 +486,44 @@ export const slides = [
       ["Future", "CRQC capability becomes available"],
       ["Decrypt later", "Potential confidentiality compromise"],
     ],
-    scores: [["Impact", 5], ["Urgency", 5], ["Exposure breadth", 5], ["Irreversibility / data lifetime", 5], ["Systemic propagation", 4], ["Actionability", 5], ["Evidence strength", 4.85]],
+    scores: [
+      ["Impact", 5],
+      ["Urgency", 5],
+      ["Exposure breadth", 5],
+      ["Irreversibility / data lifetime", 5],
+      ["Systemic propagation", 4],
+      ["Actionability", 5],
+      ["Evidence strength", 4.85],
+    ],
     adjustedPriority: 97.9,
-    formula: "Data Secrecy Lifetime + Migration Time > Time Until Cryptographic Compromise",
-    caveat: "HNDL is a literature-identified focal threat scenario—not evidence of widespread active attacks and not an assessed highest risk for Indonesian banks.",
-    callout: "Readiness can begin under uncertainty: map data lifetime, discover dependencies, assess exposure, and preserve migration options.",
+    formula:
+      "Data Secrecy Lifetime + Migration Time > Time Until Cryptographic Compromise",
+    caveat:
+      "HNDL is a literature-identified focal threat scenario—not evidence of widespread active attacks and not an assessed highest risk for Indonesian banks.",
+    callout:
+      "Readiness can begin under uncertainty: map data lifetime, discover dependencies, assess exposure, and preserve migration options.",
     source: refs.risk,
   },
   {
     kind: "readiness_response",
     title: "What Will We Do?",
-    subtitle: "HNDL menjadi pemicu untuk membangun kemampuan perubahan kriptografi yang terkelola.",
+    subtitle:
+      "HNDL menjadi pemicu untuk membangun kemampuan perubahan kriptografi yang terkelola.",
     center: "Quantum Readiness",
     items: [
       ["People", "Tetapkan sponsor, owner, dan tanggung jawab lintas fungsi"],
-      ["Technology", "Temukan penggunaan kriptografi dan siapkan migration path"],
-      ["Policies & Processes", "Gunakan evidence untuk prioritas, pengujian, dan assurance"],
-      ["Coordination", "Sinkronkan roadmap internal dengan vendor dan ekosistem"],
+      [
+        "Technology",
+        "Temukan penggunaan kriptografi dan siapkan migration path",
+      ],
+      [
+        "Policies & Processes",
+        "Gunakan evidence untuk prioritas, pengujian, dan assurance",
+      ],
+      [
+        "Coordination",
+        "Sinkronkan roadmap internal dengan vendor dan ekosistem",
+      ],
     ],
     outcomes: [
       "Ownership yang jelas",
@@ -335,13 +531,15 @@ export const slides = [
       "Prioritised migration backlog",
       "Tested transition plan",
     ],
-    callout: "Respons awal membangun ownership, visibility, dan kemampuan perubahan sebelum migrasi dilakukan secara bertahap.",
+    callout:
+      "Respons awal membangun ownership, visibility, dan kemampuan perubahan sebelum migrasi dilakukan secara bertahap.",
     source: refs.readiness,
   },
   {
     kind: "readiness_lifecycle",
     title: "Quantum Readiness Lifecycle",
-    subtitle: "Pustaka readiness menyatukan governance, discovery, transition, dan monitoring sebagai siklus berulang.",
+    subtitle:
+      "Pustaka readiness menyatukan governance, discovery, transition, dan monitoring sebagai siklus berulang.",
     items: [
       "Govern & build awareness",
       "Discover & inventory",
@@ -357,42 +555,68 @@ export const slides = [
         label: "Mobilise",
         purpose: "Membentuk mandat dan akuntabilitas",
         steps: [
-          ["Govern & build awareness", "Sponsor, owner, decision rights, dan pemahaman lintas fungsi"],
+          [
+            "Govern & build awareness",
+            "Sponsor, owner, decision rights, dan pemahaman lintas fungsi",
+          ],
         ],
       },
       {
         label: "Discover",
         purpose: "Mengubah ketidakpastian menjadi evidence",
         steps: [
-          ["Discover & inventory", "Lokasi, fungsi, data, owner, dan dependency kriptografi"],
-          ["Assess & prioritise", "Exposure, criticality, migration complexity, dan readiness"],
+          [
+            "Discover & inventory",
+            "Lokasi, fungsi, data, owner, dan dependency kriptografi",
+          ],
+          [
+            "Assess & prioritise",
+            "Exposure, criticality, migration complexity, dan readiness",
+          ],
         ],
       },
       {
         label: "Transition",
         purpose: "Mengelola perubahan secara bertahap",
         steps: [
-          ["Plan & coordinate", "Roadmap internal, vendor, procurement, dan dependency"],
-          ["Pilot & test", "Interoperability, performance, operability, dan rollback"],
-          ["Migrate in phases", "Implementasi berdasarkan prioritas dan hasil pengujian"],
-          ["Validate & assure", "Cakupan, konfigurasi, evidence, dan residual exposure"],
+          [
+            "Plan & coordinate",
+            "Roadmap internal, vendor, procurement, dan dependency",
+          ],
+          [
+            "Pilot & test",
+            "Interoperability, performance, operability, dan rollback",
+          ],
+          [
+            "Migrate in phases",
+            "Implementasi berdasarkan prioritas dan hasil pengujian",
+          ],
+          [
+            "Validate & assure",
+            "Cakupan, konfigurasi, evidence, dan residual exposure",
+          ],
         ],
       },
       {
         label: "Sustain",
         purpose: "Menjaga crypto-agility setelah migrasi",
         steps: [
-          ["Monitor & remain agile", "Standar, capability, vendor roadmap, dan perubahan exposure"],
+          [
+            "Monitor & remain agile",
+            "Standar, capability, vendor roadmap, dan perubahan exposure",
+          ],
         ],
       },
     ],
-    callout: "Lifecycle ini iteratif. Monitoring dapat memicu inventory, assessment, dan planning berikutnya.",
+    callout:
+      "Lifecycle ini iteratif. Monitoring dapat memicu inventory, assessment, dan planning berikutnya.",
     source: refs.readiness,
   },
   {
     kind: "inventory_rationale",
     title: "Why Inventory Comes First",
-    subtitle: "Tanpa inventory, organisasi belum memiliki dasar untuk menentukan exposure, owner, atau urutan perubahan.",
+    subtitle:
+      "Tanpa inventory, organisasi belum memiliki dasar untuk menentukan exposure, owner, atau urutan perubahan.",
     items: [
       "Algorithms • keys • certificates",
       "Applications • protocols • libraries",
@@ -406,30 +630,44 @@ export const slides = [
       {
         label: "Cryptographic objects",
         question: "Apa dan di mana kriptografi digunakan?",
-        fields: ["Algorithms, keys, certificates", "Applications, protocols, libraries", "HSM, KMS, dan configurations"],
+        fields: [
+          "Algorithms, keys, certificates",
+          "Applications, protocols, libraries",
+          "HSM, KMS, dan configurations",
+        ],
         decision: "Mengidentifikasi schemes dan fungsi yang perlu dinilai.",
       },
       {
         label: "Business context",
         question: "Apa yang dilindungi dan siapa yang bertanggung jawab?",
-        fields: ["System owner", "Business function dan criticality", "Data protected dan secrecy lifetime"],
+        fields: [
+          "System owner",
+          "Business function dan criticality",
+          "Data protected dan secrecy lifetime",
+        ],
         decision: "Menghubungkan dependency teknis dengan dampak bisnis.",
       },
       {
         label: "Migration dependencies",
         question: "Apa yang menentukan jalur dan waktu perubahan?",
-        fields: ["Interfaces dan interoperability", "Third parties dan vendor roadmap", "Replacement, testing, dan rollback constraints"],
+        fields: [
+          "Interfaces dan interoperability",
+          "Third parties dan vendor roadmap",
+          "Replacement, testing, dan rollback constraints",
+        ],
         decision: "Menentukan feasibility, lead time, dan urutan eksekusi.",
       },
     ],
     output: "Evidence base for risk-based prioritisation",
-    callout: "Inventory menghubungkan penggunaan kriptografi dengan konteks bisnis dan dependency migrasi sebagai evidence yang terus diperbarui.",
+    callout:
+      "Inventory menghubungkan penggunaan kriptografi dengan konteks bisnis dan dependency migrasi sebagai evidence yang terus diperbarui.",
     source: refs.readiness,
   },
   {
     kind: "risk_prioritisation",
     title: "Risk-Based Prioritisation",
-    subtitle: "Data inventory menjadi input untuk membandingkan urgency, impact, dan feasibility perubahan.",
+    subtitle:
+      "Data inventory menjadi input untuk membandingkan urgency, impact, dan feasibility perubahan.",
     headers: ["Exposure", "Mechanism", "Consideration"],
     rows: [
       [
@@ -449,7 +687,10 @@ export const slides = [
       ],
     ],
     inventoryInputs: [
-      ["Crypto function", "Confidentiality, authentication, signature, atau key establishment"],
+      [
+        "Crypto function",
+        "Confidentiality, authentication, signature, atau key establishment",
+      ],
       ["Data & service", "Secrecy lifetime, business criticality, dan impact"],
       ["Dependency", "Interoperability, vendor path, dan migration lead time"],
     ],
@@ -457,75 +698,160 @@ export const slides = [
       {
         label: "Long-lived confidentiality",
         mechanism: "HNDL",
-        evidence: ["Data tetap sensitif dalam jangka panjang", "Public-key key establishment teridentifikasi", "Migration lead time menambah exposure window"],
-        decision: "Kurangi exposure baru dan mulai migration planning lebih awal.",
+        evidence: [
+          "Data tetap sensitif dalam jangka panjang",
+          "Public-key key establishment teridentifikasi",
+          "Migration lead time menambah exposure window",
+        ],
+        decision:
+          "Kurangi exposure baru dan mulai migration planning lebih awal.",
         priority: "EARLIER",
       },
       {
         label: "Authentication & digital signatures",
         mechanism: "Future forgery risk",
-        evidence: ["Certificates atau signatures menjaga identity dan trust", "Service criticality tinggi", "Dependency lintas sistem memperpanjang transisi"],
-        decision: "Petakan trust chain dan uji jalur penggantian secara bertahap.",
+        evidence: [
+          "Certificates atau signatures menjaga identity dan trust",
+          "Service criticality tinggi",
+          "Dependency lintas sistem memperpanjang transisi",
+        ],
+        decision:
+          "Petakan trust chain dan uji jalur penggantian secara bertahap.",
         priority: "PLAN",
       },
       {
         label: "Critical services & dependencies",
         mechanism: "Migration complexity",
-        evidence: ["Interoperability menentukan waktu perubahan", "Vendor roadmap belum sepenuhnya selaras", "Rollback dan assurance perlu disiapkan"],
-        decision: "Masukkan dependency dan vendor readiness ke migration backlog.",
+        evidence: [
+          "Interoperability menentukan waktu perubahan",
+          "Vendor roadmap belum sepenuhnya selaras",
+          "Rollback dan assurance perlu disiapkan",
+        ],
+        decision:
+          "Masukkan dependency dan vendor readiness ke migration backlog.",
         priority: "COORDINATE",
       },
     ],
-    methodology: "Urutan bersifat ilustratif dan evidence-led. Hasil akhir memerlukan data inventory aktual, risk appetite, dan validasi owner.",
-    callout: "Setelah prioritas terbentuk, pembahasan kembali ke mekanisme dasarnya: bagaimana sistem quantum memproses informasi dan kapan algoritma mengubah capability.",
+    methodology:
+      "Urutan bersifat ilustratif dan evidence-led. Hasil akhir memerlukan data inventory aktual, risk appetite, dan validasi owner.",
+    callout:
+      "Setelah prioritas terbentuk, pembahasan kembali ke mekanisme dasarnya: bagaimana sistem quantum memproses informasi dan kapan algoritma mengubah capability.",
     source: refs.readiness,
   },
   {
     kind: "quantum_foundation",
     title: "What Is Actually Quantum?",
-    subtitle: "Quantum computing mengendalikan sistem fisik yang state dan evolusinya mengikuti quantum mechanics.",
+    subtitle:
+      "Quantum computing mengendalikan sistem fisik yang state dan evolusinya mengikuti quantum mechanics.",
     items: [
-      ["01", "Physical system", "Ion, photon, atom, atau superconducting circuit menyediakan degree of freedom yang dapat dikendalikan."],
-      ["02", "Quantum state", "State direpresentasikan sebagai vector kompleks dalam Hilbert space dan memuat amplitude serta relative phase."],
-      ["03", "Controlled evolution", "Quantum gates merealisasikan unitary operations yang mengubah state sambil mempertahankan normalisasi."],
-      ["04", "Measurement", "Measurement memetakan state ke outcome klasik menurut probabilitas Born rule."],
+      [
+        "01",
+        "Physical system",
+        "Ion, photon, atom, atau superconducting circuit menyediakan degree of freedom yang dapat dikendalikan.",
+      ],
+      [
+        "02",
+        "Quantum state",
+        "State direpresentasikan sebagai vector kompleks dalam Hilbert space dan memuat amplitude serta relative phase.",
+      ],
+      [
+        "03",
+        "Controlled evolution",
+        "Quantum gates merealisasikan unitary operations yang mengubah state sambil mempertahankan normalisasi.",
+      ],
+      [
+        "04",
+        "Measurement",
+        "Measurement memetakan state ke outcome klasik menurut probabilitas Born rule.",
+      ],
     ],
-    principle: "Hardware menjadi quantum computer ketika state preparation, controlled evolution, dan measurement membentuk proses komputasi yang dapat diprogram.",
-    callout: "Qubit merupakan abstraksi informasi. Implementasinya tetap bergantung pada sistem fisik, kontrol, noise, dan measurement.",
+    principle:
+      "Hardware menjadi quantum computer ketika state preparation, controlled evolution, dan measurement membentuk proses komputasi yang dapat diprogram.",
+    callout:
+      "Qubit merupakan abstraksi informasi. Implementasinya tetap bergantung pada sistem fisik, kontrol, noise, dan measurement.",
     source: refs.foundations,
   },
   {
     kind: "state_computation",
     title: "From Quantum States to Computation",
-    subtitle: "Komputasi muncul ketika amplitude dan phase dikendalikan agar measurement lebih mungkin menghasilkan jawaban yang diinginkan.",
+    subtitle:
+      "Komputasi muncul ketika amplitude dan phase dikendalikan agar measurement lebih mungkin menghasilkan jawaban yang diinginkan.",
     items: [
-      ["01", "Superposition", "State satu qubit memuat amplitude kompleks pada basis |0⟩ dan |1⟩.", "|ψ⟩ = α|0⟩ + β|1⟩", "|α|² + |β|² = 1"],
-      ["02", "Entanglement", "State multi-qubit dapat memiliki korelasi yang tidak dapat ditulis sebagai product state.", "|Φ+⟩ = (|00⟩ + |11⟩)/√2", "Resource untuk korelasi dan protocol tertentu"],
-      ["03", "Interference", "Quantum circuit mengatur relative phase agar amplitude jalur tertentu saling memperkuat atau meniadakan.", "P(x) = |αₓ|²", "Amplitude dijumlahkan sebelum probability dihitung"],
-      ["04", "Measurement", "Readout menghasilkan satu outcome klasik. Repeated shots memperkirakan distribusi hasil.", "x ∼ P(x)", "State information tidak dapat dibaca seluruhnya dalam satu shot"],
+      [
+        "01",
+        "Superposition",
+        "State satu qubit memuat amplitude kompleks pada basis |0⟩ dan |1⟩.",
+        "|ψ⟩ = α|0⟩ + β|1⟩",
+        "|α|² + |β|² = 1",
+      ],
+      [
+        "02",
+        "Entanglement",
+        "State multi-qubit dapat memiliki korelasi yang tidak dapat ditulis sebagai product state.",
+        "|Φ+⟩ = (|00⟩ + |11⟩)/√2",
+        "Resource untuk korelasi dan protocol tertentu",
+      ],
+      [
+        "03",
+        "Interference",
+        "Quantum circuit mengatur relative phase agar amplitude jalur tertentu saling memperkuat atau meniadakan.",
+        "P(x) = |αₓ|²",
+        "Amplitude dijumlahkan sebelum probability dihitung",
+      ],
+      [
+        "04",
+        "Measurement",
+        "Readout menghasilkan satu outcome klasik. Repeated shots memperkirakan distribusi hasil.",
+        "x ∼ P(x)",
+        "State information tidak dapat dibaca seluruhnya dalam satu shot",
+      ],
     ],
-    callout: "Superposition menyediakan state space, tetapi algoritma membutuhkan gates dan interference yang tepat untuk menghasilkan informasi yang berguna.",
+    callout:
+      "Superposition menyediakan state space, tetapi algoritma membutuhkan gates dan interference yang tepat untuk menghasilkan informasi yang berguna.",
     source: refs.foundations,
   },
   {
     kind: "processing_comparison",
     title: "Classical vs Quantum Information Processing",
-    subtitle: "Perbedaan utama terletak pada representasi state, aturan transformasi, korelasi, dan readout.",
+    subtitle:
+      "Perbedaan utama terletak pada representasi state, aturan transformasi, korelasi, dan readout.",
     headers: ["Dimension", "Classical", "Quantum"],
     rows: [
-      ["Information state", "Bit atau probability distribution", "Qubit state dengan complex amplitude dan relative phase"],
-      ["State transformation", "Boolean logic atau stochastic operation", "Unitary gates lalu measurement"],
-      ["Correlation", "Classical correlation", "Classical correlation dan entanglement"],
-      ["Readout", "State dapat dibaca dan disalin secara langsung", "Measurement menghasilkan sample dan dapat mengubah state"],
-      ["System architecture", "CPU/GPU mengelola computation dan memory", "QPU bekerja bersama classical control dan post-processing"],
+      [
+        "Information state",
+        "Bit atau probability distribution",
+        "Qubit state dengan complex amplitude dan relative phase",
+      ],
+      [
+        "State transformation",
+        "Boolean logic atau stochastic operation",
+        "Unitary gates lalu measurement",
+      ],
+      [
+        "Correlation",
+        "Classical correlation",
+        "Classical correlation dan entanglement",
+      ],
+      [
+        "Readout",
+        "State dapat dibaca dan disalin secara langsung",
+        "Measurement menghasilkan sample dan dapat mengubah state",
+      ],
+      [
+        "System architecture",
+        "CPU/GPU mengelola computation dan memory",
+        "QPU bekerja bersama classical control dan post-processing",
+      ],
     ],
-    distinction: "Randomness juga tersedia pada komputasi klasik. Quantum processing dibedakan oleh complex amplitude, phase, entanglement, dan aturan measurement.",
+    distinction:
+      "Randomness juga tersedia pada komputasi klasik. Quantum processing dibedakan oleh complex amplitude, phase, entanglement, dan aturan measurement.",
     source: refs.foundations,
   },
   {
     kind: "quantum_pipeline",
     title: "Quantum Processing Pipeline",
-    subtitle: "Quantum circuit merupakan satu tahap di dalam alur hybrid yang dimulai dan berakhir pada proses klasik.",
+    subtitle:
+      "Quantum circuit merupakan satu tahap di dalam alur hybrid yang dimulai dan berakhir pada proses klasik.",
     groups: [
       [
         "Classical definition",
@@ -535,63 +861,176 @@ export const slides = [
         "Quantum execution",
         ["State preparation", "Quantum circuit", "Measurement & sampling"],
       ],
-      ["Classical evaluation", ["Post-processing", "Validation", "Resource accounting"]],
+      [
+        "Classical evaluation",
+        ["Post-processing", "Validation", "Resource accounting"],
+      ],
     ],
     stages: [
-      ["Problem formulation", "Nyatakan objective, input, output, constraints, dan metric keberhasilan."],
-      ["Data access model", "Tentukan biaya encoding, oracle, state preparation, serta perpindahan data."],
-      ["Classical baseline", "Gunakan algoritma klasik terbaik yang relevan sebagai pembanding."],
-      ["State preparation", "Encode initial state dengan fidelity dan resource cost yang terukur."],
-      ["Quantum circuit", "Jalankan gates dengan circuit depth, logical resources, dan error budget tertentu."],
-      ["Measurement & sampling", "Kumpulkan shots yang cukup untuk mengestimasi outcome distribution."],
-      ["Post-processing", "Ubah samples menjadi estimasi atau candidate solution melalui proses klasik."],
-      ["Validation", "Periksa accuracy, robustness, dan reproducibility terhadap tujuan awal."],
-      ["Resource accounting", "Hitung runtime, qubits, error correction, sampling, dan classical overhead."],
+      [
+        "Problem formulation",
+        "Nyatakan objective, input, output, constraints, dan metric keberhasilan.",
+      ],
+      [
+        "Data access model",
+        "Tentukan biaya encoding, oracle, state preparation, serta perpindahan data.",
+      ],
+      [
+        "Classical baseline",
+        "Gunakan algoritma klasik terbaik yang relevan sebagai pembanding.",
+      ],
+      [
+        "State preparation",
+        "Encode initial state dengan fidelity dan resource cost yang terukur.",
+      ],
+      [
+        "Quantum circuit",
+        "Jalankan gates dengan circuit depth, logical resources, dan error budget tertentu.",
+      ],
+      [
+        "Measurement & sampling",
+        "Kumpulkan shots yang cukup untuk mengestimasi outcome distribution.",
+      ],
+      [
+        "Post-processing",
+        "Ubah samples menjadi estimasi atau candidate solution melalui proses klasik.",
+      ],
+      [
+        "Validation",
+        "Periksa accuracy, robustness, dan reproducibility terhadap tujuan awal.",
+      ],
+      [
+        "Resource accounting",
+        "Hitung runtime, qubits, error correction, sampling, dan classical overhead.",
+      ],
     ],
-    callout: "Advantage perlu bertahan setelah encoding, sampling, error correction, dan classical post-processing diperhitungkan.",
+    callout:
+      "Advantage perlu bertahan setelah encoding, sampling, error correction, dan classical post-processing diperhitungkan.",
     source: refs.foundations,
   },
   {
     kind: "advantage_fit",
     title: "Quantum Advantage Is Problem Specific",
-    subtitle: "Keunggulan hanya dapat dinilai untuk task, access model, resource regime, dan classical baseline yang didefinisikan.",
+    subtitle:
+      "Keunggulan hanya dapat dinilai untuk task, access model, resource regime, dan classical baseline yang didefinisikan.",
     items: ["Problem structure", "Quantum algorithm", "Hardware resources"],
     center: "FIT",
     conditions: [
-      ["Problem structure", "Task memiliki struktur yang dapat dieksploitasi, seperti periodicity, amplitude, atau quantum dynamics."],
-      ["Quantum algorithm", "Algoritma memiliki complexity advantage pada model input dan output yang relevan."],
-      ["Hardware resources", "Logical qubits, circuit depth, fidelity, runtime, dan error correction mencukupi."],
-      ["Classical baseline", "Perbandingan memakai metode klasik terbaik dan menghitung seluruh overhead."],
+      [
+        "Problem structure",
+        "Task memiliki struktur yang dapat dieksploitasi, seperti periodicity, amplitude, atau quantum dynamics.",
+      ],
+      [
+        "Quantum algorithm",
+        "Algoritma memiliki complexity advantage pada model input dan output yang relevan.",
+      ],
+      [
+        "Hardware resources",
+        "Logical qubits, circuit depth, fidelity, runtime, dan error correction mencukupi.",
+      ],
+      [
+        "Classical baseline",
+        "Perbandingan memakai metode klasik terbaik dan menghitung seluruh overhead.",
+      ],
     ],
-    callout: "Theoretical speedup menunjukkan property algoritma. Practical advantage memerlukan validasi end-to-end pada kondisi implementasi.",
+    callout:
+      "Theoretical speedup menunjukkan property algoritma. Practical advantage memerlukan validasi end-to-end pada kondisi implementasi.",
     source: refs.finance,
   },
   {
     kind: "algorithm_frontier",
     title: "Algorithms Define the Computational Frontier",
-    subtitle: "Setiap algoritma mengubah batas komputasi hanya untuk problem class dan assumptions tertentu.",
+    subtitle:
+      "Setiap algoritma mengubah batas komputasi hanya untuk problem class dan assumptions tertentu.",
     headers: ["Approach", "Problem", "Qualification"],
     rows: [
-      ["Shor", "Factoring & discrete logarithms", "Polynomial-time, tetapi perlu fault-tolerant resources"],
-      ["Grover", "Unstructured search", "Quadratic query improvement; oracle cost tetap penting"],
-      ["Amplitude estimation", "Probability & expectation", "Quadratic improvement pada model akses sesuai"],
-      ["QAOA / variational", "Optimisation", "Practical advantage belum dijamin"],
-      ["Quantum machine learning", "Selected learning problems", "Bergantung data, struktur, dan benchmark"],
+      [
+        "Shor",
+        "Factoring & discrete logarithms",
+        "Polynomial-time, tetapi perlu fault-tolerant resources",
+      ],
+      [
+        "Grover",
+        "Unstructured search",
+        "Quadratic query improvement; oracle cost tetap penting",
+      ],
+      [
+        "Amplitude estimation",
+        "Probability & expectation",
+        "Quadratic improvement pada model akses sesuai",
+      ],
+      [
+        "QAOA / variational",
+        "Optimisation",
+        "Practical advantage belum dijamin",
+      ],
+      [
+        "Quantum machine learning",
+        "Selected learning problems",
+        "Bergantung data, struktur, dan benchmark",
+      ],
     ],
     algorithms: [
-      { name: "Shor", problem: "Integer factorisation dan discrete logarithm", capability: "Polynomial-time quantum algorithms mengubah asymptotic complexity untuk problem tersebut.", constraint: "Cryptographically relevant instances memerlukan fault-tolerant logical qubits dan error correction.", bridge: "IFP, DLP, dan ECDLP menjadi jembatan langsung ke exposure public-key cryptography." },
-      { name: "Grover", problem: "Unstructured search", capability: "Membutuhkan O(√N) oracle queries dibanding O(N) pada exhaustive classical search.", constraint: "Oracle construction, circuit depth, dan parallel classical search memengaruhi keuntungan aktual.", bridge: "Implikasinya terhadap symmetric security berbeda dari Shor dan biasanya ditangani melalui key-size margin." },
-      { name: "Amplitude estimation", problem: "Estimasi probability atau expectation", capability: "Memberikan quadratic query improvement pada access model yang sesuai.", constraint: "State preparation dan coherent oracle access dapat mendominasi resource cost.", bridge: "Relevansi potensial mencakup simulation dan risk estimation, tetapi perlu benchmark end-to-end." },
-      { name: "QAOA / variational", problem: "Selected optimisation problems", capability: "Menggunakan parameterised circuits dan classical optimisation loop.", constraint: "Scaling, trainability, noise, dan quality versus classical heuristics masih menentukan hasil.", bridge: "Potential benefit tetap prospective dan memerlukan validasi terhadap solver klasik." },
-      { name: "Quantum machine learning", problem: "Selected learning and linear algebra tasks", capability: "Speedup bergantung pada data structure dan quantum access assumptions.", constraint: "Data loading, output readout, dan classical baseline dapat menghilangkan keuntungan.", bridge: "Klaim advantage perlu menyebut task, data access, metric, serta benchmark secara eksplisit." },
+      {
+        name: "Shor",
+        problem: "Integer factorisation dan discrete logarithm",
+        capability:
+          "Polynomial-time quantum algorithms mengubah asymptotic complexity untuk problem tersebut.",
+        constraint:
+          "Cryptographically relevant instances memerlukan fault-tolerant logical qubits dan error correction.",
+        bridge:
+          "IFP, DLP, dan ECDLP menjadi jembatan langsung ke exposure public-key cryptography.",
+      },
+      {
+        name: "Grover",
+        problem: "Unstructured search",
+        capability:
+          "Membutuhkan O(√N) oracle queries dibanding O(N) pada exhaustive classical search.",
+        constraint:
+          "Oracle construction, circuit depth, dan parallel classical search memengaruhi keuntungan aktual.",
+        bridge:
+          "Implikasinya terhadap symmetric security berbeda dari Shor dan biasanya ditangani melalui key-size margin.",
+      },
+      {
+        name: "Amplitude estimation",
+        problem: "Estimasi probability atau expectation",
+        capability:
+          "Memberikan quadratic query improvement pada access model yang sesuai.",
+        constraint:
+          "State preparation dan coherent oracle access dapat mendominasi resource cost.",
+        bridge:
+          "Relevansi potensial mencakup simulation dan risk estimation, tetapi perlu benchmark end-to-end.",
+      },
+      {
+        name: "QAOA / variational",
+        problem: "Selected optimisation problems",
+        capability:
+          "Menggunakan parameterised circuits dan classical optimisation loop.",
+        constraint:
+          "Scaling, trainability, noise, dan quality versus classical heuristics masih menentukan hasil.",
+        bridge:
+          "Potential benefit tetap prospective dan memerlukan validasi terhadap solver klasik.",
+      },
+      {
+        name: "Quantum machine learning",
+        problem: "Selected learning and linear algebra tasks",
+        capability:
+          "Speedup bergantung pada data structure dan quantum access assumptions.",
+        constraint:
+          "Data loading, output readout, dan classical baseline dapat menghilangkan keuntungan.",
+        bridge:
+          "Klaim advantage perlu menyebut task, data access, metric, serta benchmark secara eksplisit.",
+      },
     ],
-    callout: "Slide berikutnya memilih Shor karena problem class yang ditargetkannya memetakan langsung ke asumsi keamanan RSA, Diffie–Hellman, dan ECC.",
+    callout:
+      "Slide berikutnya memilih Shor karena problem class yang ditargetkannya memetakan langsung ke asumsi keamanan RSA, Diffie–Hellman, dan ECC.",
     source: refs.algorithms,
   },
   {
     kind: "public_key_exposure",
     title: "Why Public-Key Cryptography Is Exposed",
-    subtitle: "Shor mengubah difficulty assumption yang menopang RSA, finite-field Diffie–Hellman, dan elliptic-curve cryptography.",
+    subtitle:
+      "Shor mengubah difficulty assumption yang menopang RSA, finite-field Diffie–Hellman, dan elliptic-curve cryptography.",
     items: [
       ["RSA", "Integer factorisation"],
       ["Finite-field Diffie–Hellman", "Discrete logarithm"],
@@ -603,55 +1042,102 @@ export const slides = [
         scheme: "RSA",
         assumption: "Integer factorisation",
         publicInput: "Public modulus n dan public exponent e",
-        quantumStep: "Shor menemukan struktur periodik untuk memfaktorkan n = p × q",
+        quantumStep:
+          "Shor menemukan struktur periodik untuk memfaktorkan n = p × q",
         recovered: "Private exponent dapat diturunkan dari faktor p dan q",
         functions: ["Key transport atau encryption", "Digital signature"],
-        impacts: ["Potential confidentiality compromise", "Potential signature forgery"],
+        impacts: [
+          "Potential confidentiality compromise",
+          "Potential signature forgery",
+        ],
       },
       {
         id: "dh",
         scheme: "Finite-field DH",
         assumption: "Discrete logarithm",
         publicInput: "Generator g dan public value gˣ mod p",
-        quantumStep: "Shor menyelesaikan discrete logarithm untuk memperoleh exponent x",
+        quantumStep:
+          "Shor menyelesaikan discrete logarithm untuk memperoleh exponent x",
         recovered: "Private exponent memungkinkan shared secret dihitung",
         functions: ["Key establishment"],
-        impacts: ["Potential decryption of captured sessions when conditions are met"],
+        impacts: [
+          "Potential decryption of captured sessions when conditions are met",
+        ],
       },
       {
         id: "ecc",
         scheme: "ECC-based schemes",
         assumption: "Elliptic-curve discrete logarithm",
         publicInput: "Base point G dan public point Q = dG",
-        quantumStep: "Shor menyelesaikan ECDLP untuk memperoleh private scalar d",
-        recovered: "Private key dapat digunakan pada fungsi agreement atau signature",
+        quantumStep:
+          "Shor menyelesaikan ECDLP untuk memperoleh private scalar d",
+        recovered:
+          "Private key dapat digunakan pada fungsi agreement atau signature",
         functions: ["ECDH key establishment", "ECDSA-style signature"],
-        impacts: ["Potential confidentiality compromise", "Potential authentication and integrity compromise"],
+        impacts: [
+          "Potential confidentiality compromise",
+          "Potential authentication and integrity compromise",
+        ],
       },
     ],
-    boundary: "Exposure memerlukan CRQC yang memadai, skema rentan yang benar-benar digunakan, akses terhadap target data atau signature, dan kondisi implementasi yang relevan.",
-    callout: "Ini adalah jalur Emerging Threats pada dual relevance. Fakta algoritmik Shor harus dipisahkan dari waktu hadirnya capability dan exposure aktual bank.",
+    boundary:
+      "Exposure memerlukan CRQC yang memadai, skema rentan yang benar-benar digunakan, akses terhadap target data atau signature, dan kondisi implementasi yang relevan.",
+    callout:
+      "Ini adalah jalur Emerging Threats pada dual relevance. Fakta algoritmik Shor harus dipisahkan dari waktu hadirnya capability dan exposure aktual bank.",
     source: `${refs.algorithms} ${refs.risk}`,
   },
   {
     kind: "institution_matrix",
     title: "International Institutional Response",
-    subtitle: "Setiap institusi menangani lapisan yang berbeda, mulai dari standar algoritma hingga koordinasi migrasi sektor keuangan.",
+    subtitle:
+      "Setiap institusi menangani lapisan yang berbeda, mulai dari standar algoritma hingga koordinasi migrasi sektor keuangan.",
     items: [
-      ["NIST", "Standardisation", "FIPS 203, 204, 205", "Algoritma pengganti apa yang tersedia?"],
-      ["NIST NCCoE / CISA", "Migration practice", "Discovery, inventory, interoperability", "Di mana kriptografi digunakan dan bagaimana mengubahnya?"],
-      ["BIS / Project Leap", "Financial implementation", "Roadmap, payment experiments, operational lessons", "Bagaimana migrasi bekerja pada infrastruktur keuangan?"],
-      ["G7 CEG", "Sector coordination", "Coordinated roadmap and ecosystem dependencies", "Bagaimana institusi bergerak dengan dependency yang sama?"],
-      ["MAS / CSA Singapore", "Supervisory readiness", "Cyber advisory, migration handbook, readiness index", "Bagaimana readiness dinilai dan dipantau?"],
+      [
+        "NIST",
+        "Standardisation",
+        "FIPS 203, 204, 205",
+        "Algoritma pengganti apa yang tersedia?",
+      ],
+      [
+        "NIST NCCoE / CISA",
+        "Migration practice",
+        "Discovery, inventory, interoperability",
+        "Di mana kriptografi digunakan dan bagaimana mengubahnya?",
+      ],
+      [
+        "BIS / Project Leap",
+        "Financial implementation",
+        "Roadmap, payment experiments, operational lessons",
+        "Bagaimana migrasi bekerja pada infrastruktur keuangan?",
+      ],
+      [
+        "G7 CEG",
+        "Sector coordination",
+        "Coordinated roadmap and ecosystem dependencies",
+        "Bagaimana institusi bergerak dengan dependency yang sama?",
+      ],
+      [
+        "MAS / CSA Singapore",
+        "Supervisory readiness",
+        "Cyber advisory, migration handbook, readiness planning",
+        "Bagaimana readiness dinilai dan dipantau?",
+      ],
     ],
-    columns: ["Institution", "Role", "Evidence / output", "Plain-language question"],
-    callout: "Technical standard, implementation guidance, experiment, dan supervisory signal memiliki fungsi serta kekuatan normatif yang berbeda.",
+    columns: [
+      "Institution",
+      "Role",
+      "Evidence / output",
+      "Plain-language question",
+    ],
+    callout:
+      "Technical standard, implementation guidance, experiment, dan supervisory signal memiliki fungsi serta kekuatan normatif yang berbeda.",
     source: refs.globalResponse,
   },
   {
     kind: "benchmark_synthesis",
     title: "Common Themes Across Selected Benchmarks",
-    subtitle: "Tema benchmark menguatkan hasil quantitative prioritisation pada jalur Emerging Threats dan Quantum Readiness.",
+    subtitle:
+      "Tema benchmark menguatkan hasil quantitative prioritisation pada jalur Emerging Threats dan Quantum Readiness.",
     items: [
       "Early preparation",
       "Accountable governance",
@@ -663,60 +1149,126 @@ export const slides = [
       "Monitoring & crypto-agility",
     ],
     themes: [
-      { label: "Protect long-lived data", score: 97.85, rank: 1, ids: "T01", evidence: "HNDL membuat data-lifetime mapping relevan sebelum CRQC tersedia.", action: "Map secrecy lifetime dan exposure window." },
-      { label: "Understand public-key dependency", score: 95.8, rank: 2, ids: "T02", evidence: "Shor memberi dasar teknis, sedangkan timing dan deployment tetap uncertain.", action: "Pisahkan algorithmic fact dari engineering feasibility." },
-      { label: "Build cryptographic inventory", score: 93.86, rank: 3, ids: "T03", evidence: "Assessment bank-specific memerlukan visibility atas algorithms, functions, data, owners, dan dependencies.", action: "Bangun inventory yang dapat diperbarui." },
-      { label: "Plan migration and interoperability", score: 91.75, rank: 4, ids: "T04", evidence: "Legacy systems, testing, dan vendor dependencies menciptakan lead time panjang.", action: "Susun migration backlog dan test plan." },
-      { label: "Govern and remain crypto-agile", score: 88.98, rank: 5, ids: "T07", evidence: "Governance dan crypto-agility tetap berguna di bawah ketidakpastian timeline.", action: "Tetapkan ownership, monitoring, dan decision gates." },
-      { label: "Coordinate shared dependencies", score: 87.0, rank: 6, ids: "T05/T08", evidence: "Vendor dan payment dependencies dapat mempercepat standardisation sekaligus menciptakan common-mode risk.", action: "Koordinasikan vendor dan ecosystem roadmap." },
+      {
+        label: "Protect long-lived data",
+        score: 97.85,
+        rank: 1,
+        ids: "T01",
+        evidence:
+          "HNDL membuat data-lifetime mapping relevan sebelum CRQC tersedia.",
+        action: "Map secrecy lifetime dan exposure window.",
+      },
+      {
+        label: "Understand public-key dependency",
+        score: 95.8,
+        rank: 2,
+        ids: "T02",
+        evidence:
+          "Shor memberi dasar teknis, sedangkan timing dan deployment tetap uncertain.",
+        action: "Pisahkan algorithmic fact dari engineering feasibility.",
+      },
+      {
+        label: "Build cryptographic inventory",
+        score: 93.86,
+        rank: 3,
+        ids: "T03",
+        evidence:
+          "Assessment bank-specific memerlukan visibility atas algorithms, functions, data, owners, dan dependencies.",
+        action: "Bangun inventory yang dapat diperbarui.",
+      },
+      {
+        label: "Plan migration and interoperability",
+        score: 91.75,
+        rank: 4,
+        ids: "T04",
+        evidence:
+          "Legacy systems, testing, dan vendor dependencies menciptakan lead time panjang.",
+        action: "Susun migration backlog dan test plan.",
+      },
+      {
+        label: "Govern and remain crypto-agile",
+        score: 88.98,
+        rank: 5,
+        ids: "T07",
+        evidence:
+          "Governance dan crypto-agility tetap berguna di bawah ketidakpastian timeline.",
+        action: "Tetapkan ownership, monitoring, dan decision gates.",
+      },
+      {
+        label: "Coordinate shared dependencies",
+        score: 87.0,
+        rank: 6,
+        ids: "T05/T08",
+        evidence:
+          "Vendor dan payment dependencies dapat mempercepat standardisation sekaligus menciptakan common-mode risk.",
+        action: "Koordinasikan vendor dan ecosystem roadmap.",
+      },
     ],
-    methodology: "Adjusted priority adalah literature-based decision ordering. Nilai ini bukan probabilitas CRQC, expected loss, atau rating risiko bank tertentu.",
-    callout: "Quantitative prioritisation mengarahkan fokus ke ancaman kriptografi dan readiness, sedangkan potential benefits tetap berada pada horizon research and validation.",
+    methodology:
+      "Adjusted priority adalah literature-based decision ordering. Nilai ini bukan probabilitas CRQC, expected loss, atau rating risiko bank tertentu.",
+    callout:
+      "Quantitative prioritisation mengarahkan fokus ke ancaman kriptografi dan readiness, sedangkan potential benefits tetap berada pada horizon research and validation.",
     source: `${refs.globalResponse} Quantum banking quantitative prioritisation workbook (Theme Prioritisation).`,
   },
   {
     kind: "indonesia_mapping",
     title: "Implications for Indonesian Banking",
-    subtitle: "Regulasi yang berlaku menyediakan governance hooks untuk readiness, meskipun dokumen yang ditelaah belum menetapkan mandat quantum atau PQC secara eksplisit.",
+    subtitle:
+      "Regulasi yang berlaku menyediakan governance hooks untuk readiness, meskipun dokumen yang ditelaah belum menetapkan mandat quantum atau PQC secara eksplisit.",
     mappings: [
       {
         instrument: "POJK 11/POJK.03/2022",
         scope: "Penyelenggaraan TI bank umum",
-        anchors: "Identifikasi aset, ancaman, dan kerentanan. Cyber maturity, testing, independent cyber function, dan third-party oversight.",
-        application: "Masukkan cryptographic assets, HNDL scenario, dan vendor migration dependency ke proses risiko TI.",
+        anchors:
+          "Identifikasi aset, ancaman, dan kerentanan. Cyber maturity, testing, independent cyber function, dan third-party oversight.",
+        application:
+          "Masukkan cryptographic assets, HNDL scenario, dan vendor migration dependency ke proses risiko TI.",
       },
       {
         instrument: "SEOJK 29/SEOJK.03/2022",
         scope: "Ketahanan dan keamanan siber bank umum",
-        anchors: "Risk assessment, technology change review, international standards, cryptographic controls, data flow, dan third-party controls.",
-        application: "Bangun crypto inventory, data-lifetime assessment, control review, dan monitoring perubahan standar.",
+        anchors:
+          "Risk assessment, technology change review, international standards, cryptographic controls, data flow, dan third-party controls.",
+        application:
+          "Bangun crypto inventory, data-lifetime assessment, control review, dan monitoring perubahan standar.",
       },
       {
         instrument: "PADK OJK 1/2026",
         scope: "Pedoman teknis penyelenggaraan TI bank umum",
-        anchors: "IT governance, architecture, strategic plan, information security, providers, data protection, audit, dan reporting.",
-        application: "Integrasikan crypto-agility dan migration roadmap ke arsitektur serta rencana strategis TI.",
+        anchors:
+          "IT governance, architecture, strategic plan, information security, providers, data protection, audit, dan reporting.",
+        application:
+          "Integrasikan crypto-agility dan migration roadmap ke arsitektur serta rencana strategis TI.",
       },
       {
         instrument: "PBI 2/2024 and PADG 24/2024",
         scope: "KKS untuk sistem pembayaran dan pihak yang diawasi BI",
-        anchors: "Governance, cyber-risk identification, BIA, protection, monitoring, response, recovery, dan collaboration.",
-        application: "Koordinasikan dependency kriptografi pada payment infrastructure sesuai ruang lingkup kewenangan BI.",
+        anchors:
+          "Governance, cyber-risk identification, BIA, protection, monitoring, response, recovery, dan collaboration.",
+        application:
+          "Koordinasikan dependency kriptografi pada payment infrastructure sesuai ruang lingkup kewenangan BI.",
       },
     ],
     priorities: [
       ["01", "Visibility", "Cryptographic inventory dan data-lifetime mapping"],
       ["02", "Decision", "Risk-based prioritisation dan accountable ownership"],
-      ["03", "Transition", "Vendor coordination, testing, migration, dan assurance"],
+      [
+        "03",
+        "Transition",
+        "Vendor coordination, testing, migration, dan assurance",
+      ],
     ],
-    boundary: "Pemetaan ini merupakan sintesis kebijakan, bukan legal opinion. Ruang lingkup setiap instrumen dan applicability terhadap entitas harus diverifikasi.",
-    callout: "Hasil workbook menempatkan Indonesian regulatory mapping pada 81,81 (Critical), sebagai kebutuhan untuk menerjemahkan benchmark global ke governance domestik.",
+    boundary:
+      "Pemetaan ini merupakan sintesis kebijakan, bukan legal opinion. Ruang lingkup setiap instrumen dan applicability terhadap entitas harus diverifikasi.",
+    callout:
+      "Hasil workbook menempatkan Indonesian regulatory mapping pada 81,81 (Critical), sebagai kebutuhan untuk menerjemahkan benchmark global ke governance domestik.",
     source: refs.indonesia,
   },
   {
     kind: "evidence_references",
     title: "Evidence Base — Cryptanalytic Threat and Global Response",
-    subtitle: "Source IDs follow the quantitative prioritisation workbook for traceability.",
+    subtitle:
+      "Source IDs follow the quantitative prioritisation workbook for traceability.",
     groups: [
       {
         label: "Cryptanalytic basis",
@@ -749,7 +1301,8 @@ export const slides = [
   {
     kind: "evidence_references",
     title: "Evidence Base — Benchmark Synthesis and Indonesia",
-    subtitle: "Regulatory mapping uses current official instruments and preserves their distinct scopes.",
+    subtitle:
+      "Regulatory mapping uses current official instruments and preserves their distinct scopes.",
     groups: [
       {
         label: "Benchmark synthesis",
@@ -777,6 +1330,87 @@ export const slides = [
         ],
       },
     ],
-    callout: "Reviewed regulations contain governance and cryptographic-control hooks. The reviewed texts do not state an explicit quantum-readiness or PQC mandate.",
+    callout:
+      "Reviewed regulations contain governance and cryptographic-control hooks. The reviewed texts do not state an explicit quantum-readiness or PQC mandate.",
   },
 ];
+
+// IEEE references follow the selected kajian. Extra historical/technical sources
+// continue after [59]; source IDs in the old workbook are not IEEE numbers.
+const slideRefs = [
+  [1, 2],
+  [4, 5, 9, 61, 62, 63, 64, 65],
+  [4, 5, 9, 61, 62, 63, 64, 65, 66],
+  [61, 62, 63, 64, 65, 66, 67, 68, 69, 70],
+  [4, 5, 9, 71, 72, 73, 74, 75],
+  [4, 5, 9],
+  [1, 25, 26],
+  [1, 25],
+  [1, 25, 26],
+  [1, 2, 3, 21],
+  [3, 11, 29],
+  [3, 11, 29],
+  [3, 21],
+  [3, 21, 37],
+  [2, 3, 16],
+  [2, 3, 16, 24],
+  [2, 3],
+  [2, 3, 37],
+  [4, 64, 65, 76],
+  [76],
+  [76],
+  [25, 26, 76],
+  [25, 26],
+  [11, 14, 25, 26],
+  [3, 11, 29],
+  [2, 3, 10, 16, 22, 23, 30, 44],
+  [2, 3, 16, 17, 19, 20, 37, 38, 47, 48],
+  [55, 56, 57],
+  [3, 10, 11, 21, 22, 23, 29, 34, 35],
+  [2, 16, 17, 19, 20, 38, 47, 55, 56, 57],
+];
+slides.forEach((slide, index) => {
+  slide.referenceIds = slideRefs[index];
+  slide.source = referenceNumbers(slide.referenceIds);
+});
+const ieee = (ids) => ids.map((id) => `[${id}] ${shortReference(id)}`);
+slides[28].legacyGroups = slides[28].groups;
+slides[28].subtitle = "Penomoran IEEE mengikuti daftar pustaka kajian acuan";
+slides[28].groups = [
+  { label: "Cryptanalytic basis", items: ieee([11, 14, 21, 37, 77, 78]) },
+  { label: "Standards and migration", items: ieee([3, 10, 22, 23, 24, 29]) },
+  { label: "Financial-sector response", items: ieee([1, 2, 16, 30, 34, 35]) },
+];
+slides[29].legacyGroups = slides[29].groups;
+slides[29].groups = [
+  {
+    label: "Benchmark synthesis",
+    items: ieee([17, 19, 20, 38, 43, 44, 47, 48]),
+  },
+  { label: "OJK instruments", items: ieee([55, 56, 57, 79, 82]) },
+  {
+    label: "Bank Indonesia instruments",
+    items: ieee([80, 81, 83]),
+  },
+];
+slides[25].items.push([
+  "HKMA",
+  "Preparedness assessment",
+  "Whitepaper and Quantum Preparedness Index",
+  "Bagaimana kematangan kesiapan bank dibuktikan?",
+]);
+slides[25].referenceIds.push(47);
+slides[25].source = referenceNumbers(slides[25].referenceIds);
+slides[26].methodology +=
+  " Angka merupakan materi prioritisasi lama yang dipertahankan; workbook perhitungannya belum tersedia dalam repository ini dan bukan keluaran QRA institusi dalam Bab 5.";
+slides[9].methodology +=
+  " Angka prioritisasi lama dipertahankan sebagai materi pendukung; tidak digunakan sebagai hasil pengukuran risiko bank dalam kajian acuan.";
+slides[27].callout +=
+  " Nilai tersebut merupakan prioritas literatur lama, bukan baseline pengukuran kesiapan bank Indonesia. Kajian Bab 3.8 menambahkan konteks koordinasi OJK–BSSN [57].";
+
+slides[27].referenceIds.push(79, 80, 81);
+slides[27].source = referenceNumbers(slides[27].referenceIds);
+slides[28].referenceIds.push(77, 78);
+slides[28].source = referenceNumbers(slides[28].referenceIds);
+slides[29].referenceIds.push(79, 80, 81, 82, 83);
+slides[29].source = referenceNumbers(slides[29].referenceIds);
