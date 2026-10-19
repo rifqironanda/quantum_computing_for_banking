@@ -8,11 +8,7 @@ const outline = await readFile(
   new URL("../src/data/report-outline.md", import.meta.url),
   "utf8",
 );
-assert.equal(
-  (outline.match(/^##\s+/gm) || []).length,
-  10,
-  "legacy outline remains available for manual migration",
-);
+assert.equal((outline.match(/^##\s+/gm) || []).length, 10);
 const dashboard = await readFile(
   new URL("../src/Dashboard.jsx", import.meta.url),
   "utf8",
@@ -22,6 +18,7 @@ assert.ok(
     dashboard.indexOf('["lab", "Computing lab"'),
 );
 const server = await createServer({
+  envDir: false,
   server: { middlewareMode: true },
   appType: "custom",
 });
@@ -32,27 +29,44 @@ try {
   );
   const html = renderToStaticMarkup(React.createElement(ReportOutline));
   assert.ok(html.includes("Outline laporan quantum banking"));
-  assert.ok(html.includes("Masuk dengan Google"));
-  assert.ok(!html.includes('contenteditable="true"'));
-  const { loadReport } = await server.ssrLoadModule("/src/reportStorage.js");
+  assert.ok(!html.includes("Masuk dengan Google"));
+  const { loadReport, documentLinks } = await server.ssrLoadModule(
+    "/src/reportStorage.js",
+  );
+  assert.equal(
+    documentLinks("https://docs.google.com/document/d/one-doc/edit?usp=sharing")
+      .previewUrl,
+    "https://docs.google.com/document/d/one-doc/preview",
+  );
+  for (const url of [
+    "javascript:alert(1)",
+    "https://evil.example/document/d/a/edit",
+    "https://docs.google.com.evil.example/document/d/a/edit",
+    "https://docs.google.com/document/d/e/PUBLISHED/pub",
+    "http://docs.google.com/document/d/a/edit",
+  ]) {
+    assert.throws(() => documentLinks(url));
+  }
   globalThis.fetch = async (url, options) => {
     assert.equal(url, "/api/report");
-    assert.equal(options.headers.Authorization, "Bearer test-token");
-    assert.equal(options.cache, "no-store");
-    return new Response(JSON.stringify({ id: "one-doc", tabs: [] }));
+    assert.equal(options.headers, undefined);
+    assert.equal(options.credentials, "omit");
+    return new Response(
+      JSON.stringify({
+        url: "https://docs.google.com/document/d/one-doc/edit",
+      }),
+    );
   };
-  assert.equal((await loadReport("test-token")).id, "one-doc");
+  assert.equal((await loadReport()).id, "one-doc");
   globalThis.fetch = async () =>
-    new Response(JSON.stringify({ detail: "Access denied" }), { status: 403 });
-  await assert.rejects(
-    loadReport("test-token"),
-    (error) => error.status === 403 && error.message === "Access denied",
-  );
-  globalThis.fetch = async () =>
-    new Response("<html>static hosting fallback</html>");
-  await assert.rejects(loadReport("test-token"), /bukan JSON/);
+    new Response(JSON.stringify({ detail: "Dokumen belum dikonfigurasi" }), {
+      status: 503,
+    });
+  await assert.rejects(loadReport(), /dikonfigurasi/);
+  globalThis.fetch = async () => new Response("<html>static hosting</html>");
+  await assert.rejects(loadReport(), /bukan JSON/);
   console.log(
-    "PASS report login render, read-only view, authenticated API and denied access",
+    "PASS document links, URL validation, no OAuth and configuration errors",
   );
 } finally {
   globalThis.fetch = originalFetch;

@@ -34,7 +34,7 @@ jobs:
         env:
           VITE_BENCHMARK_API_URL: ${{ vars.VITE_BENCHMARK_API_URL }}
           VITE_REPORT_API_URL: ${{ vars.VITE_REPORT_API_URL }}
-          VITE_GOOGLE_CLIENT_ID: ${{ vars.VITE_GOOGLE_CLIENT_ID }}
+          VITE_REPORT_DOCUMENT_URL: ${{ vars.VITE_REPORT_DOCUMENT_URL }}
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v5

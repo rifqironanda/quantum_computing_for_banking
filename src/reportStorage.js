@@ -1,57 +1,72 @@
-// Google is the only report store. Tokens and document contents are never persisted.
-const baseUrl = (import.meta.env.VITE_REPORT_API_URL || "").replace(/\/$/, "");
-export const GOOGLE_REPORT_SCOPE =
-  "https://www.googleapis.com/auth/documents.readonly https://www.googleapis.com/auth/drive.readonly";
+// No OAuth, access tokens, Google API calls, or local report copies.
+// This module builds links. Google itself serves the document to the reader.
+export function documentLinks(value, title = "Laporan Quantum Banking") {
+  let parsed;
+  try {
+    parsed = new URL(value);
+  } catch {
+    throw new Error("Gunakan tautan Google Docs yang valid.");
+  }
+  const match = parsed.pathname.match(
+    /^\/document\/(?:u\/\d+\/)?d\/([A-Za-z0-9_-]+)(?:\/(?:edit|preview|view))?\/?$/,
+  );
+  if (
+    parsed.protocol !== "https:" ||
+    parsed.hostname !== "docs.google.com" ||
+    parsed.port ||
+    parsed.username ||
+    parsed.password ||
+    !match
+  ) {
+    throw new Error(
+      "Gunakan tautan dokumen asli https://docs.google.com/document/d/ID/edit.",
+    );
+  }
+  const base = `https://docs.google.com/document/d/${match[1]}`;
+  const resourceKey = parsed.searchParams.get("resourcekey");
+  const query = resourceKey
+    ? `?${new URLSearchParams({ resourcekey: resourceKey })}`
+    : "";
+  return {
+    id: match[1],
+    title,
+    url: `${base}/edit${query}`,
+    previewUrl: `${base}/preview${query}`,
+  };
+}
 
-export async function loadReport(token, signal) {
+export async function loadReport(signal) {
+  const directUrl = import.meta.env.VITE_REPORT_DOCUMENT_URL?.trim();
+  if (directUrl) return documentLinks(directUrl);
+  const baseUrl = (import.meta.env.VITE_REPORT_API_URL || "").replace(
+    /\/$/,
+    "",
+  );
+  if (!baseUrl && !import.meta.env.DEV) {
+    throw new Error(
+      "Tautan laporan belum dikonfigurasi. Pengelola perlu mengisi VITE_REPORT_DOCUMENT_URL atau menghubungkan FastAPI.",
+    );
+  }
   const response = await fetch(`${baseUrl}/api/report`, {
-    headers: { Authorization: `Bearer ${token}` },
     cache: "no-store",
+    credentials: "omit",
     signal,
   });
   if (!response.ok) {
     const payload = await response.json().catch(() => ({}));
-    const error = new Error(
+    throw new Error(
       typeof payload.detail === "string"
         ? payload.detail
-        : "Laporan gagal dimuat. Periksa koneksi backend FastAPI.",
+        : "Tautan laporan gagal dimuat. Periksa koneksi FastAPI.",
     );
-    error.status = response.status;
-    throw error;
   }
+  let report;
   try {
-    return await response.json();
+    report = await response.json();
   } catch {
-    throw new Error("Respons backend bukan JSON. Periksa URL backend FastAPI.");
+    throw new Error(
+      "Respons backend bukan JSON. Periksa URL FastAPI atau isi tautan dokumen langsung.",
+    );
   }
-}
-
-let identityPromise;
-export function loadGoogleIdentity() {
-  if (window.google?.accounts?.oauth2)
-    return Promise.resolve(window.google.accounts.oauth2);
-  if (!identityPromise) {
-    identityPromise = new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = "https://accounts.google.com/gsi/client";
-      script.async = true;
-      const timer = setTimeout(() => {
-        script.remove();
-        identityPromise = null;
-        reject(new Error("Google Login tidak merespons. Coba lagi."));
-      }, 15000);
-      script.onload = () => {
-        clearTimeout(timer);
-        resolve(window.google.accounts.oauth2);
-      };
-      script.onerror = () => {
-        clearTimeout(timer);
-        script.remove();
-        identityPromise = null;
-        reject(new Error("Google Login gagal dimuat. Periksa koneksi Anda."));
-      };
-      document.head.appendChild(script);
-    });
-  }
-  return identityPromise;
+  return documentLinks(report.url, report.title);
 }

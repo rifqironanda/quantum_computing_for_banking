@@ -2,7 +2,7 @@
 
 ## Tujuan desain
 
-Frontend berupa single-page application statis di GitHub Pages. Materi presentasi memakai aset statis. Menu Outline laporan membaca satu Google Docs privat melalui backend FastAPI terpisah dan token Google milik pembaca. Lihat [Google Docs setup](GOOGLE_DOCS_SETUP.md).
+Frontend berupa single-page application statis di GitHub Pages. Materi presentasi memakai aset statis. Menu Outline laporan menampilkan pratinjau satu Google Docs tanpa OAuth pembaca. FastAPI opsional hanya menyediakan tautan; Google menangani akses dokumen dan komentar secara langsung. Lihat [Google Docs setup](GOOGLE_DOCS_SETUP.md).
 
 ## Alur data
 
