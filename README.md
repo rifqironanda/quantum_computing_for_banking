@@ -48,7 +48,8 @@ Hasil build berada di direktori `dist/`.
 
 ## Menghubungkan Google Docs
 
-Isi `VITE_REPORT_DOCUMENT_URL` dengan tautan Google Docs laporan utama dan berikan
+Dokumen utama pilihan pemilik sudah dipasang di `src/reportConfig.js`.
+Untuk menggantinya, isi `VITE_REPORT_DOCUMENT_URL` dan berikan
 pembaca akses **Commenter** pada Share di Google Docs. Website menampilkan
 pratinjau; komentar dibuka langsung di Google Docs yang sama. Tidak ada OAuth,
 API key, Google Cloud Project, atau permintaan akses Drive pembaca ke aplikasi.

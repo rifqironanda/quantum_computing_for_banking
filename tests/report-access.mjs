@@ -25,6 +25,7 @@ globalThis.fetch = async (url, options) => {
         }),
       );
 };
+process.env.VITE_REPORT_API_URL = "https://report-api.example.test";
 const server = await createServer({
   envDir: false,
   server: { middlewareMode: true },

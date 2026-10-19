@@ -1,3 +1,5 @@
+import { defaultReport } from "./reportConfig";
+
 // No OAuth, access tokens, Google API calls, or local report copies.
 // This module builds links. Google itself serves the document to the reader.
 export function documentLinks(value, title = "Laporan Quantum Banking") {
@@ -42,11 +44,7 @@ export async function loadReport(signal) {
     /\/$/,
     "",
   );
-  if (!baseUrl && !import.meta.env.DEV) {
-    throw new Error(
-      "Tautan laporan belum dikonfigurasi. Pengelola perlu mengisi VITE_REPORT_DOCUMENT_URL atau menghubungkan FastAPI.",
-    );
-  }
+  if (!baseUrl) return documentLinks(defaultReport.url, defaultReport.title);
   const response = await fetch(`${baseUrl}/api/report`, {
     cache: "no-store",
     credentials: "omit",

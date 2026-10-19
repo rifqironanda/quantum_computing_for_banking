@@ -14,6 +14,19 @@ Google Cloud Project, OAuth Client ID, API key dan aktivasi billing tidak
 diperlukan untuk alur ini. FastAPI tetap tersedia secara opsional untuk memberikan
 tautan dokumen. Backend tidak memerlukan Google API atau kredensial Google.
 
+## Dokumen laporan yang sudah dipasang
+
+Dokumen pilihan pemilik adalah **Kajian Quantum Computing untuk Ketahanan
+Transformasi Digital Perbankan**. Konfigurasi default berada di
+`src/reportConfig.js`, sehingga build GitHub Pages langsung mempunyai dokumen
+utama tanpa harus mengisi variable atau menjalankan FastAPI. Pada saat
+pemeriksaan, izin file adalah Anyone with the link → Commenter. Aplikasi tidak
+mengubah izin tersebut. Perubahan isi tetap dilakukan di Google Docs.
+
+Variable `VITE_REPORT_DOCUMENT_URL` dapat mengganti dokumen default. Jika
+`VITE_REPORT_API_URL` diisi dan URL langsung kosong, aplikasi memakai FastAPI.
+Hapus variable backend yang lama jika ingin memakai dokumen default langsung.
+
 ## 1. Tentukan satu dokumen
 
 1. Gunakan satu Google Docs native milik Anda, berisi seluruh laporan/bab/tab.
@@ -66,7 +79,7 @@ uvicorn backend.main:app --env-file backend/.env --reload --port 8000
 ```
 
 Di Windows, aktivasi memakai `.venv\Scripts\activate`.
-Saat development, Vite mem-proxy `/api/report` ke port 8000. API hanya mengembalikan
+Saat development, set `VITE_REPORT_API_URL=http://localhost:8000` untuk memakai backend secara eksplisit. API hanya mengembalikan
 judul dan tautan dokumen yang ditentukan pengelola, tanpa isi atau token pembaca.
 
 Untuk produksi, deploy FastAPI di layanan Python terpisah melalui HTTPS. Set

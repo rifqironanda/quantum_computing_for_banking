@@ -17,6 +17,7 @@ assert.ok(
   dashboard.indexOf('["report", "Outline laporan"') <
     dashboard.indexOf('["lab", "Computing lab"'),
 );
+process.env.VITE_REPORT_API_URL = "https://report-api.example.test";
 const server = await createServer({
   envDir: false,
   server: { middlewareMode: true },
@@ -48,7 +49,7 @@ try {
     assert.throws(() => documentLinks(url));
   }
   globalThis.fetch = async (url, options) => {
-    assert.equal(url, "/api/report");
+    assert.equal(url, "https://report-api.example.test/api/report");
     assert.equal(options.headers, undefined);
     assert.equal(options.credentials, "omit");
     return new Response(
