@@ -1,125 +1,121 @@
-# Satu Google Docs + FastAPI
+# Satu Google Docs, tanpa OAuth pembaca
 
-## Alur sistem
+## Pipeline
 
-React → Google OAuth (akun pembaca) → FastAPI `/api/report` → Google Drive API
-(memastikan akses, metadata, dan kemampuan komentar) + Google Docs API (isi).
-Semua tab tetap berada di **satu dokumen**, bukan satu dokumen per bab.
+Website React → pratinjau Google Docs milik penulis → tombol **Buka & beri komentar**
+→ dokumen yang sama di Google Docs.
 
-Google Docs menjadi sumber isi dan riwayat revisi. Aplikasi menyediakan pembaca
-teks, heading, tabel, dan pencarian. Komentar pada teks ditulis melalui tombol
-**Beri komentar di Google Docs** yang membuka dokumen yang sama di tab baru.
-Gambar, rumus, rich text, komentar dan saran lengkap menggunakan antarmuka asli
-Google Docs. Tidak memakai iframe publik atau Publish to web.
+Pembaca tidak memberi aplikasi izin mengakses akun atau Drive mereka. Aplikasi
+tidak memuat Google Identity Services, tidak meminta OAuth, tidak menerima access
+token, dan tidak membaca isi memakai Docs API/Drive API. Google melayani isi dan
+menangani login serta izin file secara langsung.
 
-## 1. Tentukan dokumen dan hak pembaca
+Google Cloud Project, OAuth Client ID, API key dan aktivasi billing tidak
+diperlukan untuk alur ini. FastAPI tetap tersedia secara opsional untuk memberikan
+tautan dokumen. Backend tidak memerlukan Google API atau kredensial Google.
 
-1. Gunakan satu dokumen Google Docs native milik Anda yang sudah berisi laporan.
-2. Ambil ID dari `https://docs.google.com/document/d/ID_DOKUMEN/edit`.
-3. Pada Share, pilih General access **Restricted**. Beri pemilik/penulis akses
-   Editor, dan pembaca akses **Commenter**. Viewer hanya bisa membaca.
-4. Periksa juga akses melalui grup, folder, domain, dan shared drive: pembaca yang
-   memperoleh Editor dari sumber lain tetap dapat mengedit di Google Docs.
+## Dokumen laporan yang sudah dipasang
 
-Aplikasi tidak mengubah izin berbagi secara otomatis. Nama role Commenter
-mengizinkan membaca dan berkomentar tanpa langsung mengubah isi; Google Docs
-juga dapat menawarkan suggestion yang perlu diterima penulis. Mode reader di
-aplikasi tetap hanya baca, termasuk bagi pemilik. Hak owner/editor asli tidak
-bisa diturunkan hanya dengan mengubah tombol aplikasi.
+Dokumen pilihan pemilik adalah **Kajian Quantum Computing untuk Ketahanan
+Transformasi Digital Perbankan**. Konfigurasi default berada di
+`src/reportConfig.js`, sehingga build GitHub Pages langsung mempunyai dokumen
+utama tanpa harus mengisi variable atau menjalankan FastAPI. Pada saat
+pemeriksaan, izin file adalah Anyone with the link → Commenter. Aplikasi tidak
+mengubah izin tersebut. Perubahan isi tetap dilakukan di Google Docs.
 
-## 2. Google Cloud dan OAuth
+Variable `VITE_REPORT_DOCUMENT_URL` dapat mengganti dokumen default. Jika
+`VITE_REPORT_API_URL` diisi dan URL langsung kosong, aplikasi memakai FastAPI.
+Hapus variable backend yang lama jika ingin memakai dokumen default langsung.
 
-1. Di Google Cloud project, aktifkan **Google Docs API** dan **Google Drive API**.
-2. Atur Google Auth Platform/consent screen, audience dan test users. Saat Testing,
-   setiap pembaca eksternal perlu terdaftar sebagai test user.
-3. Buat OAuth Client ID bertipe **Web application**.
-4. Tambahkan Authorized JavaScript origins: `http://localhost:5173` dan
-   `https://rifqironanda.github.io` (origin saja, tanpa path repositori).
-5. Scope yang diminta: `documents.readonly` dan `drive.readonly`.
-   `drive.readonly` termasuk restricted scope. Untuk distribusi eksternal publik,
-   ikuti proses verifikasi/assessment Google yang berlaku; untuk uji coba terbatas
-   gunakan test users. Persetujuan OAuth tidak otomatis memberikan akses file:
-   pembaca tetap harus dibagikan dokumen pada langkah 1.
+## 1. Tentukan satu dokumen
 
-Tidak memerlukan service account, client secret, refresh token atau database.
-Access token berumur singkat disimpan dalam memori React dan dikirim sebagai
-Bearer lewat HTTPS ke FastAPI. Backend meneruskannya hanya ke host API Google
-untuk dokumen yang dikonfigurasi pemilik, sehingga tidak membaca sebagai owner.
-Logout menghapus sesi lokal aplikasi; ini tidak mengeluarkan akun dari Google
-atau mencabut persetujuan OAuth. Reload halaman memerlukan login ulang.
+1. Gunakan satu Google Docs native milik Anda, berisi seluruh laporan/bab/tab.
+2. Pada **Share**, tentukan siapa yang boleh membukanya. Untuk pembaca tertentu,
+   gunakan **Restricted** dan berikan mereka akses **Commenter**. Jangan memberi
+   Editor kepada pembaca jika mereka hanya boleh meninjau.
+3. Salin tautan biasa berbentuk `https://docs.google.com/document/d/ID/edit`.
 
-## 3. Menjalankan lokal
+Hak Commenter memungkinkan komentar dan saran tanpa langsung mengubah isi.
+Periksa juga akses editor yang mungkin diwariskan dari grup/folder. Situs tidak
+mengubah izin atau membagikan dokumen otomatis. Tautan dokumen akan terlihat oleh
+pengunjung situs; akses ke isinya tetap diatur oleh Google.
 
-Memerlukan Python 3.11+ dan Node.js 22+.
+Tidak perlu Publish to web. Publishing berbeda dari sharing dan dapat memperluas
+keterbukaan dokumen. Pratinjau dalam iframe adalah upaya tampilan langsung, bukan
+jaminan untuk semua kebijakan akun/browser. Pada dokumen Restricted, browser
+mungkin memblokir login/cookie di dalam iframe. Karena halaman tidak dapat membaca
+isi iframe lintas origin, ia tidak bisa memastikan apakah preview berhasil.
+Tautan **Buka langsung di Google Docs** selalu disediakan untuk keadaan tersebut.
+
+## 2. Cara termudah: masukkan tautan pada frontend
+
+Salin `.env.example` menjadi `.env.local`, lalu isi:
+
+```env
+VITE_REPORT_DOCUMENT_URL=https://docs.google.com/document/d/ID_DOKUMEN/edit
+```
+
+Jalankan `npm ci` lalu `npm run dev`. Menu Outline laporan menampilkan pratinjau
+melalui Google Docs. Tombol **Buka & beri komentar** membuka dokumen yang sama di
+tab baru dengan antarmuka komentar Google. Komentar di dalam iframe tidak
+dijanjikan; gunakan tombol tersebut.
+
+Untuk GitHub Pages, isi **Settings → Secrets and variables → Actions → Variables**
+dengan `VITE_REPORT_DOCUMENT_URL` lalu jalankan ulang workflow deployment. Tidak
+perlu hosting FastAPI untuk mode ini. ID/URL bukan rahasia, tetapi jangan memasukkan
+kredensial apa pun ke variables frontend.
+
+## 3. Jika tetap ingin memakai backend FastAPI
+
+Biarkan `VITE_REPORT_DOCUMENT_URL` kosong. Gunakan Python 3.11+:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r backend/requirements-dev.txt
 cp backend/.env.example backend/.env
-# Isi GOOGLE_REPORT_DOCUMENT_ID di backend/.env
+# Isi GOOGLE_REPORT_DOCUMENT_ID dan opsional GOOGLE_REPORT_TITLE
 uvicorn backend.main:app --env-file backend/.env --reload --port 8000
 ```
 
-Pada Windows, aktivasi venv memakai `.venv\Scripts\activate`.
-Di terminal lain:
+Di Windows, aktivasi memakai `.venv\Scripts\activate`.
+Saat development, set `VITE_REPORT_API_URL=http://localhost:8000` untuk memakai backend secara eksplisit. API hanya mengembalikan
+judul dan tautan dokumen yang ditentukan pengelola, tanpa isi atau token pembaca.
 
-```bash
-cp .env.example .env.local
-# Isi VITE_GOOGLE_CLIENT_ID dengan public OAuth Client ID
-npm ci
-npm run dev
-```
-
-Biarkan `VITE_REPORT_API_URL` kosong untuk proxy Vite `/api` ke port 8000.
-Buka menu Outline laporan, login dengan akun Google pembaca, baca laporan, lalu
-buka Google Docs untuk memilih teks dan memberi komentar.
-
-```bash
-npm run check
-python -m pytest backend/tests -q
-```
-
-## 4. Deployment
-
-Frontend tetap di GitHub Pages. **GitHub Pages tidak menjalankan FastAPI.**
-Deploy backend di layanan Python/server HTTPS terpisah, misalnya dengan Docker:
+Untuk produksi, deploy FastAPI di layanan Python terpisah melalui HTTPS. Set
+`FRONTEND_ORIGINS=https://rifqironanda.github.io`. Isi Actions variable
+`VITE_REPORT_API_URL=https://alamat-backend-anda` (tanpa `/api`). Jika kedua mode
+diisi, **tautan langsung frontend diprioritaskan**.
 
 ```bash
 docker build -f backend/Dockerfile -t quantum-report-api .
 docker run --env-file backend/.env -p 8000:8000 quantum-report-api
 ```
 
-Untuk deployment publik, letakkan backend di balik HTTPS layanan hosting atau
-reverse proxy. Set `GOOGLE_REPORT_DOCUMENT_ID` dan
-`FRONTEND_ORIGINS=https://rifqironanda.github.io` di environment server.
-Set repository Actions variables berikut sebelum build Pages:
+GitHub Pages hanya menyajikan frontend dan tidak menjalankan FastAPI. Google
+Cloud bukan keharusan untuk hosting backend ini.
 
-| Variable | Nilai |
-| --- | --- |
-| `VITE_GOOGLE_CLIENT_ID` | OAuth Web Client ID, berakhiran `.apps.googleusercontent.com` |
-| `VITE_REPORT_API_URL` | Origin backend HTTPS, misalnya `https://report-api.example.com`, tanpa `/api` |
+## 4. Pengujian
 
-Jalankan ulang workflow Deploy to GitHub Pages setelah mengubah variables.
-`/api/health` hanya memeriksa proses dan keberadaan konfigurasi; bukan bukti bahwa
-izin Google/API benar. Uji akun Commenter, Viewer dan akun tanpa akses secara
-langsung. Pastikan pembaca tidak punya Editor melalui grup/folder lain. API
-mengembalikan 401 saat token kedaluwarsa, 403/404 saat tidak punya akses, 503 saat
-ID belum diset, serta 502 saat upstream gagal. Backend tidak menyimpan laporan,
-tidak mempunyai endpoint ubah isi/izin, dan menandai response `no-store`.
+```bash
+npm run check
+python -m pytest backend/tests -q
+```
 
-## 5. Isi lama
+Uji juga dengan dokumen asli: pembaca Commenter, pembaca Viewer, dan akun tanpa
+akses. Login Google mungkin diperlukan untuk membaca file Restricted atau
+memberi komentar. Ini merupakan login langsung ke layanan Google, bukan
+persetujuan akses akun ke aplikasi Anda. Aplikasi tidak mengetahui akun yang
+sedang aktif di Google dan tidak memiliki tombol login/logout Google.
 
-`src/data/report-outline.md` dan migration SQL di `database/` dipertahankan
-sebagai arsip. Tidak dijalankan oleh sistem baru. Data Supabase maupun localStorage
-lama tidak dihapus atau dimigrasikan otomatis. Jika ada revisi yang hanya berada
-di sistem lama, export dengan versi aplikasi sebelumnya dan satukan manual ke
-Google Docs sebelum beralih. Tidak ada pembacaan cache lama sebagai fallback.
+## Data lama
 
-## Referensi implementasi
+Supabase tidak lagi dipakai. Migration SQL dan `src/data/report-outline.md`
+dipertahankan sebagai arsip; data lama tidak dihapus atau dimigrasikan otomatis.
+Jika diperlukan, satukan revisi lama secara manual ke dokumen utama.
 
-- [Google Docs documents.get](https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/get)
-- [Google Docs tabs](https://developers.google.com/workspace/docs/api/how-tos/tabs)
-- [Drive sharing dan capabilities](https://developers.google.com/workspace/drive/api/guides/manage-sharing)
-- [Google Identity token model](https://developers.google.com/identity/oauth2/web/guides/use-token-model)
-- [OAuth scope Drive](https://developers.google.com/workspace/drive/api/guides/api-specific-auth)
+## Referensi
+
+- [Peran Viewer, Commenter, dan Editor](https://support.google.com/docs/answer/2494822)
+- [Akses dokumen Google](https://support.google.com/docs/answer/16722399)
+- [Publishing dan embedding](https://support.google.com/docs/answer/183965)

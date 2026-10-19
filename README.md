@@ -18,9 +18,10 @@ Presentasi web interaktif yang mengadaptasi kajian **Quantum Computing pada Sekt
 - Daftar slide untuk berpindah langsung ke bagian tertentu.
 - URL hash (`#slide-12`) sehingga slide dapat ditautkan langsung.
 - Mode fullscreen dan progress indicator.
-- Satu Google Docs sebagai sumber laporan, dengan daftar isi dan pencarian.
-- Login Google dan backend FastAPI untuk membaca sesuai izin akun.
-- Pembaca dapat membuka dokumen yang sama untuk memberi komentar dengan akses Commenter.
+- Pratinjau satu Google Docs sebagai sumber laporan.
+- Tanpa OAuth atau permintaan akses akun pembaca kepada aplikasi.
+- Komentar langsung di dokumen yang sama melalui tombol Buka & beri komentar.
+- FastAPI opsional untuk menyediakan tautan dokumen, tanpa Google API.
 - Desain responsif untuk desktop dan perangkat bergerak.
 - Print stylesheet untuk ekspor melalui fitur Print browser.
 - Deployment otomatis ke GitHub Pages.
@@ -45,16 +46,17 @@ npm run preview
 
 Hasil build berada di direktori `dist/`.
 
-## Menghubungkan Google Docs dan FastAPI
+## Menghubungkan Google Docs
 
-Ikuti [panduan konfigurasi Google Docs](docs/GOOGLE_DOCS_SETUP.md) untuk menentukan
-satu dokumen milik Anda, memberi pembaca akses Commenter, membuat OAuth Client ID,
-menjalankan FastAPI, dan mengatur GitHub Pages. Backend memerlukan hosting HTTPS
-terpisah; GitHub Pages menyajikan frontend saja.
+Dokumen utama pilihan pemilik sudah dipasang di `src/reportConfig.js`.
+Untuk menggantinya, isi `VITE_REPORT_DOCUMENT_URL` dan berikan
+pembaca akses **Commenter** pada Share di Google Docs. Website menampilkan
+pratinjau; komentar dibuka langsung di Google Docs yang sama. Tidak ada OAuth,
+API key, Google Cloud Project, atau permintaan akses Drive pembaca ke aplikasi.
 
-Isi `VITE_GOOGLE_CLIENT_ID` serta `VITE_REPORT_API_URL` pada frontend, dan
-`GOOGLE_REPORT_DOCUMENT_ID` pada backend. Konfigurasi kosong menampilkan petunjuk
-penyiapan. Tidak ada koneksi Supabase atau editor laporan di aplikasi baru.
+Backend FastAPI tetap tersedia sebagai alternatif penyedia tautan. Lihat
+[panduan konfigurasi](docs/GOOGLE_DOCS_SETUP.md) untuk mode langsung maupun backend,
+pengaturan GitHub Pages, dan keterbatasan preview dokumen Restricted.
 
 ## Kontrol presentasi
 
