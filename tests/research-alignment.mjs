@@ -76,7 +76,7 @@ try {
     [views.Assurance, "artefak"],
   ])
     assert.ok(renderToStaticMarkup(React.createElement(view)).includes(term));
-  for (const file of ["src/slides.js"])
+  for (const file of ["src/Dashboard.jsx", "src/App.jsx", "src/slides.js"])
     assert.ok(
       !/kajian bulan\s*0?1|briefing.*bulan\s*1/i.test(
         await readFile(new URL("../" + file, import.meta.url), "utf8"),

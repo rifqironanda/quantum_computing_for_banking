@@ -30,7 +30,6 @@ import "./dashboard.css";
 import Research from "./Research";
 import HndlCaseStudy from "./HndlCaseStudy";
 import ReportOutline from "./ReportOutline";
-import Presentations from "./Presentations";
 import { modules } from "./researchData";
 
 const groups = modules;
@@ -46,7 +45,6 @@ const nav = [
   ["risk", "Contoh kasus HNDL", Clock],
   ["readiness", "Readiness", ShieldCheck],
   ["report", "Outline laporan", FileText],
-  ["presentations", "Presentasi", Presentation],
   ["lab", "Computing lab", FlaskConical],
 ];
 // Hash routes work on GitHub Pages without server rewrite rules.
@@ -63,6 +61,7 @@ export default function Dashboard() {
     [moduleId, setModuleId] = useState(
       () => location.hash.replace("#module-", "") || "evolution",
     ),
+    [selected, setSelected] = useState(6),
     [lab, setLab] = useState("physics");
   useEffect(() => {
     const sync = () => {
@@ -79,12 +78,14 @@ export default function Dashboard() {
     setMobile(false);
   };
   const openModule = (id) => {
+    setSelected((modules.find((m) => m.id === id)?.start || 2) - 1);
     setModuleId(id);
     location.hash = `module-${id}`;
     setRoute("library");
     setMobile(false);
   };
   const showTopic = (index) => {
+    setSelected(index);
     openModule(
       modules.find((m) => index + 1 >= m.start && index + 1 <= m.end)?.id ||
         "evolution",
@@ -94,8 +95,8 @@ export default function Dashboard() {
   if (route === "presentation")
     return (
       <>
-        <button className="return-dashboard" onClick={() => go("presentations")}>
-          ← Pilih versi presentasi
+        <button className="return-dashboard" onClick={() => go("overview")}>
+          ← Dashboard
         </button>
         <PresentationApp />
       </>
@@ -156,13 +157,15 @@ export default function Dashboard() {
           </div>
           <button
             className="presentation-link"
-            onClick={() => go("presentations")}
+            onClick={() => {
+              location.hash = `slide-${selected + 1}`;
+              setRoute("presentation");
+            }}
           >
             <Presentation size={17} /> Mode presentasi
           </button>
         </header>
         <main className="dash-content">
-          {route === "presentations" && <Presentations />}
           {route === "overview" && (
             <>
               <div className="dash-heading">
