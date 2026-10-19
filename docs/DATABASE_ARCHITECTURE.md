@@ -1,3 +1,7 @@
+> **Arsip sistem lama.** Supabase tidak lagi digunakan oleh Outline laporan.
+> Implementasi aktif: [Google Docs + FastAPI](GOOGLE_DOCS_SETUP.md). SQL lama tetap
+> tersedia untuk pemulihan data; tidak dijalankan oleh aplikasi baru.
+
 # Database architecture — Report Outline
 
 ## Keputusan arsitektur

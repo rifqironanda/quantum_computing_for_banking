@@ -7,15 +7,17 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node tests/report-outline.mjs && node tests/research-render.mjs && node tests/slides-15-18-render.mjs && node tests/slides-19-24-render.mjs && node tests/slides-25-30-render.mjs",
+    "test": "node tests/report-outline.mjs && node tests/report-access.mjs && node tests/research-render.mjs && node tests/slides-15-18-render.mjs && node tests/slides-19-24-render.mjs && node tests/slides-25-30-render.mjs",
     "check": "vite build && npm test"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.116.0",
     "@vitejs/plugin-react": "latest",
     "lucide-react": "^1.46.0",
     "react": "latest",
     "react-dom": "latest",
     "vite": "latest"
+  },
+  "devDependencies": {
+    "jsdom": "^30.1.3"
   }
 }
