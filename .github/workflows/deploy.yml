@@ -32,7 +32,7 @@ jobs:
         run: npm ci
       - name: Build
         env:
-          VITE_BENCHMARK_API_URL: ${{ vars.VITE_BENCHMARK_API_URL }}
+          VITE_BENCHMARK_API_URL: ${{ vars.VITE_BENCHMARK_API_URL || 'https://quantum-banking-qiskit-production.up.railway.app' }}
           VITE_REPORT_API_URL: ${{ vars.VITE_REPORT_API_URL }}
           VITE_REPORT_DOCUMENT_URL: ${{ vars.VITE_REPORT_DOCUMENT_URL }}
         run: npm run build
