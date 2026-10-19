@@ -135,3 +135,11 @@ melengkapi benchmark 16 negara/yurisdiksi, penilaian risiko dan tata kelola,
 implementasi PQC, pengawasan/audit, serta daftar referensi IEEE yang dapat dicari.
 Tampilan menggunakan cuplikan sitasi; daftar lengkap tersedia pada modul
 **Referensi Kajian · IEEE**. Lihat [peta penyelarasan](docs/CONTENT_ALIGNMENT.md).
+
+## Computing Lab dengan Qiskit
+
+Tab Qiskit benchmark memakai FastAPI + circuit statevector dari
+[`computing_and_quantum`](https://github.com/rifqironanda/computing_and_quantum).
+Frontend tetap di GitHub Pages; backend disiapkan untuk Render melalui `render.yaml`.
+Lihat [panduan deployment Qiskit](docs/DEPLOY_QISKIT.md) untuk menerbitkan service dan
+mengisi `VITE_BENCHMARK_API_URL`. Backend belum otomatis hidup hanya dengan merge.

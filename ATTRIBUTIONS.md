@@ -13,3 +13,10 @@
   Lisensi distribusi disertakan pada public/media/lucide-LICENSE.txt.
 
 Lisensi aset berlaku pada aset masing-masing; tidak menyatakan endorsement.
+
+- **Computing & Quantum labs dan backend Qiskit** — Rifqi Afta Ronanda, MIT.
+  Sumber: https://github.com/rifqironanda/computing_and_quantum
+  commit `0dece14027058045fd3f8bb18e7e454e1d468ea6`.
+  Snapshot engine/worker di `backend/`, lab di `src/integrations/computing/`.
+  Lisensi: `src/integrations/computing/LICENSE`. Adaptasi hosting dijelaskan di
+  `docs/INTEGRATION.md`.

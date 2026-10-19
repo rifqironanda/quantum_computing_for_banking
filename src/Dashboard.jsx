@@ -38,7 +38,8 @@ const labs = [
   ["classical", "Classical bits", ClassicalLab],
   ["physics", "Quantum physics", QuantumLab],
   ["computing", "Interference", ComputingLab],
-  ["shor", "Shor algorithm", ShorLab],
+  ["shor", "Shor konsep", ShorLab],
+  ["qiskit", "Qiskit benchmark", Benchmark],
 ];
 const nav = [
   ["overview", "Ringkasan", LayoutDashboard],
@@ -63,7 +64,7 @@ export default function Dashboard() {
     [moduleId, setModuleId] = useState(
       () => location.hash.replace("#module-", "") || "evolution",
     ),
-    [lab, setLab] = useState("physics");
+    [lab, setLab] = useState("qiskit");
   useEffect(() => {
     const sync = () => {
       setRoute(readRoute());
@@ -328,7 +329,7 @@ export default function Dashboard() {
             <>
               <PageTitle
                 title="Computing & quantum lab"
-                text="Eksperimen dari repo computing_and_quantum, terintegrasi langsung dengan kajian perbankan."
+                text="Jalankan circuit Qiskit untuk faktorisasi kecil, bandingkan dengan metode klasik, atau jelajahi lab konsep."
               />
               <div
                 className="lab-tabs"
@@ -348,26 +349,6 @@ export default function Dashboard() {
               </div>
               <div className="lab-surface" key={lab}>
                 <ActiveLab />
-                {lab === "shor" && (
-                  <>
-                    <div className="backend-note">
-                      <b>Benchmark Python / Qiskit</b>
-                      <p>
-                        {import.meta.env.VITE_BENCHMARK_API_URL
-                          ? "Endpoint backend dikonfigurasi. Hasil hanya tersedia bila server dapat diakses."
-                          : "Visualisasi Shor di atas berjalan di browser. Benchmark Qiskit memerlukan server Python terpisah; belum dikonfigurasi pada deployment ini."}
-                      </p>
-                      <a
-                        href="https://github.com/rifqironanda/quantum_computing_for_banking/blob/main/docs/INTEGRATION.md"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Panduan koneksi backend ↗
-                      </a>
-                    </div>
-                    {import.meta.env.VITE_BENCHMARK_API_URL && <Benchmark />}
-                  </>
-                )}
               </div>
               <div className="dash-insight">
                 <BookOpen />

@@ -1,8 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { benchmarkConfig, checkBackend, runBenchmark } from '../benchmarkApi'
 
 const presets = [15, 21, 35, 1022117, 100160063, 999800009]
 
 export default function Benchmark() {
+  let config = null, configError = '';
+  try { config = benchmarkConfig(import.meta.env.VITE_BENCHMARK_API_URL, import.meta.env.DEV); }
+  catch (error) { configError = error.message; }
+  const controller = useRef(null);
+  const mounted = useRef(true);
+  const [connection, setConnection] = useState('Belum diperiksa');
+  const [phase, setPhase] = useState('');
+  useEffect(() => { mounted.current = true; return () => { mounted.current = false; controller.current?.abort(); }; }, []);
   const [n, setN] = useState('15')
   const [busy, setBusy] = useState(false)
   const [seconds, setSeconds] = useState(0)
@@ -20,34 +29,55 @@ export default function Benchmark() {
     if (!Number.isSafeInteger(value) || value < 4 || value > 999999999) {
       setError('Masukkan integer 4–999.999.999.'); return
     }
-    setBusy(true); setSeconds(0); setError(''); setRows([])
+    if (!config) { setError(configError || 'Layanan simulasi sedang disiapkan.'); return; }
+    setBusy(true); setSeconds(0); setError(''); setRows([]); setPhase('Menghubungkan');
+    controller.current = new AbortController();
+    const requestSignal = milliseconds => AbortSignal.any([controller.current.signal, AbortSignal.timeout(milliseconds)]);
     try {
-      // Sequential requests avoid resource contention between methods.
+      await checkBackend(config, requestSignal(90000));
+      if (!mounted.current) return;
+      setConnection('Terhubung');
+      // The timer includes network/startup; each result reports the actual worker time.
       for (const method of ['classical', 'qiskit']) {
-        const response = await fetch(import.meta.env.VITE_BENCHMARK_API_URL,  {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ n: value, method, a: 2, shots: 256, seed: 42 }),
-          signal: AbortSignal.timeout(135000),
-        })
-        if (!response.ok) throw new Error(`Backend HTTP ${response.status}`)
-        const result = await response.json()
-        setRows(previous => [...previous, { ...result, n: value, method }])
+        setPhase(method === 'classical' ? 'Menghitung klasik' : 'Menjalankan Qiskit');
+        const result = await runBenchmark(config, value, method, requestSignal(135000));
+        if (!mounted.current) return;
+        setRows(previous => [...previous, result]);
       }
     } catch (e) {
-      setError(`Backend tidak tersedia atau respons gagal (${e.message}). Jalankan server Python; timeout koneksi bukan waktu faktorisasi.`)
-    } finally { setBusy(false) }
+      if (!mounted.current) return;
+      setConnection('Percobaan gagal');
+      setError(`Simulasi belum berhasil (${e.message}). Layanan mungkin sedang memulai ulang. Coba lagi; timeout koneksi bukan waktu faktorisasi.`);
+    } finally { if (mounted.current) { setBusy(false); setPhase(''); } }
   }
-  const time = value => value == null ? 'Tidak diketahui / tidak dijalankan' : `${value.toFixed(6)} s`
+
+  async function connect() {
+    if (!config) return;
+    setBusy(true); setSeconds(0); setPhase('Menghubungkan'); setError('');
+    controller.current = new AbortController();
+    try {
+      await checkBackend(config, AbortSignal.any([controller.current.signal, AbortSignal.timeout(90000)]));
+      if (mounted.current) setConnection('Terhubung');
+    } catch (e) {
+      if (mounted.current) { setConnection('Belum terhubung'); setError(`Layanan belum dapat diakses (${e.message}). Coba lagi setelah layanan selesai memulai.`); }
+    } finally { if (mounted.current) { setBusy(false); setPhase(''); } }
+  }
+  const time = value => value == null ? 'Tidak diketahui / tidak dijalankan' : `${Number(value).toFixed(6)} s`
   return <section className="shor-lab" aria-labelledby="benchmark-title">
     <h2 id="benchmark-title">Benchmark Python & Qiskit</h2>
     <p className="lead">Ini mengukur waktu nyata pada CPU server. Qiskit menjalankan qubits simulasi, bukan quantum hardware; grafik waktu tidak membuktikan quantum speedup. Bilangan jutaan pun dapat selesai sangat cepat secara klasik.</p>
+    <div className="benchmark-connection" role="status">
+      <p>{config ? `Status layanan: ${connection}. Koneksi awal dapat memerlukan waktu saat server bangun.` : 'Layanan simulasi sedang disiapkan. Lab konsep tetap dapat digunakan.'}</p>
+      {configError && <p>{configError}</p>}
+      <button type="button" disabled={busy || !config} onClick={connect}>Cek koneksi</button>
+    </div>
     <div className="shor-controls">
       <label>Preset N<select disabled={busy} value={presets.includes(Number(n)) ? n : ''} onChange={e => setN(e.target.value)}>
         <option value="" disabled>Custom</option>
         {presets.map(v => <option key={v} value={v}>{v.toLocaleString('id-ID')}</option>)}
       </select></label>
       <label>Integer N<input disabled={busy} aria-label="Integer N" type="number" min="4" max="999999999" value={n} onChange={e => setN(e.target.value)} /></label>
-      <button className="primary-button" disabled={busy} onClick={run}>{busy ? `Berjalan ${seconds.toFixed(1)} s` : 'Uji kedua metode'}</button>
+      <button className="primary-button" disabled={busy || !config} onClick={run}>{busy ? `${phase} · ${seconds.toFixed(1)} s` : 'Uji kedua metode'}</button>
     </div>
     <p>Basis a = 2 · 256 shots · seed 42. Batas 120 detik per metode. Simulator dibatasi N ≤ 35 untuk mencegah kehabisan memori.</p>
     {error && <p role="alert">{error}</p>}

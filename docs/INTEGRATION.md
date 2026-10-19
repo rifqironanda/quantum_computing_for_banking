@@ -33,36 +33,17 @@ Untuk memperbarui snapshot: pilih commit sumber, bandingkan empat file tersebut,
 terapkan kembali tiga adaptasi di atas, jalankan build dan pemeriksaan lab.
 Catat commit baru di dokumen ini. Repo sumber tidak dimodifikasi oleh integrasi.
 
-## Backend lokal
+## Backend Qiskit terintegrasi
 
-Di checkout `computing_and_quantum`, instal `backend/requirements.txt`, lalu:
+Engine, worker dan kontrak benchmark diambil dari folder `backend/` repo sumber
+pada commit yang sama. Kode MIT disertakan pada `src/integrations/computing/LICENSE`.
+`backend/main.py` sekarang menggabungkan router benchmark dengan API tautan laporan.
+Adaptasi hosting: CORS untuk GitHub Pages, health check yang menyatakan engine,
+batas request per klien, satu worker proses, Docker dengan `$PORT` dan Render Blueprint.
 
-```sh
-python -m uvicorn backend.app:app --host 127.0.0.1 --port 8000
-```
+Tab **Qiskit benchmark** menjadi pilihan awal Computing lab. Empat lab konsep
+berbasis browser tetap terpisah; penjelasan Shor konsep tidak diklaim sebagai circuit Qiskit.
+Tidak ada pemutakhiran otomatis dari repo sumber pada runtime.
 
-Di checkout dashboard, salin `.env.example` ke `.env.local`, isi:
-
-```dotenv
-VITE_BENCHMARK_API_URL=/api/benchmark
-```
-
-Jalankan `npm run dev`. Proxy Vite meneruskan `/api` ke Python port 8000.
-Jalankan kedua server bersamaan. `npm run preview` bukan proxy backend dev.
-
-## Backend untuk web publik
-
-GitHub Pages hanya menjalankan frontend. Deploy backend Python secara terpisah,
-aktifkan HTTPS dan CORS untuk origin `https://rifqironanda.github.io`, serta
-atur batas kapasitas/rate limiting sebelum mengekspos benchmark publik.
-Backend upstream saat ini lokal dan belum memiliki konfigurasi CORS tersebut.
-
-Isi repository variable GitHub Actions `VITE_BENCHMARK_API_URL` dengan URL
-lengkap endpoint HTTPS, misalnya `https://server-anda/api/benchmark`, lalu
-jalankan deployment ulang. Nilai ini publik dalam bundle, jangan isi token/secret.
-Tanpa endpoint, benchmark tidak ditampilkan sebagai layanan yang siap dijalankan;
-empat lab browser tetap tersedia. Konfigurasi endpoint bukan bukti server sehat;
-error jaringan ditampilkan oleh komponen Benchmark.
-
-Batas upstream: dua metode berurutan, timeout 120 detik per worker, Qiskit N ≤ 35.
-Simulator Qiskit menggunakan CPU; hasil timing tidak membuktikan quantum speedup.
+Panduan terbitkan service, konfigurasi variable Pages dan pemeriksaan koneksi:
+[DEPLOY_QISKIT.md](./DEPLOY_QISKIT.md).
