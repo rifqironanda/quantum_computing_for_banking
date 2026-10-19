@@ -6,23 +6,20 @@ import { HndlExplorer, Readiness } from "./Interactive";
 import { modules, milestones, sources } from "./researchData";
 import "./research.css";
 import ReadinessOrbit from "./ReadinessOrbit";
+import {
+  ReferenceLinks as SourceLinks,
+  KajianSourceNote,
+} from "./ReferenceLinks";
+import {
+  BenchmarkExpansion,
+  FinanceEvidence,
+  RiskGovernance,
+  PqcImplementation,
+  Assurance,
+  ReferenceLibrary,
+} from "./KajianAlignment";
 
-export function SourceLinks({ items }) {
-  return (
-    <aside className="research-sources">
-      <b>Sumber & bacaan</b>
-      <ul>
-        {items.map((x) => (
-          <li key={x.url}>
-            <a href={x.url} target="_blank" rel="noreferrer">
-              {x.title} ↗
-            </a>
-          </li>
-        ))}
-      </ul>
-    </aside>
-  );
-}
+export { ReferenceLinks as SourceLinks } from "./ReferenceLinks";
 function Section({ title, children }) {
   return (
     <section className="research-section">
@@ -351,7 +348,7 @@ function Crypto() {
           klaim bahwa seluruh enkripsi sudah dapat dibobol.
         </p>
         <SourceLinks
-          items={[...sources.crypto, ...sources.readiness.slice(0, 2)]}
+          items={[21, 37, ...sources.crypto, ...sources.readiness.slice(0, 2)]}
         />
       </Section>
     </>
@@ -404,7 +401,7 @@ function Hndl() {
           dimiliki penyerang.
         </p>
         <SourceLinks
-          items={[...sources.crypto, ...sources.readiness.slice(0, 2)]}
+          items={[21, 37, ...sources.crypto, ...sources.readiness.slice(0, 2)]}
         />
       </Section>
       <Section title="From HNDL to quantum readiness">
@@ -499,7 +496,8 @@ export default function Research({ moduleId, onNavigate, onDashboard, onLab }) {
       ) && <p>Tidak ada modul yang cocok. Coba kata kunci lain.</p>}
       <header className="module-heading">
         <p>
-          MODUL {index + 1} / {modules.length} · MATERI {mod.start}–{mod.end}
+          MODUL {index + 1} / {modules.length} ·{" "}
+          {mod.chapter || `MATERI ${mod.start}–${mod.end}`}
         </p>
         <h1 tabIndex="-1" ref={heading}>
           {mod.name}
@@ -509,6 +507,13 @@ export default function Research({ moduleId, onNavigate, onDashboard, onLab }) {
           <BookOpen size={16} /> {mod.feature}
         </span>
       </header>
+      <KajianSourceNote />
+      {mod.id === "governance" && <RiskGovernance />}
+      {mod.id === "implementation" && <PqcImplementation />}
+      {mod.id === "assurance" && <Assurance />}
+      {mod.id === "references" && <ReferenceLibrary />}
+      {mod.id === "benchmark" && <BenchmarkExpansion />}
+      {mod.id === "relevance" && <FinanceEvidence />}
       {mod.id === "evolution" && (
         <>
           <Section title={slides[1].title}>
@@ -532,9 +537,10 @@ export default function Research({ moduleId, onNavigate, onDashboard, onLab }) {
               {s.source && (
                 <SourceLinks
                   items={
-                    mod.id === "benchmark"
+                    s.referenceIds ||
+                    (mod.id === "benchmark"
                       ? sources.readiness
-                      : [...sources.finance, ...sources.crypto]
+                      : [...sources.finance, ...sources.crypto])
                   }
                 />
               )}

@@ -1,3 +1,4 @@
+import { resolveReference } from "./researchReferences";
 // Slide numbers are retained as provenance; modules are the dashboard navigation unit.
 export const modules = [
   {
@@ -52,8 +53,41 @@ export const modules = [
     feature: "Respons institusi & referensi",
     summary: "Hubungkan kesiapan dengan standar, koordinasi, dan tata kelola.",
   },
+  {
+    id: "governance",
+    name: "Penilaian Risiko & Tata Kelola",
+    chapter: "Bab 5",
+    feature: "Risk register, materialitas & vendor",
+    summary:
+      "Hubungkan layanan, eksposur dan dependensi dengan prioritas serta pemilik keputusan.",
+  },
+  {
+    id: "implementation",
+    name: "Implementasi PQC",
+    chapter: "Bab 6",
+    feature: "Inventory, standar & pengujian",
+    summary:
+      "Telusuri migrasi berbasis fungsi, crypto-agility dan bukti penerimaan layanan.",
+  },
+  {
+    id: "assurance",
+    name: "Pengawasan & Audit",
+    chapter: "Bab 7",
+    feature: "Kontrol, artefak & tindak lanjut",
+    summary: "Nilai kesiapan melalui bukti, temuan dan validasi berkelanjutan.",
+  },
+  {
+    id: "references",
+    name: "Referensi Kajian · IEEE",
+    chapter: "Daftar pustaka",
+    feature: "Satu daftar referensi bernomor",
+    summary: "Telusuri sumber kajian dan referensi pendukung konsep serta lab.",
+  },
 ];
-const doi = (title, id) => ({ title, url: `https://doi.org/${id}` });
+const doi = (title, id) => ({
+  title,
+  url: `https://doi.org/${id.replace(/^https:\/\/doi\.org\//, "")}`,
+});
 export const sources = {
   finance: [
     doi(
@@ -147,7 +181,10 @@ export const milestones = [
         "10.1137/S0097539796298637",
       ),
       sources.crypto[1],
-      doi("Grover, STOC (1996)", "https://doi.org/10.48550/arXiv.quant-ph/9605043"),
+      doi(
+        "Grover, STOC (1996)",
+        "https://doi.org/10.48550/arXiv.quant-ph/9605043",
+      ),
       doi("Vandersypen et al., Nature 414, 883–887 (2001)", "10.1038/414883a"),
     ],
   },
@@ -235,3 +272,13 @@ export const milestones = [
     ],
   },
 ];
+
+// Attach canonical IEEE IDs without removing the original milestone descriptions.
+for (const item of [
+  ...Object.values(sources).flat(),
+  ...milestones.flatMap((m) => m.refs),
+]) {
+  const ref = resolveReference(item);
+  item.id = ref.id;
+  if (ref.url) item.url = ref.url;
+}

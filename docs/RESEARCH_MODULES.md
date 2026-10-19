@@ -14,7 +14,7 @@ Slide adalah asal materi, sedangkan modul menjadi unit navigasi dashboard.
 
 ## Struktur kode
 
-- `src/researchData.js`: metadata enam modul, delapan milestone, referensi dengan DOI/URL.
+- `src/researchData.js`: metadata sepuluh modul, delapan milestone, referensi dengan DOI/URL.
 - `src/Research.jsx`: pembaca modul, penjelasan expandable, Venn, pemilih algoritma, inventory dan footer.
 - `src/research.css`: layout responsif dan focus states.
 - `src/Dashboard.jsx`: integrasi navigasi, header dan kartu fitur.
@@ -38,7 +38,7 @@ npm run build
 npm run dev -- --host 127.0.0.1
 ```
 
-Test render memastikan keenam modul, tujuan navigasi, tautan sumber, delapan milestone, kontrol HNDL dan fallback modul. Test ini tidak menggantikan uji interaksi browser.
+Test render memastikan kesepuluh modul, tujuan navigasi, tautan sumber, delapan milestone, kontrol HNDL dan fallback modul. Test ini tidak menggantikan uji interaksi browser.
 
 Pemeriksaan manual: buka milestone 01–08, bandingkan isi dan sumber; ubah tiga pilihan Venn dan empat pilihan algoritma; ubah slider HNDL, pilih tahap readiness dan checkbox inventory; tandai modul selesai lalu reload; uji tombol lanjut/kembali, browser back/forward, pencarian tanpa hasil, tab keyboard, layout ponsel dan computing lab.
 
@@ -47,3 +47,12 @@ Deployment mengikuti workflow GitHub Pages yang sudah ada pada push ke `main`.
 ## Perbaikan layout dan contoh kasus
 
 Footer presentasi dibatasi dengan selector `.slide > footer`; `.research .module-footer` memakai alur dokumen normal, sehingga navigasi tidak menutupi materi. `ReadinessOrbit.jsx` menampilkan inti dan empat pilar yang dapat dipilih, dengan layout kartu pada layar sempit untuk menjaga keterbacaan. `HndlCaseStudy.jsx` mengganti duplikasi explorer di route `#risk` dengan skenario Bank B fiktif dan contoh dokumentasi kegiatan. Slider HNDL tetap berada di modul kajian.
+
+## Penyelarasan acuan
+
+Modul benchmark diperluas dengan perbandingan 16 negara/yurisdiksi. Modul baru
+`#module-governance`, `#module-implementation`, `#module-assurance`, dan
+`#module-references` melengkapi kajian tujuh bab. Seluruh materi lama dan lab
+dipertahankan. Daftar pustaka terpusat pada `src/data/references.json`; nomor
+[1]–[59] mengikuti [kajian acuan](KAJIAN_ACUAN.md), dan sumber pendukung diteruskan
+setelahnya. Lihat [peta penyelarasan](CONTENT_ALIGNMENT.md).

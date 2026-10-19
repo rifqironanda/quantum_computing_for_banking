@@ -122,3 +122,16 @@ Presentasi menyederhanakan teks dari materi riset. Referensi penting ditampilkan
 ## Alur kajian dashboard
 
 Dashboard kini memakai enam modul berurutan dengan milestone, Venn konseptual, penjelasan kriptografi, HNDL dan readiness yang interaktif. Setiap modul memiliki navigasi kembali/lanjut serta tautan sumber. Lihat [panduan modul dan pengujian](docs/RESEARCH_MODULES.md).
+
+## Acuan kajian dan sitasi IEEE
+
+Kajian Quantum Computing menggunakan [naskah acuan utuh](docs/KAJIAN_ACUAN.md)
+yang diambil dari Google Docs penulis pada 19 Oktober 2026. Daftar pustaka
+[1]–[59] mengikuti naskah tersebut. Referensi pendukung sejarah, konsep dan lab
+diteruskan setelah [59] dalam satu registri `src/data/references.json`.
+
+Sepuluh modul mempertahankan materi konsep dan interaksi yang ada, kemudian
+melengkapi benchmark 16 negara/yurisdiksi, penilaian risiko dan tata kelola,
+implementasi PQC, pengawasan/audit, serta daftar referensi IEEE yang dapat dicari.
+Tampilan menggunakan cuplikan sitasi; daftar lengkap tersedia pada modul
+**Referensi Kajian · IEEE**. Lihat [peta penyelarasan](docs/CONTENT_ALIGNMENT.md).

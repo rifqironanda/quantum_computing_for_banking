@@ -56,7 +56,7 @@ const Arrow = ({ reverse = false }) => (
 
 function Source({ children, interactive = false }) {
   if (!children) return null;
-  return interactive ? <EvidenceHint source={children} /> : <p className="source">Source: {children}</p>;
+  return interactive ? <EvidenceHint source={children} /> : <p className="source">Referensi (IEEE): {children}</p>;
 }
 
 function Header({ slide, interactive = false }) {
@@ -833,7 +833,7 @@ export default function App() {
             <SlideContent key={index} slide={slide} presentationMode />
           </div>
           <footer>
-            <span>KAJIAN BULAN 1 • QUANTUM COMPUTING & PERBANKAN</span>
+            <span>KAJIAN QUANTUM COMPUTING • PERBANKAN</span>
             <b>{String(index + 1).padStart(2, "0")}</b>
           </footer>
         </section>

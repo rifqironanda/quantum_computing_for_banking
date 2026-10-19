@@ -1,0 +1,452 @@
+[
+  {
+    "id": 1,
+    "citation": "R. Auer et al., “Quantum computing and the financial system: opportunities and risks,” BIS Papers, no. 149, 2024.",
+    "origin": "kajian",
+    "url": "https://www.bis.org/publ/bppdf/bispap149.htm"
+  },
+  {
+    "id": 2,
+    "citation": "R. Auer et al., “Quantum-readiness for the financial system: a roadmap,” BIS Papers, no. 158, 2025.",
+    "origin": "kajian",
+    "url": "https://www.bis.org/publ/bppdf/bispap158.htm"
+  },
+  {
+    "id": 3,
+    "citation": "CISA, NSA, dan NIST, “Quantum-Readiness: Migration to Post-Quantum Cryptography,” joint factsheet, 2023.",
+    "origin": "kajian",
+    "url": "https://www.cisa.gov/resources-tools/resources/quantum-readiness-migration-post-quantum-cryptography"
+  },
+  {
+    "id": 4,
+    "citation": "J. Preskill, “Quantum Computing in the NISQ era and beyond,” Quantum, vol. 2, art. 79, 2018. DOI: 10.22331/q-2018-08-06-79.",
+    "origin": "kajian",
+    "url": "https://doi.org/10.22331/q-2018-08-06-79"
+  },
+  {
+    "id": 5,
+    "citation": "R. Acharya et al., “Quantum error correction below the surface code threshold,” Nature, vol. 638, pp. 920–926, 2025. DOI: 10.1038/s41586-024-08449-y.",
+    "origin": "kajian",
+    "url": "https://doi.org/10.1038/s41586-024-08449-y"
+  },
+  {
+    "id": 6,
+    "citation": "IBM, “How IBM will build the world’s first large-scale, fault-tolerant quantum computer,” IBM Quantum Blog, 2025.",
+    "origin": "kajian"
+  },
+  {
+    "id": 7,
+    "citation": "IBM, “IBM Connects Its First Modular Cryogenic Systems in Milestone Toward Fault-Tolerant Quantum Computing,” IBM Newsroom, 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 8,
+    "citation": "ASD, “Post-quantum questions to ask your vendors,” 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 9,
+    "citation": "V. Sivak et al., “Reinforcement learning control of quantum error correction,” Nature, vol. 655, pp. 879–884, 2026. DOI: 10.1038/s41586-026-10759-2.",
+    "origin": "kajian",
+    "url": "https://doi.org/10.1038/s41586-026-10759-2"
+  },
+  {
+    "id": 10,
+    "citation": "NIST, “Module-Lattice-Based Key-Encapsulation Mechanism Standard,” FIPS 203, 2024. DOI: 10.6028/NIST.FIPS.203.",
+    "origin": "kajian",
+    "url": "https://doi.org/10.6028/NIST.FIPS.203"
+  },
+  {
+    "id": 11,
+    "citation": "P. W. Shor, “Polynomial-Time Algorithms for Prime Factorization and Discrete Logarithms on a Quantum Computer,” SIAM Journal on Computing, vol. 26, pp. 1484–1509, 1997. DOI: 10.1137/S0097539795293172.",
+    "origin": "kajian",
+    "url": "https://doi.org/10.1137/S0097539795293172"
+  },
+  {
+    "id": 12,
+    "citation": "H. Soller et al., “Enabling the next frontier of quantum computing,” McKinsey & Company, 2024.",
+    "origin": "kajian"
+  },
+  {
+    "id": 13,
+    "citation": "McKinsey & Company, “Quantum’s bold promise: What business leaders need to know,” 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 14,
+    "citation": "L. K. Grover, “A fast quantum mechanical algorithm for database search,” Proceedings of STOC, pp. 212–219, 1996; arXiv:quant-ph/9605043.",
+    "origin": "kajian"
+  },
+  {
+    "id": 15,
+    "citation": "“On the practical cost of Grover for AES key recovery,” Fifth NIST PQC Standardization Conference, makalah konferensi, 2024.",
+    "origin": "kajian"
+  },
+  {
+    "id": 16,
+    "citation": "G7 Cyber Expert Group, “Statement on Advancing a Coordinated Roadmap for the Transition to Post-Quantum Cryptography in the Financial Sector,” HM Treasury, Januari 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 17,
+    "citation": "UK NCSC, “Timelines for migration to post-quantum cryptography,” 2025.",
+    "origin": "kajian"
+  },
+  {
+    "id": 18,
+    "citation": "European Commission, “EU reinforces its cybersecurity with post-quantum cryptography,” 2025.",
+    "origin": "kajian"
+  },
+  {
+    "id": 19,
+    "citation": "Treasury Board of Canada Secretariat, “Migrating the Government of Canada to Post-Quantum Cryptography: Security Policy Implementation Notice,” 2025.",
+    "origin": "kajian"
+  },
+  {
+    "id": 20,
+    "citation": "Australian Signals Directorate, “Planning for post-quantum cryptography,” pembaruan 2025.",
+    "origin": "kajian"
+  },
+  {
+    "id": 21,
+    "citation": "M. Mosca, “Cybersecurity in an Era with Quantum Computers: Will We Be Ready?,” IEEE Security & Privacy, 2018. DOI: 10.1109/MSP.2018.3761723; versi awal ePrint 2015/1075.",
+    "origin": "kajian",
+    "url": "https://doi.org/10.1109/MSP.2018.3761723"
+  },
+  {
+    "id": 22,
+    "citation": "NIST, “Module-Lattice-Based Digital Signature Standard,” FIPS 204, 2024. DOI: 10.6028/NIST.FIPS.204.",
+    "origin": "kajian",
+    "url": "https://doi.org/10.6028/NIST.FIPS.204"
+  },
+  {
+    "id": 23,
+    "citation": "NIST, “Stateless Hash-Based Digital Signature Standard,” FIPS 205, 2024. DOI: 10.6028/NIST.FIPS.205.",
+    "origin": "kajian",
+    "url": "https://doi.org/10.6028/NIST.FIPS.205"
+  },
+  {
+    "id": 24,
+    "citation": "NIST, “Considerations for Achieving Crypto Agility: Strategies and Practices,” CSWP 39upd1, 2026; menggantikan CSWP 39.",
+    "origin": "kajian"
+  },
+  {
+    "id": 25,
+    "citation": "D. Herman et al., “Quantum computing for finance,” Nature Reviews Physics, vol. 5, pp. 450–465, 2023. DOI: 10.1038/s42254-023-00603-1.",
+    "origin": "kajian",
+    "url": "https://doi.org/10.1038/s42254-023-00603-1"
+  },
+  {
+    "id": 26,
+    "citation": "A. Bouland et al., “Prospects and challenges of quantum finance,” arXiv:2011.06492, 2020. DOI: 10.48550/arXiv.2011.06492.",
+    "origin": "kajian",
+    "url": "https://doi.org/10.48550/arXiv.2011.06492"
+  },
+  {
+    "id": 27,
+    "citation": "Banca d’Italia, “Liquidity Optimization in Gross Settlement Systems with Quantum Reordering: Application to TARGET2,” Markets, Infrastructures, Payment Systems, no. 78, 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 28,
+    "citation": "NIST, “Artificial Intelligence Risk Management Framework (AI RMF 1.0),” 2023.",
+    "origin": "kajian"
+  },
+  {
+    "id": 29,
+    "citation": "NIST, “Transition to Post-Quantum Cryptography Standards,” NIST IR 8547, Initial Public Draft, 2024. DOI: 10.6028/NIST.IR.8547.ipd.",
+    "origin": "kajian",
+    "url": "https://csrc.nist.gov/pubs/ir/8547/ipd"
+  },
+  {
+    "id": 30,
+    "citation": "Banque de France dan MAS, “Banque de France and Monetary Authority of Singapore conduct groundbreaking Post-quantum Cryptography experiment to enhance communication security,” 2024.",
+    "origin": "kajian"
+  },
+  {
+    "id": 31,
+    "citation": "OECD, “An overview of national strategies and policies for quantum technologies,” OECD Digital Economy Papers, no. 379, 2025. DOI: 10.1787/5e55e7ab-en.",
+    "origin": "kajian",
+    "url": "https://doi.org/10.1787/5e55e7ab-en"
+  },
+  {
+    "id": 32,
+    "citation": "Banca d’Italia, “The G7 Cyber Expert Group publishes the roadmap for the transition of the financial sector to post-quantum cryptography,” 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 33,
+    "citation": "U.S. Department of the Treasury, “G7 Cyber Expert Group Releases Roadmap for Coordinating the Transition to Post-Quantum Cryptography in the Financial Sector,” 12 Januari 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 34,
+    "citation": "BIS Innovation Hub, Banque de France, dan Deutsche Bundesbank, “Project Leap phase 1: quantum-proofing the financial system,” 5 Juni 2023.",
+    "origin": "kajian"
+  },
+  {
+    "id": 35,
+    "citation": "BIS Innovation Hub, “Project Leap phase 2: quantum-proofing payment systems,” 11 Desember 2025.",
+    "origin": "kajian"
+  },
+  {
+    "id": 36,
+    "citation": "BIS Innovation Hub, “Project FuSSE: exploring flexible, scalable and secure settlement engines,” 29 Januari 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 37,
+    "citation": "M. Mosca dan J. Mulholland, “An Updated Methodology for Quantum Risk Assessment,” evolutionQ, diterbitkan oleh Global Risk Institute, September 2025.",
+    "origin": "kajian"
+  },
+  {
+    "id": 38,
+    "citation": "European Commission dan NIS Cooperation Group, “A Coordinated Implementation Roadmap for the Transition to Post-Quantum Cryptography,” 2025.",
+    "origin": "kajian"
+  },
+  {
+    "id": 39,
+    "citation": "NIS Cooperation Group, “EU Roadmap on PQC – Frequently Asked Questions,” 15 April 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 40,
+    "citation": "European Commission dan NIS Cooperation Group, “EU Roadmap on Post-Quantum Cryptography – Survey feedback,” September 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 41,
+    "citation": "ACPR, “L’ACPR sensibilise l’écosystème à se préparer à la cryptographie post-quantique,” 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 42,
+    "citation": "Deutsche Bundesbank, “G7 Cyber Expert Group Statement on Advancing a Coordinated Roadmap for the Transition to Post-Quantum Cryptography in the Financial Sector,” 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 43,
+    "citation": "Japan Financial Services Agency, “Report of the Study Group on Deposit-taking Institutions’ Response to Post-Quantum Cryptography,” 2024; pengumuman resmi dan ringkasan bahasa Inggris.",
+    "origin": "kajian"
+  },
+  {
+    "id": 44,
+    "citation": "Chia Der Jiun, MAS, “Remarks on the MAS Annual Report 2025/2026,” pidato yang dipublikasikan kembali oleh BIS, 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 45,
+    "citation": "Department of Industry, Science and Resources, “National Quantum Strategy,” Australia, 2023.",
+    "origin": "kajian"
+  },
+  {
+    "id": 46,
+    "citation": "HKMA, “HKMA unveils Fintech Promotion Blueprint: From adoption to advancement,” pengumuman Pemerintah Hong Kong, 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 47,
+    "citation": "HKMA, “HKMA launches quantum preparedness whitepaper and index to support banking sector’s readiness for quantum era,” rilis Pemerintah Hong Kong, Juli 2026.",
+    "origin": "kajian"
+  },
+  {
+    "id": 48,
+    "citation": "Saudi Central Bank, “Enhancement of Operational Resilience to Address Quantum Computing Risks,” No. 482021280, 27 Agustus 2026, status In-Force; terjemahan resmi pada SAMA Rulebook.",
+    "origin": "kajian"
+  },
+  {
+    "id": 49,
+    "citation": "Research, Development and Innovation Authority, “National Quantum Computing Consortium,” Arab Saudi, laman program; aliansi diumumkan pada LEAP 2025.",
+    "origin": "kajian"
+  },
+  {
+    "id": 50,
+    "citation": "PBOC et al., “Action Plan for Promoting High-Quality Development of Digital Finance is Unveiled,” laman resmi, dengan sasaran akhir 2027.",
+    "origin": "kajian"
+  },
+  {
+    "id": 51,
+    "citation": "MSIT, “Korea’s National Quantum Strategy,” 2023. Dokumen pada portal MSIT; versi PDF: https://quantuminkorea.org/wp-content/uploads/2024/06/Koreas-National-Quantum-Strategy-2023_c.pdf",
+    "origin": "kajian"
+  },
+  {
+    "id": 52,
+    "citation": "Office of the Principal Scientific Adviser, Government of India, “National Quantum Mission,” laman program; persetujuan 19 April 2023.",
+    "origin": "kajian"
+  },
+  {
+    "id": 53,
+    "citation": "Türkiye Quantum Platform/SSB, “Quantum Focus Technology Network (OTAĞ) Final Report Published,” 19 Juni 2026; pengumuman publikasi.",
+    "origin": "kajian"
+  },
+  {
+    "id": 54,
+    "citation": "Government of South Africa/DSTI, “Deputy Minister Nomalungelo Gina launches ground-breaking Centre for Quantum Computing and Technology at UKZN, 28 Nov,” 26 November 2025; keterangan resmi SAQuTI dan CQCtec.",
+    "origin": "kajian"
+  },
+  {
+    "id": 55,
+    "citation": "OJK, Peraturan Anggota Dewan Komisioner No. 1 Tahun 2026 tentang Penyelenggaraan Teknologi Informasi oleh Bank Umum; berlaku 1 Maret 2026. Laman dan abstrak resmi.",
+    "origin": "kajian"
+  },
+  {
+    "id": 56,
+    "citation": "OJK, Surat Edaran No. 29/SEOJK.03/2022 tentang Ketahanan dan Keamanan Siber bagi Bank Umum, 2022.",
+    "origin": "kajian"
+  },
+  {
+    "id": 57,
+    "citation": "OJK, “Stabilitas Sektor Jasa Keuangan Terjaga di Tengah Meningkatnya Tekanan Perekonomian Global,” siaran pers RDKB September 2026; keterangan partisipasi gugus tugas nasional PQC.",
+    "origin": "kajian"
+  },
+  {
+    "id": 58,
+    "citation": "T. Luan et al., “Application exploration of quantum computing technology in financial field,” Application Research of Computers, vol. 41, no. 7, pp. 1921–1929, 2024. DOI: 10.19734/j.issn.1001-3695.2023.11.0529.",
+    "origin": "kajian",
+    "url": "https://doi.org/10.19734/j.issn.1001-3695.2023.11.0529"
+  },
+  {
+    "id": 59,
+    "citation": "H. Li et al., “BQ-Bank: A Quantum Software for Finance and Banking,” Quantum Engineering, art. 7810974, 2023. DOI: 10.1155/2023/7810974.",
+    "origin": "kajian",
+    "url": "https://doi.org/10.1155/2023/7810974"
+  },
+  {
+    "id": 60,
+    "citation": "NIST NCCoE — Migration to Post-Quantum Cryptography",
+    "origin": "pendukung",
+    "url": "https://www.nccoe.nist.gov/projects/migration-post-quantum-cryptography"
+  },
+  {
+    "id": 61,
+    "citation": "Bell, Physics 1, 195–200 (1964)",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.1103/PhysicsPhysiqueFizika.1.195"
+  },
+  {
+    "id": 62,
+    "citation": "Aspect et al., Physical Review Letters 49, 1804–1807 (1982)",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.1103/PhysRevLett.49.1804"
+  },
+  {
+    "id": 63,
+    "citation": "Benioff, J. Stat. Phys. 22, 563–591 (1980)",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.1007/BF01011339"
+  },
+  {
+    "id": 64,
+    "citation": "Feynman, Int. J. Theor. Phys. 21, 467–488 (1982)",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.1007/BF02650179"
+  },
+  {
+    "id": 65,
+    "citation": "Deutsch, Proc. R. Soc. A 400, 97–117 (1985)",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.1098/rspa.1985.0070"
+  },
+  {
+    "id": 66,
+    "citation": "Deutsch & Jozsa, Proc. R. Soc. A 439, 553–558 (1992)",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.1098/rspa.1992.0167"
+  },
+  {
+    "id": 67,
+    "citation": "Simon, SIAM J. Comput. 26, 1474–1483 (1997)",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.1137/S0097539796298637"
+  },
+  {
+    "id": 68,
+    "citation": "Vandersypen et al., Nature 414, 883–887 (2001)",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.1038/414883a"
+  },
+  {
+    "id": 69,
+    "citation": "Raussendorf & Briegel, Phys. Rev. Lett. 86, 5188 (2001)",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.1103/PhysRevLett.86.5188"
+  },
+  {
+    "id": 70,
+    "citation": "Lanting et al., Phys. Rev. X 4, 021041 (2014)",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.1103/PhysRevX.4.021041"
+  },
+  {
+    "id": 71,
+    "citation": "IBM — Quantum Roadmap",
+    "origin": "pendukung",
+    "url": "https://www.ibm.com/downloads/documents/us-en/1443d5cda24021e4"
+  },
+  {
+    "id": 72,
+    "citation": "Arute et al., Nature 574, 505–510 (2019)",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.1038/s41586-019-1666-5"
+  },
+  {
+    "id": 73,
+    "citation": "Zhong et al., Science 370, 1460–1463 (2020)",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.1126/science.abe8770"
+  },
+  {
+    "id": 74,
+    "citation": "Acharya et al., Nature 614, 676–681 (2023)",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.1038/s41586-022-05434-1"
+  },
+  {
+    "id": 75,
+    "citation": "Sivak & Klimov, Google Quantum AI (22 Juli 2026) — Towards a quantum computer that learns from its errors; tautan paper Nature di dalam sumber",
+    "origin": "pendukung",
+    "url": "https://research.google/blog/towards-a-quantum-computer-that-learns-from-its-errors/"
+  },
+  {
+    "id": 76,
+    "citation": "M. A. Nielsen and I. L. Chuang, Quantum Computation and Quantum Information, 10th anniversary ed. Cambridge University Press, 2010.",
+    "origin": "pendukung"
+  },
+  {
+    "id": 77,
+    "citation": "C. Gidney and M. Ekerå, “How to factor 2048 bit RSA integers in 8 hours using 20 million noisy qubits,” Quantum, vol. 5, art. 433, 2021. DOI: 10.22331/q-2021-04-15-433.",
+    "origin": "pendukung",
+    "url": "https://doi.org/10.22331/q-2021-04-15-433"
+  },
+  {
+    "id": 78,
+    "citation": "M. Roetteler, M. Naehrig, K. M. Svore, and K. Lauter, “Quantum resource estimates for computing elliptic curve discrete logarithms,” arXiv:1706.06752, 2017. DOI: 10.48550/arXiv.1706.06752.",
+    "origin": "pendukung",
+    "url": "https://arxiv.org/abs/1706.06752"
+  },
+  {
+    "id": 79,
+    "citation": "OJK, POJK 11/POJK.03/2022, “Penyelenggaraan TI oleh Bank Umum,” 2022.",
+    "origin": "pendukung"
+  },
+  {
+    "id": 80,
+    "citation": "Bank Indonesia, PBI 2/2024, “Keamanan Sistem Informasi dan Ketahanan Siber,” 2024.",
+    "origin": "pendukung"
+  },
+  {
+    "id": 81,
+    "citation": "Bank Indonesia, PADG 24/2024, “Ketentuan pelaksanaan KKS bagi pihak yang diatur dan diawasi BI,” 2024.",
+    "origin": "pendukung"
+  },
+  {
+    "id": 82,
+    "citation": "OJK, POJK 22/2023, “Pelindungan Konsumen dan Masyarakat di Sektor Jasa Keuangan,” 2023.",
+    "origin": "pendukung"
+  },
+  {
+    "id": 83,
+    "citation": "Bank Indonesia, PADG 24/7/PADG/2022, “PJP and payment infrastructure governance,” 2022. (Cuplikan penamaan dari materi GitHub lama.)",
+    "origin": "pendukung"
+  }
+]
