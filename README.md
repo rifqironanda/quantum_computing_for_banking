@@ -1,7 +1,6 @@
 # Quantum Banking Research Dashboard
 
-Dashboard menyatukan 30 materi, HNDL explorer, readiness lifecycle, editor outline
-laporan, dan empat lab dari repo computing_and_quantum. Mode presentasi tersedia
+Dashboard menyatukan 30 materi, HNDL explorer, readiness lifecycle, pembaca laporan Google Docs, dan empat lab dari repo computing_and_quantum. Mode presentasi tersedia
 melalui tombol di kanan atas.
 
 Lihat [dokumentasi integrasi](docs/INTEGRATION.md) untuk arsitektur, versi sumber,
@@ -19,10 +18,9 @@ Presentasi web interaktif yang mengadaptasi kajian **Quantum Computing pada Sekt
 - Daftar slide untuk berpindah langsung ke bagian tertentu.
 - URL hash (`#slide-12`) sehingga slide dapat ditautkan langsung.
 - Mode fullscreen dan progress indicator.
-- Editor outline laporan 10 bab dengan rich text, pencarian, status, autosave,
-  progress, serta ekspor JSON.
-- Penyimpanan local-first dan sinkronisasi Supabase PostgreSQL setelah login.
-- Supabase Auth, Row Level Security, revision history, serta fallback offline.
+- Satu Google Docs sebagai sumber laporan, dengan daftar isi dan pencarian.
+- Login Google dan backend FastAPI untuk membaca sesuai izin akun.
+- Pembaca dapat membuka dokumen yang sama untuk memberi komentar dengan akses Commenter.
 - Desain responsif untuk desktop dan perangkat bergerak.
 - Print stylesheet untuk ekspor melalui fitur Print browser.
 - Deployment otomatis ke GitHub Pages.
@@ -47,24 +45,16 @@ npm run preview
 
 Hasil build berada di direktori `dist/`.
 
-## Menghubungkan Supabase
+## Menghubungkan Google Docs dan FastAPI
 
-Salin `.env.example` menjadi `.env.local`, kemudian isi browser-safe variables:
+Ikuti [panduan konfigurasi Google Docs](docs/GOOGLE_DOCS_SETUP.md) untuk menentukan
+satu dokumen milik Anda, memberi pembaca akses Commenter, membuat OAuth Client ID,
+menjalankan FastAPI, dan mengatur GitHub Pages. Backend memerlukan hosting HTTPS
+terpisah; GitHub Pages menyajikan frontend saja.
 
-```env
-VITE_SUPABASE_URL=https://PROJECT.supabase.co
-VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxx
-VITE_SUPABASE_ALLOW_SIGNUP=false
-```
-
-Untuk dashboard publik, biarkan signup bernilai `false` dan buat pengguna pertama
-melalui **Supabase Dashboard → Authentication → Users**. Nonaktifkan pendaftaran
-publik pada pengaturan Auth Supabase; variable ini hanya mengendalikan UI. Jalankan migration
-`database/001_report_workspace.sql` lalu
-`database/002_supabase_access_hardening.sql`, aktifkan Email Auth, dan login dari
-menu **Outline laporan**. Jangan memasukkan secret/service-role key ke
-Vite atau GitHub Pages. Untuk deployment, tambahkan kedua nilai tersebut sebagai
-GitHub Actions repository variables.
+Isi `VITE_GOOGLE_CLIENT_ID` serta `VITE_REPORT_API_URL` pada frontend, dan
+`GOOGLE_REPORT_DOCUMENT_ID` pada backend. Konfigurasi kosong menampilkan petunjuk
+penyiapan. Tidak ada koneksi Supabase atau editor laporan di aplikasi baru.
 
 ## Kontrol presentasi
 
@@ -120,8 +110,8 @@ Pada repository GitHub, pilih **Settings → Pages → Source: GitHub Actions**.
 ```
 
 Dokumentasi teknis lebih rinci tersedia di [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
-Rancangan database editor laporan tersedia di
-[`docs/DATABASE_ARCHITECTURE.md`](docs/DATABASE_ARCHITECTURE.md).
+Integrasi laporan tersedia di
+[`docs/GOOGLE_DOCS_SETUP.md`](docs/GOOGLE_DOCS_SETUP.md).
 
 ## Catatan sumber
 

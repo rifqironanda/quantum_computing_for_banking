@@ -2,7 +2,7 @@
 
 ## Tujuan desain
 
-Aplikasi dirancang sebagai static single-page application. Tidak ada backend, database, atau data sensitif. Semua materi dikirim sebagai aset statis sehingga cocok untuk GitHub Pages.
+Frontend berupa single-page application statis di GitHub Pages. Materi presentasi memakai aset statis. Menu Outline laporan membaca satu Google Docs privat melalui backend FastAPI terpisah dan token Google milik pembaca. Lihat [Google Docs setup](GOOGLE_DOCS_SETUP.md).
 
 ## Alur data
 
@@ -26,7 +26,7 @@ Slide aktif + navigasi + URL hash
 - `overview`: status panel daftar slide.
 - `help`: status dialog bantuan.
 
-State slide juga disinkronkan dengan URL hash. Contoh `#slide-13` membuka materi HNDL secara langsung. Aplikasi tidak memakai penyimpanan permanen.
+State slide juga disinkronkan dengan URL hash. Contoh `#slide-13` membuka materi HNDL secara langsung. State navigasi berada di browser. Isi laporan dan komentar tersimpan di Google Docs.
 
 ## Navigasi dan aksesibilitas
 
