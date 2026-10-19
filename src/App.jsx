@@ -789,7 +789,9 @@ export default function App() {
     return () => removeEventListener("keydown", onKey);
   }, [go, overview, help]);
 
-  const slide = useMemo(() => slides[index], [index]);
+  const slide = useMemo(() => index === 0
+    ? { ...slides[index], eyebrow: "KAJIAN BULAN 1" }
+    : slides[index], [index]);
 
   const toggleFullscreen = async () => {
     try {
@@ -833,7 +835,7 @@ export default function App() {
             <SlideContent key={index} slide={slide} presentationMode />
           </div>
           <footer>
-            <span>KAJIAN QUANTUM COMPUTING • PERBANKAN</span>
+            <span>KAJIAN BULAN 1 • QUANTUM COMPUTING & PERBANKAN</span>
             <b>{String(index + 1).padStart(2, "0")}</b>
           </footer>
         </section>
