@@ -274,3 +274,8 @@ footer { max-width: 1184px; margin: auto; border-top: 1px solid var(--line); pad
 }
 
 }
+@scope (.lab-surface) {
+  .benchmark-connection { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 16px; margin: 20px 0; border: 1px solid #355266; border-radius: 12px; }
+  .benchmark-connection p { flex: 1 1 260px; margin: 0; line-height: 1.6; }
+  .benchmark-connection button { padding: 10px 16px; border: 1px solid #54869c; border-radius: 8px; color: inherit; background: transparent; }
+}

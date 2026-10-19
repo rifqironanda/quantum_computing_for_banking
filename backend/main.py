@@ -1,18 +1,21 @@
-"""Supply one document's links; Google handles viewing and commenting directly."""
+"""Report links and bounded public Qiskit experiments."""
 import os
 import re
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from backend.app import router as benchmark_router
 
-app = FastAPI(title="Quantum Banking Report Links")
+app = FastAPI(title="Quantum Banking API")
+app.include_router(benchmark_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[origin.strip() for origin in os.getenv(
-        "FRONTEND_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
+        "FRONTEND_ORIGINS", "https://rifqironanda.github.io,http://localhost:5173,http://127.0.0.1:5173"
     ).split(",") if origin.strip()],
     allow_credentials=False,
-    allow_methods=["GET"],
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
 )
 
 
@@ -33,7 +36,7 @@ async def no_cache(request, call_next):
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "reportConfigured": bool(os.getenv("GOOGLE_REPORT_DOCUMENT_ID"))}
+    return {"status": "ok", "benchmark": "qiskit-statevector", "reportConfigured": bool(os.getenv("GOOGLE_REPORT_DOCUMENT_ID"))}
 
 
 @app.get("/api/report")
