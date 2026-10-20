@@ -177,7 +177,6 @@ export default function Dashboard() {
                 <div className="research-badge">
                   <Atom size={46} />
                   <span>RESEARCH BRIEFING</span>
-                  <b>Kajian Quantum Computing</b>
                 </div>
               </div>
               <div className="dashboard-cta">
