@@ -128,6 +128,11 @@
   align-items: center;
   gap: 8px;
 }
+.dash-heading .presentation-link {
+  display: inline-flex;
+  margin-top: 16px;
+  text-decoration: none;
+}
 .dash-content {
   max-width: 1500px;
   margin: auto;

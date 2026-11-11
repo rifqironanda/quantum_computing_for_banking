@@ -173,6 +173,12 @@ export default function Dashboard() {
                   <p>
                     {slides[0].subtitle}. {slides[0].note}
                   </p>
+                  <a
+                    className="presentation-link"
+                    href="https://rifqironanda.github.io/quantum_repo/"
+                  >
+                    Buka dashboard kajian terbaru <ArrowUpRight size={16} aria-hidden="true" />
+                  </a>
                 </div>
                 <div className="research-badge">
                   <Atom size={46} />
